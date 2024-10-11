@@ -1,0 +1,113 @@
+/* Estilos gerais */
+.logo {
+    height: 3.25rem;
+    margin-right: 6rem;
+    padding-left: 5rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    gap: 8rem;
+    margin-right: 5rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0.5rem 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    flex-wrap: nowrap;
+    width: 100%; /* Garante que o header ocupe toda a largura */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+    position: relative; /* Mantém o posicionamento da sombra */
+}
+
+/* Sombra ajustada para dispositivos móveis */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ajuste da sombra para telas menores */
+        width: 100%;
+    }
+}
+
+/* Ajuste para ícones e texto em telas menores */
+.favorites {
+    width: 1.75rem;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+span {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* RESPONSIVIDADE */
+
+/* Tamanho de tela médio (tablets e pequenos desktops) */
+@media (max-width: 1024px) {
+    .info {
+        gap: 4rem; /* Reduz o espaçamento entre os elementos */
+        margin-right: 2rem;
+    }
+
+    .logo {
+        padding-left: 3rem; /* Ajusta o espaçamento da logo */
+    }
+}
+
+/* Tamanho de tela pequeno (celulares e dispositivos menores) */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Empilha os elementos verticalmente */
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra ajustada para telas menores */
+        width: 100%;
+    }
+
+    .info {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        margin-right: 0;
+    }
+
+    .logo {
+        margin: 0 auto; /* Centraliza a logo */
+        padding-left: 0;
+    }
+
+    .favorites {
+        width: 1.5rem;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+/* Tamanho de tela muito pequeno (celulares pequenos) */
+@media (max-width: 480px) {
+    .info {
+        gap: 1rem;
+    }
+
+    .logo {
+        height: 2.5rem;
+    }
+
+    span {
+        font-size: 0.8rem;
+    }
+}

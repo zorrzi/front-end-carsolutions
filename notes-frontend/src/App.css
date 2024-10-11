@@ -1,0 +1,17 @@
+.image-container {
+    position: relative; /* Faz o contêiner ser o ponto de referência para o formulário */
+    width: 100%;
+  }
+
+.carros-container{
+  flex-wrap: wrap;
+  justify-content: space-around;
+  display: flex;
+}
+
+.destaques{
+  font-size: 2.5rem;
+  margin-top: 4rem;
+  margin-left: 6rem;
+  font-weight: bold;
+}

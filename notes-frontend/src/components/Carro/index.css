@@ -1,0 +1,64 @@
+.card{
+    display: flex;
+    width: 15rem;
+    height: 12rem;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    border-radius: 0.4rem;
+    position: relative;
+    margin: 0.7rem 0.4rem;
+    padding: 0rem 0.3rem 0rem 0.3rem;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 3rem;
+    margin-left: 2rem;
+  }
+
+.nome{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    margin-top: 0.3rem;
+
+}
+
+  .card-title{
+    display: flex;
+    justify-content:start;
+  }
+
+.card-subtitle{
+    display: flex;
+    justify-content:start;
+    font-weight: bold;
+
+}
+
+.card-image{
+    width: 100%;
+    height: 100%;
+    border-radius: 0.4rem;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+.card-content{
+    display: flex;
+    justify-content: center;
+    font-family: 'Permanent Marker', cursive;
+    align-items: center;
+    font-size: 1rem;
+    color:#4c4c4c;
+    height: 70%;
+  }
+
+.carro{
+    width: 13rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
