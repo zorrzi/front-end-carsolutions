@@ -1,0 +1,94 @@
+/* Container principal do formulário de cadastro */
+.register-container {
+    position: absolute; /* Faz o formulário ficar sobre a imagem */
+    top: 100%; /* Move o formulário para o meio verticalmente */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza horizontalmente e verticalmente */
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    width: 30%; /* O formulário se adapta ao tamanho da tela */
+    z-index: 10; /* Garante que o formulário fique sobre a imagem */
+  }
+  
+  /* Título */
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 2rem;
+  }
+  
+  /* Grupo de input (nome, email, confirmar email, senha, confirmar senha) */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Estilização dos campos de input */
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Botão de cadastro */
+  .register-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: #3d348b;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .register-btn:hover {
+    background-color: #2e2670;
+  }
+  
+  /* Link de login */
+  .login-link {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+  
+  .login-link a {
+    color: #0000ee;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsividade para dispositivos menores */
+  @media (max-width: 768px) {
+    .register-container {
+      width: 90%;
+      margin: 3rem auto;
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+    }
+  
+    input {
+      font-size: 0.9rem;
+    }
+  
+    .register-btn {
+      font-size: 0.9rem;
+    }
+  }
+  
