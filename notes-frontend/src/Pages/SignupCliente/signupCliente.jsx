@@ -1,16 +1,16 @@
 import Header from "../../components/Header";
-import FundoLogin from "../../components/FundoLogin";
+import FundoLoginCliente from "../../components/FundoLoginCliente";
 import Footer from "../../components/Footer";
 import SignupCliente from "../../components/SignupCliente";
 
 
 
-function userSignup() {
+function signupCliente() {
     return (
       <>
         <Header />
         <div className="image-container">
-          <FundoLogin />
+          <FundoLoginCliente />
           <SignupCliente />
           
         </div>
@@ -28,4 +28,4 @@ function userSignup() {
     );
   }
   
-  export default userSignup;
+  export default signupCliente;

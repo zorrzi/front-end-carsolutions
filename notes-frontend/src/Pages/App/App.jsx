@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import FundoInicial from "../../components/FundoInicial";
 import Formulario from "../../components/Formulario";
 import Footer from "../../components/Footer";
-import Carro from "../../components/Carro";
+import CatalogoCarros from "../../components/CatalogoCarros";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       </div>
       <h1 className="destaques">Destaques</h1>
       <div className="carros-container">
-        <Carro />
+        <CatalogoCarros />
       </div>
       
       <Footer />

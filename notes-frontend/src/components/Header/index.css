@@ -1,3 +1,36 @@
+.favoritos-overlay{
+    display: flex;
+    flex-direction: row;
+    /* alinha os ícones e o texto no centro */
+    align-items: center;
+    gap: 0.5rem;
+    
+}
+
+.agenda-overlay{
+    display: flex;
+    flex-direction: row;
+    /* alinha os ícones e o texto no centro */
+    align-items: center;
+    gap: 0.5rem;
+
+}
+
+.alinhamento {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os ícones e o texto no centro */
+    gap: 0.5rem; /* Espaçamento entre o ícone e o texto */
+    padding: 0.5rem 1rem; /* Espaçamento interno */
+}
+
+/* Ajuste das imagens para garantir alinhamento vertical com o texto */
+.favorites,
+.agenda {
+    height: 1.5rem;  /* Tamanho dos ícones */
+    display: inline-block;
+    vertical-align: middle; /* Mantém o ícone alinhado ao texto */
+}
+
 /* Estilos gerais */
 .logo {
     height: 3.25rem;
@@ -9,9 +42,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;  /* Centraliza os itens verticalmente */
     flex: 1;
-    gap: 8rem;
+    gap: 2rem;
     margin-right: 5rem;
 }
 
@@ -28,37 +61,113 @@
     position: relative; /* Mantém o posicionamento da sombra */
 }
 
-/* Sombra ajustada para dispositivos móveis */
-@media (max-width: 768px) {
-    .header {
-        padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ajuste da sombra para telas menores */
-        width: 100%;
-    }
-}
-
-/* Ajuste para ícones e texto em telas menores */
-.favorites {
-    width: 1.75rem;
-}
-
 .user {
+    position: relative; /* Garante que o dropdown fique relativo a este container */
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;  /* Espaçamento ajustado entre o texto e as imagens */
 }
 
 span {
     font-size: 1rem;
     font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;  /* Alinha o texto com as imagens */
 }
 
+/* Estilo para o nome de usuário */
+.user-name {
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+}
+
+
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10%;
+    z-index: 1000;
+}
+
+.dropdown span,
+.dropdown button {
+    text-align: left;
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center; /* Alinha verticalmente o ícone e o texto */
+    padding: 0.75rem; /* Espaçamento interno do botão */
+}
+
+.dropdown button {
+    color: red;
+    justify-content: flex-start;
+}
+
+.dropdown button:hover {
+    background-color: #ffe6e6;
+    color: #e60000;
+}
+
+
+/* Estilos para o card de escolha de login */
+.login-choice-card {
+    position: absolute;
+    top: calc(100% - 1rem); /* Move o card um pouco para cima */
+    right: 2rem;  /* Move o card um pouco para a esquerda */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+    width: 150px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Alinha Cliente e Funcionário verticalmente */
+    gap: 0.75rem;  /* Espaçamento entre os botões */
+}
+
+.login-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo */
+    gap: 0.5rem;
+    text-decoration: none;
+    color: black;
+}
+
+.login-overlay:hover {
+    background-color: #f0f0f0;
+}
+
+.login-overlay img {
+    width: 1.5rem;
+    height: auto;
+}
+
+
+  
+  
 /* RESPONSIVIDADE */
 
 /* Tamanho de tela médio (tablets e pequenos desktops) */
 @media (max-width: 1024px) {
     .info {
-        gap: 4rem; /* Reduz o espaçamento entre os elementos */
+        gap: 1.5rem; /* Reduz o espaçamento entre os elementos */
         margin-right: 2rem;
     }
 
