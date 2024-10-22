@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 export default function CarroCliente({ car }) {
+  const navigate = useNavigate();  // Hook para navegação
+
+  const handleVerMais = () => {
+    navigate(`/anuncio/${car.id}`);  // Redireciona para a página do anúncio com o ID do carro
+  };
+
   return (
     <div className="card">
       <div className="nome">
@@ -18,7 +25,8 @@ export default function CarroCliente({ car }) {
         {car.is_for_sale && <span className="banner-item">Venda</span>}
       </div>
 
-      <p className="card-content">Ver mais</p>
+      {/* Botão de Ver Mais */}
+      <p className="card-content" onClick={handleVerMais}>Ver mais</p>
     </div>
   );
 }
