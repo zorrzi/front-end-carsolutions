@@ -12,6 +12,7 @@ import FuncionarioInicial from './Pages/FuncionarioInicial/FuncionarioInicial.js
 import AdicionarVeiculo from './Pages/AdicionarVeiculo/AdicionarVeiculo.jsx';
 import Api from './Pages/Api/Api.jsx';
 import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
+import AnuncioCarro from './Pages/AnuncioCarro/AnuncioCarro.jsx';
 
 
 const router = createBrowserRouter([
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
     path: "/loginFuncionario",
     element: <LoginFuncionario />,
   },
+
+  {
+    path: "/AnuncioCarro",
+    element: <AnuncioCarro />,
+  }
 
 
 ]);
