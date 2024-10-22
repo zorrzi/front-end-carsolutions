@@ -79,7 +79,6 @@ export default function Header() {
               <span className="user-name" onClick={toggleDropdown}>
                 {username}
               </span>
-              <div className="alinhamento">
                 {showDropdown && (
                   <div className="dropdown">
                     <Link to="/favoritos" className="favoritos-overlay">
@@ -91,10 +90,12 @@ export default function Header() {
                       <img className="agenda" src="/agenda.png" alt="Agenda" />
                       <span>Agenda</span>
                     </Link>
-                    <button onClick={handleLogout}>Sair</button>
+                    <div className="Sair">
+                      <img className="sair-img" src="/sair.png" alt="Sair " />
+                      <button onClick={handleLogout}>Sair</button>
+                    </div>
                   </div>
                 )}
-              </div>
             </>
           ) : (
             <span 
@@ -103,9 +104,9 @@ export default function Header() {
               ref={loginButtonRef} // Referência para o botão "Entrar"
             >
               Entrar
-              <img className="favorites" src="/user.png" alt="Usuário" />
             </span> // Mostra o card de escolha ao clicar
           )}
+          <img className="favorites" src="/user.png" alt="Usuário" />
         </div>
 
         {/* Card de escolha entre cliente e funcionário */}

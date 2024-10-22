@@ -25,12 +25,18 @@
     gap: 0.5rem;
 }
 
+span{
+    cursor: pointer;
+}
+
 /* Outros estilos gerais da página */
 .favoritos-overlay {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
+    color: black;
 }
 
 .agenda-overlay {
@@ -38,6 +44,8 @@
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
+    color: black;
 }
 
 .alinhamento {
@@ -48,10 +56,18 @@
 }
 
 .favorites,
-.agenda {
+.agenda,
+.sair-img {
     height: 1.3rem;
     display: inline-block;
     vertical-align: middle;
+}
+
+.Sair{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .logo {
@@ -86,6 +102,7 @@
 .user {
     position: relative;
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 0.75rem;
 }
@@ -106,16 +123,19 @@ span {
 
 .dropdown {
     position: absolute;
-    top: calc(100% + 0.5rem);
-    left: 0;
-    background-color: white;
-    border-radius: 5px;
+    background-color: #fff;
+    border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+    width: 150px;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 10%;
-    z-index: 1000;
+    gap: 0.75rem;
+    left: auto; /* Para evitar desalinhamento */
+    right: -2.5rem;   /* Alinha à direita em telas grandes */
+    top: 1.5rem; /* Posiciona o card abaixo do botão */
 }
 
 .dropdown span,
@@ -182,7 +202,7 @@ span {
     }
 
     .user {
-        flex-direction: column; /* Empilha o botão "Entrar" e o ícone */
+        flex-direction: row; /* Empilha o botão "Entrar" e o ícone */
         align-items: center; /* Centraliza o conteúdo */
         gap: 0.5rem; /* Espaçamento entre o botão e o ícone */
     }
