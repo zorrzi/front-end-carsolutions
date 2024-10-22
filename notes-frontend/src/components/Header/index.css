@@ -1,37 +1,59 @@
-.favoritos-overlay{
+/* Estilos gerais de outros elementos */
+
+.login-overlay {
     display: flex;
     flex-direction: row;
-    /* alinha os ícones e o texto no centro */
     align-items: center;
+    justify-content: flex-start;
     gap: 0.5rem;
-    
+    text-decoration: none;
+    color: black;
 }
 
-.agenda-overlay{
+.login-overlay:hover {
+    background-color: #f0f0f0;
+}
+
+.login-overlay img {
+    width: 1.5rem;
+    height: auto;
+}
+
+.entrar-btn{
+    display: flex;
+    align-items: center; /* Certifica-se que o texto e o ícone do botão "Entrar" fiquem alinhados */
+    gap: 0.5rem;
+}
+
+/* Outros estilos gerais da página */
+.favoritos-overlay {
     display: flex;
     flex-direction: row;
-    /* alinha os ícones e o texto no centro */
     align-items: center;
     gap: 0.5rem;
+}
 
+.agenda-overlay {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .alinhamento {
     display: flex;
-    align-items: center; /* Alinha verticalmente os ícones e o texto no centro */
-    gap: 0.5rem; /* Espaçamento entre o ícone e o texto */
-    padding: 0.5rem 1rem; /* Espaçamento interno */
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
 }
 
-/* Ajuste das imagens para garantir alinhamento vertical com o texto */
 .favorites,
 .agenda {
-    height: 1.5rem;  /* Tamanho dos ícones */
+    height: 1.3rem;
     display: inline-block;
-    vertical-align: middle; /* Mantém o ícone alinhado ao texto */
+    vertical-align: middle;
 }
 
-/* Estilos gerais */
 .logo {
     height: 3.25rem;
     margin-right: 6rem;
@@ -40,9 +62,9 @@
 
 .info {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Elementos em linha inicialmente */
     justify-content: space-between;
-    align-items: center;  /* Centraliza os itens verticalmente */
+    align-items: center;
     flex: 1;
     gap: 2rem;
     margin-right: 5rem;
@@ -56,16 +78,16 @@
     padding: 0.5rem 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     flex-wrap: nowrap;
-    width: 100%; /* Garante que o header ocupe toda a largura */
-    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
-    position: relative; /* Mantém o posicionamento da sombra */
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .user {
-    position: relative; /* Garante que o dropdown fique relativo a este container */
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.75rem;  /* Espaçamento ajustado entre o texto e as imagens */
+    gap: 0.75rem;
 }
 
 span {
@@ -73,17 +95,14 @@ span {
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
-    vertical-align: middle;  /* Alinha o texto com as imagens */
+    vertical-align: middle;
 }
 
-/* Estilo para o nome de usuário */
 .user-name {
     cursor: pointer;
     font-weight: bold;
     position: relative;
 }
-
-
 
 .dropdown {
     position: absolute;
@@ -108,8 +127,8 @@ span {
     cursor: pointer;
     font-size: 1rem;
     display: flex;
-    align-items: center; /* Alinha verticalmente o ícone e o texto */
-    padding: 0.75rem; /* Espaçamento interno do botão */
+    align-items: center;
+    padding: 0.75rem;
 }
 
 .dropdown button {
@@ -122,14 +141,10 @@ span {
     color: #e60000;
 }
 
-
-/* Estilos para o card de escolha de login */
+/* Estilos gerais do login-choice-card */
 .login-choice-card {
     position: absolute;
-    top: calc(100% - 1rem); /* Move o card um pouco para cima */
-    right: 2rem;  /* Move o card um pouco para a esquerda */
     background-color: #fff;
-    border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -137,86 +152,67 @@ span {
     width: 150px;
     text-align: center;
     display: flex;
-    flex-direction: column; /* Alinha Cliente e Funcionário verticalmente */
-    gap: 0.75rem;  /* Espaçamento entre os botões */
+    flex-direction: column;
+    gap: 0.75rem;
+    left: auto; /* Para evitar desalinhamento */
+    right: 0;   /* Alinha à direita em telas grandes */
 }
 
-.login-overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza o conteúdo */
-    gap: 0.5rem;
-    text-decoration: none;
-    color: black;
-}
+/* Ajustes de responsividade */
 
-.login-overlay:hover {
-    background-color: #f0f0f0;
-}
-
-.login-overlay img {
-    width: 1.5rem;
-    height: auto;
-}
-
-
-  
-  
-/* RESPONSIVIDADE */
-
-/* Tamanho de tela médio (tablets e pequenos desktops) */
-@media (max-width: 1024px) {
-    .info {
-        gap: 1.5rem; /* Reduz o espaçamento entre os elementos */
-        margin-right: 2rem;
-    }
-
-    .logo {
-        padding-left: 3rem; /* Ajusta o espaçamento da logo */
-    }
-}
-
-/* Tamanho de tela pequeno (celulares e dispositivos menores) */
+/* Para telas menores que 768px (tablets e celulares) */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column; /* Empilha os elementos verticalmente */
-        padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra ajustada para telas menores */
-        width: 100%;
+        flex-direction: column; /* De linha para coluna */
+        padding: 1rem; /* Aumenta o padding para espaçamento */
+        align-items: center; /* Centraliza os itens verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
     }
 
     .info {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        margin-right: 0;
+        flex-direction: column; /* Empilha os elementos de navegação */
+        align-items: center; /* Centraliza o texto */
+        gap: 2rem; /* Espaçamento entre os itens */
+        margin-right: 0; /* Remove margem lateral */
+        justify-content: center; /* Garante que os itens fiquem centralizados */
     }
 
     .logo {
-        margin: 0 auto; /* Centraliza a logo */
-        padding-left: 0;
+        margin-bottom: 1rem; /* Espaçamento abaixo da logo */
     }
 
-    .favorites {
-        width: 1.5rem;
+    .user {
+        flex-direction: column; /* Empilha o botão "Entrar" e o ícone */
+        align-items: center; /* Centraliza o conteúdo */
+        gap: 0.5rem; /* Espaçamento entre o botão e o ícone */
     }
 
-    span {
-        font-size: 0.9rem;
+    .login-choice-card {
+        left: 50%; /* Centraliza o card em telas menores */
+        transform: translateX(-50%); /* Garante centralização exata */
     }
 }
 
-/* Tamanho de tela muito pequeno (celulares pequenos) */
+/* Para telas menores que 480px (celulares pequenos) */
 @media (max-width: 480px) {
+    .header {
+        padding: 0.5rem; /* Reduz padding em telas pequenas */
+    }
+
     .info {
-        gap: 1rem;
+        flex-direction: column; /* Empilha os elementos */
+        gap: 2rem; /* Reduz o espaçamento entre os itens de navegação */
+        align-items: center; /* Centraliza o conteúdo */
+        justify-content: center; /* Garante que os itens fiquem no centro */
     }
 
     .logo {
-        height: 2.5rem;
+        height: 2.5rem; /* Reduz tamanho da logo */
     }
 
-    span {
-        font-size: 0.8rem;
+    .login-choice-card {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px; /* Ajusta largura para caber melhor em telas pequenas */
     }
 }

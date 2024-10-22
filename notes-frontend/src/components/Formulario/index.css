@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .fundo {
   width: 100%;
   height: 100%;
@@ -16,8 +20,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
-  width: 90%;
+  max-width: 800px; /* Limita a largura máxima */
+  width: 100%; /* Define a largura como 100% do elemento pai */
+  margin: 0; /* Remove margens negativas */
   z-index: 10;
 }
 
@@ -74,6 +79,16 @@ select {
 }
 
 /* Responsividade */
+@media (max-width: 1070px) {
+  .form-container {
+    position: static;
+    transform: none;
+    top: auto;
+    left: auto;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 1024px) {
   .form-container {
     width: 95%;
@@ -125,4 +140,8 @@ select {
   .buscar-btn {
     font-size: 0.9rem;
   }
+}
+
+body {
+  overflow-x: hidden; /* Impede o scroll horizontal */
 }
