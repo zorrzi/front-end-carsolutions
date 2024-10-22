@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Carro from '../Carro'; // Importa o componente de Card de Carro
+import CarroCliente from '../CarroCliente'; // Importa o componente de Card de Carro
 import './index.css'; // Estilos do CatalogoCarros
 
-export default function CatalogoCarros() {
+export default function CatalogoCarrosCliente() {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function CatalogoCarros() {
         <p>Nenhum carro disponível</p>  // Exibe uma mensagem se não houver carros
       ) : (
         cars.map((car) => (
-          <Carro key={car.id} car={car} />  // Renderiza um Card para cada carro
+          <CarroCliente key={car.id} car={car} />  // Renderiza um Card para cada carro
         ))
       )}
     </div>

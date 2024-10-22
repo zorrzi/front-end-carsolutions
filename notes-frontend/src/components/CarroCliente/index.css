@@ -1,6 +1,6 @@
 .card {
-  flex: 1 1 15rem; /* O card vai ocupar ao menos 15rem de largura e crescer se houver espaço */
-  height: auto; /* Ajusta a altura automaticamente conforme o conteúdo */
+  flex: 1 1 15rem;
+  height: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   border-radius: 0.4rem;
   margin: 0.7rem 0.4rem;
@@ -8,6 +8,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative; /* Para que o banner seja posicionado dentro do card */
+}
+
+p {
+  margin-bottom: 9px;
 }
 
 .nome {
@@ -45,11 +50,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60%; /* Ajuste conforme necessário */
+  height: 60%;
 }
 
 .carro {
   width: 15rem;
   height: 12rem;
-  object-fit: contain; /* Para garantir que a imagem seja redimensionada corretamente */
+  object-fit: contain;
+}
+
+/* Estilos para o banner de Aluguel e Venda */
+.banner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  position: absolute;
+  top: 5px;
+  right: -35px;
+}
+
+.banner-item {
+  display: flex;
+  justify-content: center;
+  background-color: #373774; /* Cor de fundo azul */
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
 }
