@@ -28,6 +28,9 @@ const Footer = () => {
 
     return (
         <footer className="footer">
+            <div className="footer-top">
+                <img src="/logo.png" alt="Logo" />
+            </div>
             <div className="footer-content">
                 <div className="footer-section">
                     <h3>Fale Conosco</h3>

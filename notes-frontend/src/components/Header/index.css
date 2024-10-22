@@ -92,7 +92,7 @@ span{
     justify-content: space-between;
     background-color: #ffffff;
     padding: 0.5rem 3rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     flex-wrap: nowrap;
     width: 100%;
     box-sizing: border-box;
