@@ -1,12 +1,15 @@
 import React from 'react';
 import './FuncionarioInicial.css';
-import Header from "../../components/Header";
+
+import HeaderFuncionario from '../../components/HeaderFuncionario';
 import BotaoAdicionar from '../../components/BotaoAdicionar';
 
-function Funcionario() {
+function FuncionarioInicial() {
     return (
       <>
-        <Header />
+        <HeaderFuncionario />
+
+        
 
         <BotaoAdicionar />
 
@@ -21,4 +24,4 @@ function Funcionario() {
     );
   }
   
-  export default Funcionario;
+  export default FuncionarioInicial;
