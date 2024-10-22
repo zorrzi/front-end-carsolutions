@@ -31,16 +31,16 @@
   }
   
   .delete-img{
-    width: 0.5rem;
+    width: 1.6rem;
     object-fit: contain;
     cursor: pointer;    
   }
 
-    .edit-img{
-        width: 1.8rem;
-        object-fit: contain;
-        cursor: pointer;    
-    }
+  .edit-img{
+      width: 1.5rem;
+      object-fit: contain;
+      cursor: pointer;    
+  }
 
   .card-subtitle {
     display: flex;
@@ -107,5 +107,22 @@
     cursor: pointer;
     margin: 0.5rem;
 
+  }
+  .action-button-delete{
+    background-color: #373774;
+    color: white;
+    border-radius: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0.5rem;
+
+  }
+  
+  .action-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   

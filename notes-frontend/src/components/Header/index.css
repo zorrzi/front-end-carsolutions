@@ -156,9 +156,8 @@ span {
     justify-content: flex-start;
 }
 
-.dropdown button:hover {
-    background-color: #ffe6e6;
-    color: #e60000;
+.dropdown :hover {
+    background-color: #f0f0f0;
 }
 
 /* Estilos gerais do login-choice-card */

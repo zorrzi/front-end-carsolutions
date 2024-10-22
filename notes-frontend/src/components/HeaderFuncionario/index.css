@@ -34,7 +34,7 @@
   }
   
   .menu-item:hover {
-    color: #007bff;
+    color: #373774;
   }
   
   .menu-item img:hover {
@@ -42,3 +42,29 @@
     transition: transform 0.2s;
   }
   
+  button{
+    border: none;
+    background-color: white;
+  }
+
+  @media (max-width: 768px) {
+    .header-funcionario {
+      display: flex;
+      flex-direction: column;
+      align-items: center;  /* Centraliza os itens */
+      padding: 1rem;  /* Reduz o padding para melhorar o layout em telas menores */
+    }
+  
+    .menu-funcionario {
+      display: flex;
+      flex-direction: column;
+      align-items: center;  /* Centraliza os itens */
+    }
+  
+    
+    .menu-item {
+      margin-top: 1rem;
+      margin-left: 0;  /* Remove a margem à esquerda */
+    }
+  }
+    
