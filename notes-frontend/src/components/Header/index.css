@@ -1,5 +1,11 @@
 /* Estilos gerais de outros elementos */
 
+span:hover {    
+    color: #373774;
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
 .login-overlay {
     display: flex;
     flex-direction: row;
@@ -25,9 +31,6 @@
     gap: 0.5rem;
 }
 
-span{
-    cursor: pointer;
-}
 
 /* Outros estilos gerais da página */
 .favoritos-overlay {
@@ -54,6 +57,7 @@ span{
     gap: 0.5rem;
     padding: 0.5rem 1rem;
 }
+
 
 .favorites,
 .agenda,
@@ -149,11 +153,13 @@ span {
     display: flex;
     align-items: center;
     padding: 0.75rem;
+    text-decoration: bold;
 }
 
-.dropdown button {
+.dropdown button:hover {
     color: red;
-    justify-content: flex-start;
+    transform: scale(1.1);
+    transition: transform 0.2s;
 }
 
 .dropdown :hover {
