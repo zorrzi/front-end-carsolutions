@@ -10,14 +10,14 @@ function FuncionarioInicial() {
       <>
         <HeaderFuncionario />
         <div className="carros-container">
-        <CatalogoCarrosFuncionario />
+          <CatalogoCarrosFuncionario />
         </div>
 
         
 
         
 
-        <BotaoAdicionar />
+        <BotaoAdicionar className="botao-add"/>
 
 
       

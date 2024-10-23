@@ -80,36 +80,7 @@ function FormularioEdicao() {
       <h1>Edite os dados do veículo</h1>
       
       <form className="form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="ano">Ano*</label>
-          <input
-            type="text"
-            id="ano"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="marca">Marca*</label>
-          <input
-            type="text"
-            id="marca"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="modelo">Modelo*</label>
-          <input
-            type="text"
-            id="modelo"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
-            required
-          />
-        </div>
+
         <div className="form-group">
           <label htmlFor="kilometragem">Kilometragem*</label>
           <input
