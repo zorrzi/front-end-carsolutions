@@ -42,7 +42,7 @@ export default function HeaderFuncionario() {
           <span>Atendimento</span>
         </Link>
 
-        <button onClick={handleLogout} className="menu-item logout-btn">
+        <button onClick={handleLogout} className="menu-item-logout-btn">
           <img className="menu-icon" src="/sair.png" alt="Sair" />
           <span>Sair</span>
         </button>

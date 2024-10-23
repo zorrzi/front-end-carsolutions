@@ -69,9 +69,9 @@ export default function Header() {
         <img className="logo" src="/logo.png" alt="Logo" />
       </Link>
       <div className="info">
-        <span>Aluguel</span>
-        <span>Vendas</span>
-        <span>Sobre nós</span>
+        <span className="nav">Aluguel</span>
+        <span className="nav">Vendas</span>
+        <span className="nav">Sobre nós</span>
 
         <div className="user">
           {username ? (
@@ -106,7 +106,7 @@ export default function Header() {
               Entrar
             </span> // Mostra o card de escolha ao clicar
           )}
-          <img className="favorites" src="/user.png" alt="Usuário" />
+          <img className="perfil" src="/user.png" alt="Usuário" />
         </div>
 
         {/* Card de escolha entre cliente e funcionário */}

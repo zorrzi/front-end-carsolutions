@@ -2,5 +2,5 @@
     flex-wrap: wrap;
     justify-content: start;
     display: flex;
-    
+    width: 100%;
   }

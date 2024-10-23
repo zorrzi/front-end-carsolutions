@@ -32,4 +32,16 @@
   .botaoAdicionar:active {
     background-color: #2e2e70;
   }
-  
+
+  @media (max-width: 768px) {
+    .botaoAdicionarContainer {
+      bottom: 1rem;
+      right: 0.5rem;
+    }
+
+    .botaoAdicionar {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.5rem;
+    }
+  }

@@ -1,10 +1,9 @@
 /* Estilos gerais de outros elementos */
-
-span:hover {    
+.nav:hover {
+    cursor: pointer;
     color: #373774;
-    transform: scale(1.1);
-    transition: transform 0.2s;
 }
+
 
 .login-overlay {
     display: flex;
@@ -17,7 +16,8 @@ span:hover {
 }
 
 .login-overlay:hover {
-    background-color: #f0f0f0;
+    cursor: pointer;
+    color: #373774;
 }
 
 .login-overlay img {
@@ -58,7 +58,7 @@ span:hover {
     padding: 0.5rem 1rem;
 }
 
-
+.perfil,
 .favorites,
 .agenda,
 .sair-img {
@@ -101,6 +101,11 @@ span:hover {
     width: 100%;
     box-sizing: border-box;
     position: relative;
+}
+
+.user-name:hover {
+    cursor: pointer;
+    color: #373774;
 }
 
 .user {
@@ -154,17 +159,27 @@ span {
     align-items: center;
     padding: 0.75rem;
     text-decoration: bold;
+    font-weight: bold;
 }
+
+.agenda-overlay :hover {
+    color: #373774;
+}
+
+.favoritos-overlay :hover {
+    color: #373774;
+}
+
 
 .dropdown button:hover {
     color: red;
-    transform: scale(1.1);
-    transition: transform 0.2s;
 }
 
-.dropdown :hover {
-    background-color: #f0f0f0;
+.entrar-btn:hover {
+    color: #373774;
+    cursor: pointer;
 }
+
 
 /* Estilos gerais do login-choice-card */
 .login-choice-card {

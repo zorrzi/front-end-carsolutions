@@ -27,7 +27,7 @@ export default function CatalogoCarrosFuncionario() {
   );
 
   return (
-    <div>
+    <div className='catalogo'>
       {/* Campo de busca */}
       <div className="search-container">
         <input
