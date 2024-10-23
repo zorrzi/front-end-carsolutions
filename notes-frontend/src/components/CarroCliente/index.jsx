@@ -15,9 +15,7 @@ export default function CarroCliente({ car }) {
         <p className="card-title">{car.brand}</p>
         <p className="card-subtitle">{car.model}</p>
       </div>
-      <div>
-        <img className="carro" src={car.image_url || '/default-image.jpg'} alt={car.model} />
-      </div>
+      <img className="carro" src={car.image_url || '/default-image.jpg'} alt={car.model} />
 
       {/* Seção de banner para Aluguel e Venda */}
       <div className="banner-container">

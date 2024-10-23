@@ -3,12 +3,13 @@
   height: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   border-radius: 0.4rem;
-  margin: 0.7rem 0.4rem;
+  margin: 0.7rem 5rem;
   padding: 0rem 0.3rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative; /* Para que o banner seja posicionado dentro do card */
+  max-width: 16rem;
 }
 
 p {
@@ -44,6 +45,7 @@ p {
   color: #4c4c4c;
   height: 20%;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .carro-container {

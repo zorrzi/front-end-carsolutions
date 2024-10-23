@@ -22,7 +22,7 @@ export default function CatalogoCarrosCliente() {
         <p>Nenhum carro disponível</p>  // Exibe uma mensagem se não houver carros
       ) : (
         cars.map((car) => (
-          <CarroCliente key={car.id} car={car} />  // Renderiza um Card para cada carro
+          <CarroCliente className="card-carro" key={car.id} car={car} />  // Renderiza um Card para cada carro
         ))
       )}
     </div>
