@@ -42,7 +42,7 @@ export default function CarroFuncionario({ car, loadCars }) {
         </button>
 
         {/* Botão de editar, utilizando Link para redirecionar */}
-        <Link to={`edit/${car.id}`}>
+        <Link to={`/editarCarro/${car.id}`}>
           <button className="action-button-edit">
             <img className='edit-img' src="/editar.png" alt="Editar" />
           </button>
