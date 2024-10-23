@@ -1,7 +1,34 @@
+/* Contêiner para o catálogo de carros */
 .catalogo-carros {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
-    justify-content: flex-start; /* Alinha os itens no início (pode ser alterado para 'center', se preferir) */
-    gap: 1rem; /* Espaçamento entre os cards */
-    padding: 1rem;
-  }
+  display: flex;
+  flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+  justify-content: flex-start; /* Alinha os itens no início */
+  gap: 1rem; /* Espaçamento entre os cards */
+  padding: 1rem;
+}
+
+/* Contêiner de busca */
+.search-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+/* Estilo do campo de input de busca */
+.search-input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 300px; /* Reduzimos o tamanho máximo do campo de busca */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #373774;
+}

@@ -13,6 +13,7 @@ import AdicionarVeiculo from './Pages/AdicionarVeiculo/AdicionarVeiculo.jsx';
 import Api from './Pages/Api/Api.jsx';
 import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
 import AnuncioCarro from './Pages/AnuncioCarro/AnuncioCarro.jsx';
+import EditarCarro from './Pages/EditarCarro/EditarCarro.jsx';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
     // Rota dinâmica para o anúncio do carro com ID
     path: "/anuncio/:id",
     element: <AnuncioCarro />,
+  },
+
+  {
+    path: "/editarCarro/:id",
+    element: <EditarCarro />,
   }
 ]);
 
