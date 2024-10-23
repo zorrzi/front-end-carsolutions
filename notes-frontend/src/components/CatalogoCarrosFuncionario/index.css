@@ -5,13 +5,18 @@
   justify-content: flex-start; /* Alinha os itens no início */
   gap: 2.5rem; /* Espaçamento entre os cards */
   padding: 1rem;
+  width: 100%;
+}
+
+.catalogo{
+  width: 100%;
 }
 
 /* Contêiner de busca */
 .search-container {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   box-sizing: border-box;
   padding-top: 1rem;
   padding-left: 1rem;
@@ -24,11 +29,23 @@
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   width: 100%;
-  max-width: 300px; /* Reduzimos o tamanho máximo do campo de busca */
+  max-width: 50rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .search-input:focus {
   outline: none;
   border-color: #373774;
+}
+
+@media (max-width: 820px) {
+  .search-container {
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalogo-carros {
+    justify-content: center; /* Alinha os itens no centro */
+  }
 }
