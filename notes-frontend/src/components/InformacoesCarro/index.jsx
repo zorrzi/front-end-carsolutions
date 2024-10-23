@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './index.css';
+import BotaoFavoritos from '../BotaoFavoritos';
 
 export default function InformacoesCarro() {
   const { id } = useParams();  // Pega o ID do carro a partir da URL
@@ -23,18 +24,19 @@ export default function InformacoesCarro() {
   }
 
   return (
+    <>
     <div className="anuncio-carro">
-      <h1>{car.brand} {car.model}</h1>
-      <img src={car.image_url || '/default-image.jpg'} alt={car.model} />
-      <ul>
-        <li><strong>Marca:</strong> {car.brand}</li>
-        <li><strong>Modelo:</strong> {car.model}</li>
-        <li><strong>Compra:</strong> R${car.purchase_price}</li>
-        <li><strong>Aluguel:</strong> R${car.rental_price}</li>
-        <li><strong>Quilometragem:</strong> {car.mileage} km</li>
-        
-        {/* Adicione outras informações necessárias */}
-      </ul>
+      <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
+      <div className='infos'>
+        <h1 className='titulo'>{car.year} {car.brand} {car.model}</h1>
+          <p className='quilometragem'>{car.mileage} Km</p>
+          {car.is_for_sale && <span className="preco-venda">Preço para Compra: R${car.purchase_price}</span>} 
+          {car.is_for_rent && <span className="preco-aluguel">Preço da Diária: R${car.rental_price}</span>}
+          {car.is_for_sale && <button className='botao-venda'><span className="texto-venda">Agende sua Visita</span></button>}  
+          {car.is_for_rent && <button className='botao-aluguel'><span className="texto-aluguel">Reserve seu Aluguel</span></button>}
+          <BotaoFavoritos />
+      </div>
     </div>
+    </>
   );
 }

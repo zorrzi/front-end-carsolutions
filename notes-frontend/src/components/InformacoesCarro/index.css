@@ -1,0 +1,111 @@
+.anuncio-carro{
+    display: flex;
+    flex-direction: row;
+}
+
+.quadro-imagem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 2rem;
+    margin-top: 3rem;
+    width: 60rem;
+}
+
+.titulo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Alinha os itens de forma uniforme */
+    height: 100%; /* Garante que a altura dos elementos seja uniforme */
+    margin-left: 2rem;
+    width: 28rem;
+    margin-top: 3rem;
+}
+
+.botao-aluguel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1rem;
+    background-color: #2B2B68;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.5rem #2B2B68;
+}
+
+.botao-venda{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1rem;
+    background-color: #141439;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.5rem #141439;
+} 
+
+.texto-aluguel{
+    font-size: 1.5rem;
+    text-decoration: bold;
+    color: white;
+}
+
+.quilometragem{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.preco-aluguel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.preco-venda{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    text-decoration: none;
+}
+
+.texto-venda{
+    font-size: 1.5rem;
+    text-decoration: bold;
+    color: white;
+}
+
+@media (max-width: 958px){
+    .anuncio-carro{
+        display: flex;
+        flex-direction: column;
+    }
+    .quadro-imagem{
+        width: 100%;
+        margin-left: 0;
+    }
+    .infos{
+        margin-bottom: 1rem;
+        width: 100%;
+        padding: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
