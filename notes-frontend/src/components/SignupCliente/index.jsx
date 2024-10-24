@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 
 export default function SignupCliente() {
@@ -13,18 +13,49 @@ export default function SignupCliente() {
   });
 
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Adiciona validação básica de CPF
+  const validateCPF = (cpf) => {
+    return cpf.length === 11 && /^[0-9]+$/.test(cpf);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validações no frontend
+    if (!validateCPF(formData.cpf)) {
+      setMessage("CPF inválido! O CPF deve ter 11 dígitos.");
+      return;
+    }
+    
+    if (formData.senha !== formData.confirmar_senha) {
+      setMessage("As senhas não coincidem!");
+      return;
+    }
+
     try {
-      const response = await axios.post("http://localhost:8000/cadastro/", formData);
+      // Faz a requisição de cadastro para o backend
+      const response = await axios.post("http://localhost:8000/cadastro/", {
+        username: formData.username,
+        email: formData.email,
+        cpf: formData.cpf,
+        senha: formData.senha,
+        confirmar_senha: formData.confirmar_senha
+      });
+
+      // Armazena o token no localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("username", formData.username); // Armazena o nome de usuário
       setMessage("Cadastro realizado com sucesso!");
+      navigate("/"); // Redireciona para a página principal
     } catch (error) {
-      setMessage("Erro ao cadastrar. Verifique os dados e tente novamente.");
+      // Exibe mensagem de erro do backend
+      setMessage(error.response?.data.message || "Erro ao cadastrar. Verifique os dados e tente novamente.");
     }
   };
 

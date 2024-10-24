@@ -21,13 +21,29 @@ export default function Header() {
   }, []);
 
   const handleLogout = () => {
-    axios.post('http://localhost:8000/logout/')
+    const token = localStorage.getItem('token'); // Obtém o token do localStorage
+    console.log(token);
+    
+    if (!token) {
+      console.error("Usuário não está autenticado.");
+      return;
+    }
+
+    // Configura o header com o token de autenticação
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    console.log(config);
+    axios.post('http://localhost:8000/logout/', {}, config)
       .then(response => {
         console.log(response.data.message); // Mensagem de sucesso do logout
         localStorage.removeItem('username'); // Limpa o localStorage
+        localStorage.removeItem('token'); // Remove o token de autenticação
         setUsername(null); // Limpa o estado local
         setShowDropdown(false); // Fecha o dropdown
-        navigate(''); 
+        navigate('/');
       })
       .catch(error => {
         console.error('Erro ao fazer logout:', error.response?.data || error.message);
@@ -89,7 +105,7 @@ export default function Header() {
               </span>
                 {showDropdown && (
                   <div className="dropdown">
-                    <Link to="/favoritos" className="favoritos-overlay">
+                    <Link to="/carrosFavoritos" className="favoritos-overlay">
                       <img className="favorites" src="/favorito.png" alt="Favoritos" />
                       <span>Favoritos</span>
                     </Link>
