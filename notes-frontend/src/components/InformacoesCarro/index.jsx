@@ -7,6 +7,15 @@ import BotaoFavoritos from '../BotaoFavoritos';
 export default function InformacoesCarro() {
   const { id } = useParams();  // Pega o ID do carro a partir da URL
   const [car, setCar] = useState(null);
+  const [isScheduling, setIsScheduling] = useState(false);  // Estado para controlar a exibição do formulário de agendamento/compra
+  const [isRenting, setIsRenting] = useState(false);  // Estado para controlar a exibição do formulário de aluguel
+  const [date, setDate] = useState('');  // Data da visita/agendamento
+  const [time, setTime] = useState('');  // Horário da visita/agendamento
+  const [pickupDate, setPickupDate] = useState('');  // Data de retirada para aluguel
+  const [returnDate, setReturnDate] = useState('');  // Data de devolução para aluguel
+  const [pickupTime, setPickupTime] = useState('');  // Horário de retirada
+  const [returnTime, setReturnTime] = useState('');  // Horário de devolução
+  const [errorMessage, setErrorMessage] = useState('');  // Para exibir erros ao usuário
 
   useEffect(() => {
     // Faz a requisição para buscar as informações do carro pelo ID
@@ -23,20 +32,149 @@ export default function InformacoesCarro() {
     return <p>Carregando...</p>;  // Mostra um texto de carregamento enquanto os dados não chegam
   }
 
+  // Função para lidar com o agendamento de visitas (venda)
+  const handleScheduleSubmit = (e) => {
+    e.preventDefault();
+  
+    const token = localStorage.getItem('token');  // Pega o token do usuário logado
+    
+    if (!token) {
+      setErrorMessage('Usuário não autenticado. Faça login para agendar.');
+      return;
+    }
+
+    const agendamentoData = {
+      carro_id: car.id,  // ID do carro sendo agendado
+      data: date,
+      horario: time,
+      tipo: 'venda'  // Agendamento de venda
+    };
+  
+    axios.post('http://localhost:8000/agendamentos/agendar/', agendamentoData, {
+      headers: {
+        Authorization: `Token ${token}`  // Envia o token no cabeçalho da requisição
+      }
+    })
+    .then(response => {
+      alert('Visita agendada com sucesso!');
+      setErrorMessage('');  // Limpa mensagens de erro após sucesso
+    })
+    .catch(error => {
+      if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+        setErrorMessage('Você precisa estar logado para agendar uma visita.');
+      } else {
+        setErrorMessage('Erro ao agendar a visita. Tente novamente.');
+      }
+      console.error('Erro ao agendar a visita:', error);
+    });
+  };
+
+  // Função para lidar com a reserva de aluguel
+  const handleRentSubmit = (e) => {
+    e.preventDefault();
+    
+    const token = localStorage.getItem('token');  // Pega o token do usuário logado
+    
+    if (!token) {
+      setErrorMessage('Usuário não autenticado. Faça login para reservar.');
+      return;
+    }
+
+    const aluguelData = {
+      carro_id: car.id,
+      data_retirada: pickupDate,
+      horario_retirada: pickupTime,
+      data_devolucao: returnDate,
+      horario_devolucao: returnTime,
+      tipo: 'aluguel'
+    };
+    
+    axios.post('http://localhost:8000/agendamentos/agendar/', aluguelData, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+    .then(response => {
+      alert('Aluguel agendado com sucesso!');
+      setErrorMessage('');
+    })
+    .catch(error => {
+      if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+        setErrorMessage('Você precisa estar logado para reservar.');
+      } else {
+        setErrorMessage('Erro ao reservar o carro. Tente novamente.');
+      }
+      console.error('Erro ao reservar o carro:', error);
+    });
+  };
+
   return (
     <>
-    <div className="anuncio-carro">
-      <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
-      <div className='infos'>
-        <h1 className='titulo'>{car.year} {car.brand} {car.model}</h1>
+      <div className="anuncio-carro">
+        <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
+        <div className='infos'>
+          <h1 className='titulo'>{car.year} {car.brand} {car.model}</h1>
           <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
-          {car.is_for_sale && <span className="preco-venda">Preço para Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>} 
-          {car.is_for_rent && <span className="preco-aluguel">Preço da Diária: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>}
-          {car.is_for_sale && <button className='botao-venda'><span className="texto-venda">Agende sua Visita</span></button>}  
-          {car.is_for_rent && <button className='botao-aluguel'><span className="texto-aluguel">Reserve seu Aluguel</span></button>}
+          
+          {/* Se isScheduling for true, mostrar o formulário de visita (venda) */}
+          {isScheduling ? (
+            <form className='form-agendamento' onSubmit={handleScheduleSubmit}>
+              <label>
+                Data da visita:
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+              </label>
+              <label>
+                Horário da visita:
+                <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
+              </label>
+              
+              {/* Mostrar o preço total do carro logo abaixo do formulário */}
+              {car.is_for_sale && (
+                <div className="preco-aluguel">
+                  <p>Preço Total:</p>
+                  <strong>R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                </div>
+              )}
+              <button type="submit" className='botao-aluguel'>Confirmar Visita</button>
+
+              {/* Exibe a mensagem de erro, se houver */}
+              {errorMessage && <p className="erro">{errorMessage}</p>}
+            </form>
+          ) : isRenting ? (
+            <form className='form-agendamento' onSubmit={handleRentSubmit}>
+              <label>
+                Data de Retirada:
+                <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
+              </label>
+              <label>
+                Horário de Retirada:
+                <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
+              </label>
+              <label>
+                Data de Devolução:
+                <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} required />
+              </label>
+              <label>
+                Horário de Devolução:
+                <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
+              </label>
+              
+              <button type="submit" className='botao-aluguel'>Confirmar Reserva</button>
+
+              {/* Exibe a mensagem de erro, se houver */}
+              {errorMessage && <p className="erro">{errorMessage}</p>}
+            </form>
+          ) : (
+            <>
+              {/* Botões de ação: Agendar Visita ou Reservar Aluguel */}
+              {car.is_for_sale && <button className='botao-venda' onClick={() => setIsScheduling(true)}><span className="texto-venda">Agende sua Visita</span></button>}  
+              {car.is_for_rent && <button className='botao-aluguel' onClick={() => setIsRenting(true)}><span className="texto-aluguel">Reserve seu Aluguel</span></button>}
+            </>
+          )}
+
           <BotaoFavoritos />
+        </div>
       </div>
-    </div>
     </>
   );
 }

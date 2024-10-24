@@ -110,7 +110,7 @@ export default function Header() {
                       <span>Favoritos</span>
                     </Link>
 
-                    <Link to="/agenda" className="agenda-overlay">
+                    <Link to="/agendamentoCliente" className="agenda-overlay">
                       <img className="agenda" src="/agenda.png" alt="Agenda" />
                       <span>Agenda</span>
                     </Link>
