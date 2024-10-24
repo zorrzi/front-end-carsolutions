@@ -55,7 +55,14 @@ export default function FichaTecnica() {
                                     </li>
                                 );
                             }
-                            return null;
+                            else {
+                                return (
+                                    <li className='linha' key={key}>
+                                        <strong className='rotulo'>{mapeamentoCampos[key]}:</strong> 
+                                        <div className='valor'>Não disponível</div>
+                                    </li>
+                                )
+                            }
                         })}
                     </ul>
                 </div>

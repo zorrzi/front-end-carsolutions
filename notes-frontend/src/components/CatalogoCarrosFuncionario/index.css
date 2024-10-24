@@ -4,7 +4,7 @@
   flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
   justify-content: flex-start; /* Alinha os itens no início */
   gap: 2.5rem; /* Espaçamento entre os cards */
-  padding: 1rem;
+  padding: 1rem 2rem;
   width: 100%;
 }
 

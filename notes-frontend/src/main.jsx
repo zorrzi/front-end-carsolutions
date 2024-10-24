@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -16,6 +16,7 @@ import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
 import AnuncioCarro from './Pages/AnuncioCarro/AnuncioCarro.jsx';
 import EditarCarro from './Pages/EditarCarro/EditarCarro.jsx';
 import CarrosFavoritos from './Pages/CarrosFavoritos/CarrosFavoritos.jsx';
+import ResultadosBusca from './Pages/ResultadoBusca/ResultadoBusca.jsx';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,11 @@ const router = createBrowserRouter([
     element: <CarrosFavoritos />,
   },
 
+  // Adiciona a rota para a página de resultados de carros filtrados
+  {
+    path: "/resultados",
+    element: <ResultadosBusca />,
+  },
   
 ]);
 
@@ -73,4 +79,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,
-)
+);
