@@ -15,6 +15,7 @@ import Api from './Pages/Api/Api.jsx';
 import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
 import AnuncioCarro from './Pages/AnuncioCarro/AnuncioCarro.jsx';
 import EditarCarro from './Pages/EditarCarro/EditarCarro.jsx';
+import CarrosFavoritos from './Pages/CarrosFavoritos/CarrosFavoritos.jsx';
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,14 @@ const router = createBrowserRouter([
   {
     path: "/editarCarro/:id",
     element: <EditarCarro />,
-  }
+  },
+
+  {
+    path: "/carrosFavoritos",
+    element: <CarrosFavoritos />,
+  },
+
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

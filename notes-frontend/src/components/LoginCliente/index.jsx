@@ -19,19 +19,25 @@ export default function LoginCliente() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login/", formData);
-      localStorage.setItem('username', formData.username);
+      // Faz a requisição para a API de login
+      const response = await axios.post("http://localhost:8000/login/", {
+        username: formData.username,
+        password: formData.senha, // Ajuste de nome para 'password' no payload da requisição
+      });
+
+      // Armazena o token no localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("username", formData.username); // Preserva o nome do usuário no localStorage
       setMessage("Login realizado com sucesso!");
-      navigate('/');
+      navigate('/'); // Redireciona para a página principal
     } catch (error) {
-      console.error(error.response.data);
-      setMessage("Erro ao fazer login. Verifique os dados e tente novamente.");
+      setMessage(error.response?.data.message || "Erro ao fazer login. Tente novamente.");
     }
   };
 
   return (
     <div className="login-container">
-      <h1>Bem vindo(a)!</h1>
+      <h1>Bem-vindo(a)!</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <input
