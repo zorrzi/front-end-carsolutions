@@ -9,6 +9,7 @@ import App from './Pages/App/App.jsx';
 import LoginCliente from './Pages/LoginCliente/loginCliente.jsx';
 import SignupCliente from './Pages/SignupCliente/signupCliente.jsx';
 import FuncionarioInicial from './Pages/FuncionarioInicial/FuncionarioInicial.jsx';
+import RotaProtegidaFuncionario from './components/RotaProtegidaFuncionario';
 import AdicionarVeiculo from './Pages/AdicionarVeiculo/AdicionarVeiculo.jsx';
 import Api from './Pages/Api/Api.jsx';
 import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/funcionario",
-    element: <FuncionarioInicial />,
+    element: (
+      <RotaProtegidaFuncionario>
+        <FuncionarioInicial />
+      </RotaProtegidaFuncionario>
+    ),
   },
   {
     path: "/adicionarVeiculo",

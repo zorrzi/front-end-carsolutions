@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./index.css";
+import axios from "axios";
 
 export default function Header() {
   const [username, setUsername] = useState(null);
@@ -19,11 +20,18 @@ export default function Header() {
     }
   }, []);
 
-  // Função de logout e limpeza do localStorage
   const handleLogout = () => {
-    localStorage.removeItem('username');
-    setUsername(null); // Limpa o estado local
-    setShowDropdown(false); // Fecha o dropdown
+    axios.post('http://localhost:8000/logout/')
+      .then(response => {
+        console.log(response.data.message); // Mensagem de sucesso do logout
+        localStorage.removeItem('username'); // Limpa o localStorage
+        setUsername(null); // Limpa o estado local
+        setShowDropdown(false); // Fecha o dropdown
+        navigate(''); 
+      })
+      .catch(error => {
+        console.error('Erro ao fazer logout:', error.response?.data || error.message);
+      });
   };
 
   // Alterna o dropdown para o perfil do usuário
