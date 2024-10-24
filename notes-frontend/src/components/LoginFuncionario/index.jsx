@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../utils/axiosConfig";  // Importa o axios personalizado
+import axios from "axios";  // Importa o axios personalizado
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 
@@ -19,7 +19,8 @@ export default function LoginFuncionario() {
       });
 
       if (response.status === 200) {
-        // Armazena o username e a flag de funcionário no localStorage
+        // Armazena o token e a flag de funcionário no localStorage
+        localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", username);
         localStorage.setItem("isFuncionario", "true");
         navigate("/funcionario");  // Redireciona para a página do funcionário
