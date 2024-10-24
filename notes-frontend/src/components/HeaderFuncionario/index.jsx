@@ -20,14 +20,24 @@ export default function HeaderFuncionario() {
 
   // Função para fazer logout e limpar o localStorage
   const handleLogout = async () => {
+    const token = localStorage.getItem("token");  // Obtém o token do localStorage
+    if (!token) return;
+
     try {
+      const config = {
+        headers: {
+          Authorization: `Token ${token}`,  // Envia o token no cabeçalho
+        },
+      };
+
       // Requisição para o backend para realizar o logout usando o axios personalizado
-      const response = await axios.post("http://localhost:8000/logoutFuncionario/", {});
+      const response = await axios.post("http://localhost:8000/logoutFuncionario/", {}, config);
       
       if (response.status === 200) {
         // Limpa o localStorage
         localStorage.removeItem("username");  // Remove o nome do funcionário do localStorage
         localStorage.removeItem("isFuncionario");  // Remove a flag de funcionário
+        localStorage.removeItem("token");  // Remove o token de autenticação
         setUsername(null);  // Limpa o estado do nome do funcionário
         navigate("/");  // Redireciona para a página inicial
       }
