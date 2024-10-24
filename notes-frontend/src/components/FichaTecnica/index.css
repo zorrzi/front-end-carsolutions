@@ -1,0 +1,83 @@
+.ficha-tecnica {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding-bottom: 3rem;
+  }
+  
+  .titulo-carro {
+    font-size: 1.5rem; /* Ajuste o tamanho da fonte para o título */
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .tabela {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espaçamento entre as linhas da tabela */
+    width: 100%; /* Ajusta para o tamanho completo */
+    max-width: 600px; /* Limite de largura para ficar similar ao print */
+  }
+  
+  .linha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    gap: 1rem; /* Espaçamento entre os elementos */
+    border-radius: 0.25rem; /* Canto arredondado */
+  }
+  
+  .rotulo {
+    background-color: #c9c6c6; /* Cor cinza claro para as descrições */
+    color: black;
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem; /* Espaçamento interno */
+    font-weight: bold;
+  }
+
+  .valor {
+    background-color: #4E4E6E; /* Cor cinza claro para os valores */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    padding: 0.5rem; /* Espaçamento interno */
+  }
+
+  .none {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 3rem;
+
+  }
+  
+  @media (max-width: 700px) {
+    .tabela {
+        max-width: 80%; /* Ajusta para o tamanho completo */
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Espaçamento entre as linhas da tabela */
+        align-items: center;
+
+    }
+    .linha{
+      font-size: small;
+    }
+  }
+

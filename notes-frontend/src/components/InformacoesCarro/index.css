@@ -1,6 +1,7 @@
 .anuncio-carro{
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 .quadro-imagem{
@@ -92,7 +93,7 @@
     color: white;
 }
 
-@media (max-width: 958px){
+@media (max-width: 1258px){
     .anuncio-carro{
         display: flex;
         flex-direction: column;
