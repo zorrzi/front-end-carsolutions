@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axiosConfig";  // Importa o axios personalizado
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 
@@ -12,16 +12,17 @@ export default function LoginFuncionario() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/funcionario/loginFuncionario/", {
+      // Usando o axios personalizado para enviar a requisição de login
+      const response = await axios.post("http://localhost:8000/loginFuncionario/", {
         username: username,
         password: password,
       });
 
       if (response.status === 200) {
-        // Armazena o username e marca que o usuário é um funcionário
+        // Armazena o username e a flag de funcionário no localStorage
         localStorage.setItem("username", username);
         localStorage.setItem("isFuncionario", "true");
-        navigate("/funcionario");
+        navigate("/funcionario");  // Redireciona para a página do funcionário
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
