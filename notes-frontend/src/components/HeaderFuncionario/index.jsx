@@ -57,7 +57,7 @@ export default function HeaderFuncionario() {
           <span>{username ? username : "Funcionário"}</span>
         </Link>
 
-        <Link to="/atendimentoFuncionario" className="menu-item">
+        <Link to="/agendamentosFuncionario" className="menu-item">
           <img className="menu-icon" src="/atendimento.png" alt="Atendimento" />
           <span>Atendimento</span>
         </Link>

@@ -18,6 +18,7 @@ import EditarCarro from './Pages/EditarCarro/EditarCarro.jsx';
 import CarrosFavoritos from './Pages/CarrosFavoritos/CarrosFavoritos.jsx';
 import ResultadosBusca from './Pages/ResultadoBusca/ResultadoBusca.jsx';
 import AgendamentoCliente from './Pages/AgendamentosCliente/AgendamentosCliente.jsx';
+import AgendamentosFuncionario from './Pages/AgendamentosFuncionario/AgendamentosFuncionario.jsx';
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,13 @@ const router = createBrowserRouter([
     path: "/agendamentoCliente",
     element: <AgendamentoCliente />,
   },
+
+  {
+    path: "/agendamentosFuncionario",
+    element: <AgendamentosFuncionario />,
+  },
+
+
   
 ]);
 

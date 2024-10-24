@@ -14,9 +14,9 @@
 
 /* Contêiner de busca */
 .search-container {
-  width: 100%;
+  width: 30%;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   box-sizing: border-box;
   padding-top: 1rem;
   padding-left: 1rem;
