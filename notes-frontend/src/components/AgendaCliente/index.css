@@ -1,0 +1,86 @@
+.lista-agendamentos-container {
+    width: 80%;
+    margin: 8rem auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .titulo-agendamentos {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3d348b;
+    padding-bottom: 1rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3d348b;
+  }
+  
+  .tabela-agendamentos {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tabela-agendamentos th,
+  .tabela-agendamentos td {
+    padding: 10px 15px;
+    text-align: center;
+  }
+  
+  .tabela-agendamentos th {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .tabela-agendamentos td {
+    font-size: 1rem;
+  }
+  
+  .tabela-agendamentos tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .status-cancelado {
+    color: #ff0000; /* Texto vermelho */
+    font-weight: bold;
+  }
+  
+  .status-pendente {
+    color: #ffcc00; /* Texto amarelo escuro */
+    font-weight: bold;
+  }
+  
+  .status-atendimento {
+    color: #3D348B; /* Texto azul */
+    font-weight: bold;
+  }
+  
+  .status-concluido {
+    color: #28a745; /* Texto verde */
+    font-weight: bold;
+  }
+
+  /* Responsividade para telas menores */
+@media (max-width: 1000px) {
+    .lista-agendamentos-container {
+      width: 95%; /* Diminui a largura para se ajustar melhor em telas menores */
+      padding: 10px; /* Ajusta o padding */
+    }
+  
+    .tabela-agendamentos {
+      display: block; /* Exibe a tabela como bloco */
+      overflow-x: auto; /* Adiciona scroll horizontal quando necessário */
+      white-space: nowrap; /* Impede que o conteúdo quebre as linhas */
+    }
+  
+    .tabela-agendamentos th,
+    .tabela-agendamentos td {
+      padding: 8px 10px; /* Diminui o padding para economizar espaço */
+      font-size: 0.9rem; /* Diminui o tamanho da fonte */
+    }
+  
+    .titulo-agendamentos {
+      font-size: 1.2rem; /* Ajusta o tamanho do título */
+    }
+  }

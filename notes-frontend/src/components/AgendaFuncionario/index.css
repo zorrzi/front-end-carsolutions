@@ -1,0 +1,67 @@
+/* Container principal */
+.agenda-funcionario-container {
+    width: 29%;
+    margin: 5rem 1rem;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #3B3B8F; /* Borda externa azul como na imagem */
+  }
+  
+  /* Título */
+  .titulo-agenda-funcionario {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #3d348b;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid black;
+  }
+  
+  /* Tabela de agendamentos */
+  .tabela-agendamentos {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+  
+  .tabela-agendamentos td {
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tabela-agendamentos td:first-child {
+    font-weight: bold;
+    color: black;
+  }
+  
+  .tabela-agendamentos tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Botão de Atender */
+  .btn-atender {
+    background-color: transparent;
+    color: #3d348b;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 1068px) {
+    .agenda-funcionario-container {
+      width: 80%;
+    }
+  
+    .tabela-agendamentos td {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  }
+  

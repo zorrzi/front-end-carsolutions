@@ -3,18 +3,18 @@
   display: flex;
   flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
   justify-content: flex-start; /* Alinha os itens no início */
-  gap: 2.5rem; /* Espaçamento entre os cards */
+  gap: 2rem; /* Espaçamento entre os cards */
   padding: 1rem 2rem;
   width: 100%;
 }
 
 .catalogo{
-  width: 100%;
+  width: 68%;
 }
 
 /* Contêiner de busca */
 .search-container {
-  width: 30%;
+  width: 100%;
   display: flex;
   justify-content: start;
   box-sizing: border-box;
@@ -36,6 +36,16 @@
 .search-input:focus {
   outline: none;
   border-color: #373774;
+}
+
+@media (max-width: 1068px) {
+  .catalogo{
+    width: 85%;
+  }
+
+  .catalogo-carros {
+    width: 100%;
+  }
 }
 
 @media (max-width: 820px) {
