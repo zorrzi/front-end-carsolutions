@@ -50,7 +50,7 @@ export default function FichaTecnica() {
                             if (car[key] !== null && car[key] !== undefined) {
                                 return (
                                     <li className='linha' key={key}>
-                                        <strong className='rotulo'>{mapeamentoCampos[key]}:</strong> 
+                                        <strong className='rotulo'>{mapeamentoCampos[key]}</strong> 
                                         <div className='valor'>{car[key].toString()}</div>
                                     </li>
                                 );
@@ -58,7 +58,7 @@ export default function FichaTecnica() {
                             else {
                                 return (
                                     <li className='linha' key={key}>
-                                        <strong className='rotulo'>{mapeamentoCampos[key]}:</strong> 
+                                        <strong className='rotulo'>{mapeamentoCampos[key]}</strong> 
                                         <div className='valor'>Não disponível</div>
                                     </li>
                                 )
