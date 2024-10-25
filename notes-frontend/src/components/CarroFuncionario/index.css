@@ -31,13 +31,13 @@
   }
   
   .delete-img{
-    width: 1.6rem;
+    width: 1.2rem;
     object-fit: contain;
     cursor: pointer;    
   }
 
   .edit-img{
-      width: 1.5rem;
+      width: 1.2rem;
       object-fit: contain;
       cursor: pointer;    
   }
@@ -98,10 +98,10 @@
   }
 
   .action-button-edit{
-    background-color: #373774;
+    background-color: #454596;
     color: white;
-    border-radius: 50%;
-    padding: 0.5rem 1rem;
+    border-radius: 100%;
+    padding: 0.4rem 0.8em;
     font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
@@ -109,10 +109,10 @@
 
   }
   .action-button-delete{
-    background-color: #373774;
+    background-color: #454596;
     color: white;
     border-radius: 50%;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8em;
     font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;

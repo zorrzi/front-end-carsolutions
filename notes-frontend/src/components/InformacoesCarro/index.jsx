@@ -113,7 +113,7 @@ export default function InformacoesCarro() {
       <div className="anuncio-carro">
         <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
         <div className='infos'>
-          <h1 className='titulo'>{car.year} {car.brand} {car.model}</h1>
+          <h1 className='titulo-carro-1'>{car.year} {car.brand} {car.model}</h1>
           <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
           {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
           {car.is_for_rent && <p className='preco-aluguel'>Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia</p>}

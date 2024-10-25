@@ -1,0 +1,13 @@
+.botao-chat {
+    background-color: #373774;
+    border-radius: 50%;
+    padding: 0.6rem 0.8rem 0.3rem 0.8rem;
+    position: fixed;
+    bottom: 10rem;
+    right: 1rem;
+    z-index: 1000;
+}
+
+.icon-chat{
+    width: 2rem;
+}

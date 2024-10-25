@@ -4,6 +4,7 @@ import FundoInicial from "../../components/FundoInicial";
 import Formulario from "../../components/Formulario";
 import Footer from "../../components/Footer";
 import CatalogoCarrosCliente from "../../components/CatalogoCarrosCliente";
+import BotaoChat from "../../components/BotaoChat";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <CatalogoCarrosCliente />
       </div>
       
+      <BotaoChat />
+
       <Footer />
 
     </div>
