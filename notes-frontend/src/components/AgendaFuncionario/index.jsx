@@ -39,23 +39,39 @@ export default function AgendaFuncionario() {
     });
   };
 
+  // Função que transforma a data no formato yyyy-mm-dd para dd/mm/yyyy
+  const formatarData = (data) => {
+    if (!data) return '';
+    else
+      return data.split('-').reverse().join('/');
+
+  };
+
+  // Função que deixa a primeira letra da string em maiúscula
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
-    <div>
-      <h1>Agendamentos Pendentes</h1>
+    <div className="agenda-funcionario-container">
+      <h2 className="titulo-agenda-funcionario">Atendimento ao cliente</h2>
       {agendamentosPendentes.length === 0 ? (
         <p>Não há agendamentos pendentes.</p>
       ) : (
-        <ul>
-          {agendamentosPendentes.map((agendamento, index) => (
-            <li key={index}>
-              <p>Carro: {agendamento.carro}</p>
-              <p>Data: {agendamento.data || agendamento.data_retirada}</p>
-              <p>Horário: {agendamento.horario || agendamento.horario_retirada}</p>
-              <p>Tipo: {agendamento.tipo}</p>
-              <button onClick={() => handleAtenderAgendamento(agendamento.id)}>Atender</button>
-            </li>
-          ))}
-        </ul>
+        <table className="tabela-agendamentos">
+          <tbody>
+            {agendamentosPendentes.map((agendamento, index) => (
+              <tr key={index}>
+                <td>
+                  Usuário{index + 1} - {capitalizeFirstLetter(agendamento.tipo)} - {formatarData(agendamento.data) || formatarData(agendamento.data_retirada)} - {agendamento.horario || agendamento.horario_retirada}
+                </td>
+                <td>
+                  <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>Atender</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

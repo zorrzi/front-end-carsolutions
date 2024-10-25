@@ -56,8 +56,8 @@ export default function InformacoesCarro() {
       }
     })
     .then(response => {
-      alert('Visita agendada com sucesso!');
-      setErrorMessage('');  // Limpa mensagens de erro após sucesso
+      alert('Visita agendada com sucesso!');  // Exibe um alerta de sucesso
+      setErrorMessage('');  // Limpa a mensagem de erro
     })
     .catch(error => {
       if (error.response && (error.response.status === 403 || error.response.status === 401)) {
@@ -115,10 +115,14 @@ export default function InformacoesCarro() {
         <div className='infos'>
           <h1 className='titulo'>{car.year} {car.brand} {car.model}</h1>
           <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
+          {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
+          {car.is_for_rent && <p className='preco-aluguel'>Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia</p>}
           
           {/* Se isScheduling for true, mostrar o formulário de visita (venda) */}
           {isScheduling ? (
             <form className='form-agendamento' onSubmit={handleScheduleSubmit}>
+              <img src='/de-volta.png' alt='Fechar' className='fechar' onClick={() => setIsScheduling(false)} />
+
               <label>
                 Data da visita:
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
@@ -129,19 +133,14 @@ export default function InformacoesCarro() {
               </label>
               
               {/* Mostrar o preço total do carro logo abaixo do formulário */}
-              {car.is_for_sale && (
-                <div className="preco-aluguel">
-                  <p>Preço Total:</p>
-                  <strong>R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                </div>
-              )}
-              <button type="submit" className='botao-aluguel'>Confirmar Visita</button>
+              <button type="submit" className='botao-venda'>Confirmar Visita</button>
 
               {/* Exibe a mensagem de erro, se houver */}
               {errorMessage && <p className="erro">{errorMessage}</p>}
             </form>
           ) : isRenting ? (
             <form className='form-agendamento' onSubmit={handleRentSubmit}>
+              <img src='/de-volta.png' alt='Fechar' className='fechar' onClick={() => setIsRenting(false)} />
               <label>
                 Data de Retirada:
                 <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
@@ -158,6 +157,10 @@ export default function InformacoesCarro() {
                 Horário de Devolução:
                 <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
               </label>
+
+              {/* Mostrar o preço total do aluguel logo abaixo do formulário multiplicando pela diferença de dias  apenas depois de escolher os dois dias*/}
+              <p className='preco-aluguel-total'>Total: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+
               
               <button type="submit" className='botao-aluguel'>Confirmar Reserva</button>
 
@@ -167,7 +170,7 @@ export default function InformacoesCarro() {
           ) : (
             <>
               {/* Botões de ação: Agendar Visita ou Reservar Aluguel */}
-              {car.is_for_sale && <button className='botao-venda' onClick={() => setIsScheduling(true)}><span className="texto-venda">Agende sua Visita</span></button>}  
+              {car.is_for_sale && <button className='botao-venda' onClick={() => setIsScheduling(true)}><span className="texto-venda">Reserve sua Compra</span></button>}  
               {car.is_for_rent && <button className='botao-aluguel' onClick={() => setIsRenting(true)}><span className="texto-aluguel">Reserve seu Aluguel</span></button>}
             </>
           )}

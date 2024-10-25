@@ -1,6 +1,8 @@
 .anuncio-carro{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    padding: 0rem 2rem;
     width: 100%;
 }
 
@@ -10,7 +12,9 @@
     align-items: center;
     margin-left: 2rem;
     margin-top: 3rem;
-    width: 60rem;
+    height: 560px;
+    width: auto;
+    max-height: 560px;
 }
 
 .titulo{
@@ -20,6 +24,23 @@
     align-items: center;
     margin-top: 0rem;
     margin-bottom: 0rem;
+}
+
+.form-agendamento{
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.preco-aluguel-total{
+    font-size: 1.5rem;
+    text-decoration: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 0;
 }
 
 .infos {
@@ -32,6 +53,7 @@
     margin-top: 3rem;
 }
 
+
 .botao-aluguel{
     display: flex;
     flex-direction: row;
@@ -41,7 +63,17 @@
     color: white;
     padding: 1.5rem;
     border-radius: 1rem;
+    font-weight: bold;
     box-shadow: 0 0.2rem 0.5rem #2B2B68;
+}
+
+.fechar{
+    height: 1rem;
+    width: 1.5rem;
+}
+
+.fechar:hover {
+    cursor: pointer;
 }
 
 .botao-venda{
@@ -53,8 +85,16 @@
     color: white;
     padding: 1.5rem;
     border-radius: 1rem;
+    width: 100%;
+    font-weight: bold;
     box-shadow: 0 0.2rem 0.5rem #141439;
 } 
+
+button{
+    cursor: pointer;
+    border: none;
+    font-size: 1.5rem;
+}
 
 .texto-aluguel{
     font-size: 1.5rem;
@@ -75,7 +115,6 @@
     flex-direction: row;
     justify-content: center;
     font-size: 1rem;
-    margin-top: 0.5rem;
 }
 
 .preco-venda{
@@ -83,7 +122,6 @@
     flex-direction: row;
     justify-content: center;
     font-size: 1rem;
-    margin-top: 0.5rem;
     text-decoration: none;
 }
 
@@ -100,13 +138,22 @@
     }
     .quadro-imagem{
         width: 100%;
+        height: auto;
         margin-left: 0;
     }
     .infos{
         margin-bottom: 1rem;
         width: 100%;
-        padding: 1rem;
+        padding: 2rem;
         margin-left: 0;
         margin-right: 0;
+    }
+}
+
+@media (max-width: 680px){
+    .quadro-imagem{
+        width: 100%;
+        height: auto;
+        margin-left: 0;
     }
 }

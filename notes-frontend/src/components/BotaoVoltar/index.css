@@ -1,0 +1,21 @@
+.imagem-voltar{
+    height: 1rem;
+    width: 1.5rem;
+}
+
+.botao-voltar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
+.texto-voltar{
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    font-weight: bold;
+}
