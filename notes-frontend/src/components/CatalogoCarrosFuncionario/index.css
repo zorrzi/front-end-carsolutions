@@ -16,10 +16,9 @@
 .search-container {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start ;
   box-sizing: border-box;
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding: 1rem 2rem;
 }
 
 /* Estilo do campo de input de busca */
@@ -57,5 +56,10 @@
 @media (max-width: 768px) {
   .catalogo-carros {
     justify-content: center; /* Alinha os itens no centro */
+    max-height: 30rem;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin: 1rem 1rem;
   }
 }
