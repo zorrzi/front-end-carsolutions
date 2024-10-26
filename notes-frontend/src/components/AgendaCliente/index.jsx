@@ -14,15 +14,20 @@ export default function AgendamentoCliente() {
       },
     })
     .then(response => {
-      setAgendamentos(response.data);
+      // Ordena os agendamentos: visitas, depois alugueis, depois reservas
+      const sortedAgendamentos = response.data.sort((a, b) => {
+        const order = ['visita', 'aluguel', 'reserva'];
+        return order.indexOf(a.tipo) - order.indexOf(b.tipo);
+      });
+      setAgendamentos(sortedAgendamentos);
     })
     .catch(error => {
       console.error('Erro ao buscar agendamentos:', error);
     });
   }, []);
 
-  // Função para retornar a classe CSS com base no status do agendamento
   const getStatusClass = (status) => {
+    if (!status) return '';
     switch (status.toLowerCase()) {
       case 'cancelado':
         return 'status-cancelado';
@@ -37,14 +42,20 @@ export default function AgendamentoCliente() {
     }
   };
 
-  // Função para transformar a data no formato dd/mm/aaaa
   const formatarData = (data) => {
+    if (!data) return '';
     const dataSplit = data.split('-');
     return `${dataSplit[2]}/${dataSplit[1]}/${dataSplit[0]}`;
   };
 
-  // Trocar a primeira letra para maiúscula
+  const formatarHorario = (horario) => {
+    if (!horario) return '';
+    const [hours, minutes] = horario.split(':');
+    return `${hours}:${minutes}`;
+  };
+
   const capitalizeFirstLetter = (string) => {
+    if (!string) return '';
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
@@ -60,6 +71,9 @@ export default function AgendamentoCliente() {
                     <th>Horário da Retirada</th>
                     <th>Data da Devolução</th>
                     <th>Horário da Devolução</th>
+                    <th>Data da Visita</th>
+                    <th>Horário da Visita</th>
+                    <th>Data Expiração (Reserva)</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -69,17 +83,49 @@ export default function AgendamentoCliente() {
                         <tr key={index}>
                             <td>{agendamento.carro}</td>
                             <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
-                            <td>{agendamento.tipo === 'venda' ? formatarData(agendamento.data) : formatarData(agendamento.data_retirada)}</td>
-                            <td>{agendamento.tipo === 'venda' ? agendamento.horario : agendamento.horario_retirada}</td>
-                            <td>{agendamento.tipo === 'venda' ? '' : formatarData(agendamento.data_devolucao)}</td>
-                            <td>{agendamento.tipo === 'venda' ? '' : agendamento.horario_devolucao}</td>
-                            {/* Aplicando a classe condicionalmente com base no status */}
-                            <td className={getStatusClass(agendamento.status)}>{capitalizeFirstLetter(agendamento.status)}</td>
+                            <td>
+                              {agendamento.tipo === 'reserva' 
+                                ? formatarData(agendamento.data) 
+                                : formatarData(agendamento.data_retirada)}
+                            </td>
+                            <td>
+                              {agendamento.tipo === 'reserva' 
+                                ? formatarHorario(agendamento.horario) 
+                                : formatarHorario(agendamento.horario_retirada)}
+                            </td>
+                            <td>
+                              {agendamento.tipo === 'aluguel' 
+                                ? formatarData(agendamento.data_devolucao) 
+                                : ''}
+                            </td>
+                            <td>
+                              {agendamento.tipo === 'aluguel' 
+                                ? formatarHorario(agendamento.horario_devolucao) 
+                                : ''}
+                            </td>
+                            <td>
+                              {agendamento.tipo === 'visita' 
+                                ? formatarData(agendamento.data) 
+                                : ''}
+                            </td>
+                            <td>
+                              {agendamento.tipo === 'visita' 
+                                ? formatarHorario(agendamento.horario) 
+                                : ''}
+                            </td>
+                            <td>
+                              {agendamento.tipo === 'reserva' 
+                                ? formatarData(agendamento.data_expiracao) 
+                                : ''}
+                            </td>
+                            <td className={getStatusClass(agendamento.status)}>
+                              {capitalizeFirstLetter(agendamento.status)}
+                            </td>
                         </tr>
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="7">Nenhum agendamento encontrado</td>
+                        <td colSpan="10">Nenhum agendamento encontrado</td>
                     </tr>
                 )}
             </tbody>

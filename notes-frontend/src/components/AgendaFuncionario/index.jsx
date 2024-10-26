@@ -8,7 +8,7 @@ export default function AgendaFuncionario() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:8000/agendamentos/pendentes/', {
+    axios.get('http://localhost:8000/agendamentos/agendamento/pendentes/', {
       headers: {
         Authorization: `Token ${token}`
       }
@@ -24,14 +24,13 @@ export default function AgendaFuncionario() {
   const handleAtenderAgendamento = (agendamentoId) => {
     const token = localStorage.getItem('token');
     
-    axios.post(`http://localhost:8000/agendamentos/assumir/${agendamentoId}/`, {}, {
+    axios.post(`http://localhost:8000/agendamentos/agendamento/assumir/${agendamentoId}/`, {}, {
       headers: {
         Authorization: `Token ${token}`
       }
     })
     .then(response => {
       alert('Agendamento assumido com sucesso!');
-      // Remove o agendamento assumido da lista de pendentes
       setAgendamentosPendentes(agendamentosPendentes.filter(agendamento => agendamento.id !== agendamentoId));
     })
     .catch(error => {
@@ -39,15 +38,11 @@ export default function AgendaFuncionario() {
     });
   };
 
-  // Função que transforma a data no formato yyyy-mm-dd para dd/mm/yyyy
   const formatarData = (data) => {
     if (!data) return '';
-    else
-      return data.split('-').reverse().join('/');
-
+    return data.split('-').reverse().join('/');
   };
 
-  // Função que deixa a primeira letra da string em maiúscula
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
@@ -63,7 +58,8 @@ export default function AgendaFuncionario() {
             {agendamentosPendentes.map((agendamento, index) => (
               <tr key={index}>
                 <td>
-                  Usuário{index + 1} - {capitalizeFirstLetter(agendamento.tipo)} - {formatarData(agendamento.data) || formatarData(agendamento.data_retirada)} - {agendamento.horario || agendamento.horario_retirada}
+                  {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
+                  {formatarData(agendamento.data)} - {agendamento.horario}
                 </td>
                 <td>
                   <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>Atender</button>
