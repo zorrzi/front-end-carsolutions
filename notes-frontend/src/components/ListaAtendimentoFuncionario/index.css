@@ -2,7 +2,7 @@
 .atendimentos-container {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    margin-left: 2rem;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -11,7 +11,7 @@
   
   /* Título */
   .titulo {
-    background-color: #3F3D99;
+    background-color: #373774;
     color: #fff;
     padding: 10px;
     text-align: center;

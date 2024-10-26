@@ -1,32 +1,42 @@
-// components/chat/EmployeeChat/index.jsx
+// components/chat/EmployeeChat/ChatFuncionario.jsx
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageInput from "../MessageInput/MessageInput";
+import './index.css';
 
 const token = localStorage.getItem('token');
 
 export default function ChatFuncionario() {
-  const [chats, setChats] = useState([]);         // Lista de chats
+  const [chats, setChats] = useState([]); // Lista de todos os chats
+  const [filteredChats, setFilteredChats] = useState([]); // Lista de chats filtrada pela pesquisa
   const [selectedChat, setSelectedChat] = useState(null); // Chat selecionado
-  const [messages, setMessages] = useState([]);    // Mensagens do chat selecionado
+  const [messages, setMessages] = useState([]); // Mensagens do chat selecionado
+  const [searchTerm, setSearchTerm] = useState(''); // Termo de pesquisa
 
   // Carrega todos os chats ao montar o componente
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/chat/funcionario/', {
-        headers: {
-            'Authorization': `Token ${token}`
-        }
+      headers: {
+        'Authorization': `Token ${token}`
+      }
     })
     .then((response) => {
-      // Verifique se a resposta contém os chats antes de definir o estado
       if (response.data && response.data.chats) {
         setChats(response.data.chats);
-        console.log(response.data.chats);
+        setFilteredChats(response.data.chats); // Inicializa os chats filtrados com todos os chats
       }
     })
     .catch((error) => console.error("Erro ao buscar chats:", error));
   }, []);
+
+  // Atualiza a lista de chats filtrada sempre que o termo de pesquisa muda
+  useEffect(() => {
+    const filtered = chats.filter(chat =>
+      chat.cliente.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredChats(filtered);
+  }, [searchTerm, chats]);
 
   // Carrega as mensagens do chat selecionado
   const loadMessages = (chatId) => {
@@ -36,8 +46,6 @@ export default function ChatFuncionario() {
       }
     })
     .then((response) => {
-        console.log(response.data);
-      // Verifica se response.data.chat e response.data.chat.messages estão definidos
       if (response.data && response.data.chat && response.data.chat.messages) {
         setMessages(response.data.chat.messages);
       } else {
@@ -49,53 +57,75 @@ export default function ChatFuncionario() {
   };
 
   return (
-    <div>
-      <h2>Todos os Chats de Clientes</h2>
-      
-      {/* Lista de chats */}
-      <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '200px' }}>
-        {chats.length > 0 ? (
-          chats.map((chat) => (
-            <button 
-              key={chat.id} 
-              onClick={() => {
-                setSelectedChat(chat.id); 
-                loadMessages(chat.id);
-              }}
-              style={{
-                padding: '10px',
-                margin: '5px 0',
-                backgroundColor: selectedChat === chat.id ? '#ddd' : '#f5f5f5'
-              }}
-            >
-              Chat com {chat.cliente}
-            </button>
-          ))
-        ) : (
-          <p>Nenhum chat disponível.</p>
-        )}
+    <div className="chatContainerFuncionario">
+      <div className="header-chat">
+        <h2>Conversas</h2>
       </div>
+
+      {/* Barra de pesquisa e lista de chats só são exibidas se nenhum chat estiver selecionado */}
+      {!selectedChat && (
+        <>
+          <div className="searchBar">
+            <input 
+              type="text"
+              placeholder="Buscar usuário pelo nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
+          <div className="chatList">
+            {filteredChats.length > 0 ? (
+              filteredChats.map((chat) => (
+                <div 
+                  key={chat.id} 
+                  onClick={() => {
+                    setSelectedChat(chat.id); 
+                    loadMessages(chat.id);
+                  }}
+                  className={`chatItem ${selectedChat === chat.id ? 'active' : ''}`}
+                >
+                  <div className="userIcon">👤</div>
+                  <div className="chatContent">
+                    <h4>{chat.cliente}</h4>
+                    <p>{chat.last_message}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>Nenhum chat encontrado.</p>
+            )}
+          </div>
+        </>
+      )}
 
       {/* Área de mensagens do chat selecionado */}
       {selectedChat && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Mensagens com {chats.find(chat => chat.id === selectedChat)?.cliente.username}</h3>
+        <div>
+          <div className="activeChatHeader">
+            <button className="backButton" onClick={() => setSelectedChat(null)}>X</button>
+            <h3>{chats.find(chat => chat.id === selectedChat)?.cliente}</h3>
+          </div>
           
-          {/* Exibe as mensagens do chat */}
-          <div style={{ maxHeight: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
+          <div className="messageContainer">
             {messages.length > 0 ? (
               messages.map((message) => (
-                <p key={message.id}>
-                  <strong>{message.is_employee ? 'Funcionário' : 'Cliente'}:</strong> {message.content}
-                </p>
+                <div 
+                  key={message.id} 
+                  className={`message ${message.is_employee ? 'employee' : 'client'}`}
+                >
+                  {message.content}
+                </div>
               ))
             ) : (
               <p>Sem mensagens ainda.</p>
             )}
           </div>
 
-          {/* Componente para envio de novas mensagens */}
-          <MessageInput chatId={selectedChat} isEmployee={true} onMessageSent={() => loadMessages(selectedChat)} />
+          <div className="messageInputContainer">
+            <MessageInput chatId={selectedChat} isEmployee={true} onMessageSent={() => loadMessages(selectedChat)} />
+          </div>
         </div>
       )}
     </div>

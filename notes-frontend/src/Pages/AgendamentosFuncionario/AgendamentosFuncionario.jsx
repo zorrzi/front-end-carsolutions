@@ -12,9 +12,10 @@ function AgendamentosFuncionario() {
       <>
         <HeaderFuncionario />
         <BotaoVoltar />
-        <ListaAtendimentoFuncionario />
-        <ChatFuncionario />
-
+        <div className='conteudo-atendimento'>
+          <ListaAtendimentoFuncionario />
+          <ChatFuncionario />
+        </div>
         
       
       </>
