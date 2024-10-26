@@ -1,0 +1,74 @@
+/* ChatCliente.css */
+
+.chatContainer {
+    position: fixed;
+    bottom: 13rem; /* Acima do botão de chat */
+    right: 4rem;
+    width: 20rem;
+    height: 19rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 1000;
+    /* criar barras de rolagem */
+    display: flex;
+    flex-direction: column;
+
+
+  }
+  
+  .header-chat {
+    background-color: #373774;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+  }
+  
+  .closeButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .messagesContainer {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  /* Estilos para mensagens */
+.message {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+  
+  /* Mensagens do funcionário */
+  .employee {
+    background-color: #e1eaf5;
+    color: #333;
+    align-self: flex-start;
+  }
+  
+  /* Mensagens do cliente */
+  .client {
+    background-color: #d1ffd6;
+    color: #333;
+    align-self: flex-end;
+    text-align: right;
+    }

@@ -1,0 +1,29 @@
+.input-msg{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+textarea{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    resize: none;
+}
+
+.enviar{
+    background-color: #373774;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    height: 2rem;
+    cursor: pointer;
+    font-size: smaller;
+    font-weight: bold;
+}

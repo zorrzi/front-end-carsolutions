@@ -6,8 +6,10 @@ import Footer from "../../components/Footer";
 import CatalogoCarrosCliente from "../../components/CatalogoCarrosCliente";
 import BotaoChat from "../../components/BotaoChat";
 import ChatCliente from "../../components/ChatCliente";
+import { useState } from "react";
 
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false); // Define o estado para abrir/fechar o chat
   return (
     <div>
       <Header />
@@ -20,8 +22,10 @@ function App() {
         <CatalogoCarrosCliente />
       </div>
       
-      <BotaoChat />
-      <ChatCliente />
+      <div>
+      <BotaoChat setIsChatOpen={setIsChatOpen} /> {/* Passa setIsChatOpen como prop */}
+      <ChatCliente isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} /> {/* Passa isChatOpen e setIsChatOpen */}
+      </div>
 
       <Footer />
 
