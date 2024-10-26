@@ -23,8 +23,10 @@ export default function InformacoesCarro() {
     data_validade: '',
     codigo_seguranca: '',
     salvar_para_futuro: false,
+    nome_cartao: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:8000/cars/${id}/`)
@@ -52,6 +54,16 @@ export default function InformacoesCarro() {
     }
   };
 
+  const handleSuccess = () => {
+    setShowPopup(true);
+    setActiveForm('');
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    navigate('/');
+  };
+
   const handleScheduleVisit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -63,8 +75,7 @@ export default function InformacoesCarro() {
       }, {
         headers: { Authorization: `Token ${token}` }
       });
-      alert('Visita agendada com sucesso!');
-      setActiveForm('');
+      handleSuccess();
     } catch (error) {
       setErrorMessage('Erro ao agendar visita: ' + (error.response?.data?.error || error.message));
     }
@@ -81,8 +92,7 @@ export default function InformacoesCarro() {
       await axios.post('http://localhost:8000/agendamentos/reservar/veiculo/', data, {
         headers: { Authorization: `Token ${token}` }
       });
-      alert('Reserva de veículo realizada com sucesso!');
-      setActiveForm('');
+      handleSuccess();
     } catch (error) {
       setErrorMessage('Erro ao reservar veículo: ' + (error.response?.data?.error || error.message));
     }
@@ -117,8 +127,7 @@ export default function InformacoesCarro() {
       await axios.post('http://localhost:8000/agendamentos/reservar/aluguel/', data, {
         headers: { Authorization: `Token ${token}` }
       });
-      alert(`Aluguel reservado com pagamento parcial de R$${partialPayment.toFixed(2)}`);
-      setActiveForm('');
+      handleSuccess();
     } catch (error) {
       setErrorMessage('Erro ao reservar aluguel: ' + (error.response?.data?.error || error.message));
     }
@@ -130,8 +139,18 @@ export default function InformacoesCarro() {
 
   return (
     <div className="anuncio-carro">
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <img className='sucesso' src='/sucesso.png' alt='Sucesso' />
+            <h2>Agendamento Realizado com Sucesso!</h2>
+            <p>Vá até a loja para concluir seu agendamento!</p>
+            <button className='botao-retornar' onClick={handleClosePopup}>Voltar à tela inicial</button>
+          </div>
+        </div>
+      )}
       <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
-      <div className='infos'>
+      <div className={`infos ${showPopup ? 'blurred' : ''}`}>
         <h1 className='titulo-carro-1'>{car.year} {car.brand} {car.model}</h1>
         <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
         {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
@@ -164,13 +183,14 @@ export default function InformacoesCarro() {
               <option value="">Selecione um cartão</option>
               {creditCards.map(card => (
                 <option value={card.id} key={card.id}>
-                  {card.numero_cartao} - {card.nome_titular}
+                  {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
                 </option>
               ))}
             </select>
 
             {!selectedCard && (
               <>
+                <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
                 <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
                 <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
                 <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
@@ -203,13 +223,14 @@ export default function InformacoesCarro() {
               <option value="">Selecione um cartão</option>
               {creditCards.map(card => (
                 <option value={card.id} key={card.id}>
-                  {card.numero_cartao} - {card.nome_titular}
+                  {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
                 </option>
               ))}
             </select>
 
             {!selectedCard && (
               <>
+                <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
                 <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
                 <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
                 <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
