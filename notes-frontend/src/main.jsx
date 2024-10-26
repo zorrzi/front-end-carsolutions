@@ -19,6 +19,8 @@ import CarrosFavoritos from './Pages/CarrosFavoritos/CarrosFavoritos.jsx';
 import ResultadosBusca from './Pages/ResultadoBusca/ResultadoBusca.jsx';
 import AgendamentoCliente from './Pages/AgendamentosCliente/AgendamentosCliente.jsx';
 import AgendamentosFuncionario from './Pages/AgendamentosFuncionario/AgendamentosFuncionario.jsx';
+import CarrosCompra from './Pages/CarrosCompra/CarrosCompra.jsx';
+import CarrosAluguel from './Pages/CarrosAluguel/CarrosAluguel.jsx';
 
 const router = createBrowserRouter([
   {
@@ -54,7 +56,6 @@ const router = createBrowserRouter([
     element: <LoginFuncionario />,
   },
   {
-    // Rota dinâmica para o anúncio do carro com ID
     path: "/anuncio/:id",
     element: <AnuncioCarro />,
   },
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
     element: <CarrosFavoritos />,
   },
 
-  // Adiciona a rota para a página de resultados de carros filtrados
+  
   {
     path: "/resultados",
     element: <ResultadosBusca />,
@@ -83,6 +84,16 @@ const router = createBrowserRouter([
   {
     path: "/agendamentosFuncionario",
     element: <AgendamentosFuncionario />,
+  },
+
+  {
+    path: "/carrosCompra",
+    element: <CarrosCompra />,
+  },
+
+  {
+    path: "/carrosAluguel",
+    element: <CarrosAluguel />,
   },
 
 

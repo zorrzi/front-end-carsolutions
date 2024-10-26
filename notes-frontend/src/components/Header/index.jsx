@@ -93,9 +93,15 @@ export default function Header() {
         <img className="logo" src="/logo.png" alt="Logo" />
       </Link>
       <div className="info">
+        <Link to="/carrosAluguel">
         <span className="nav">Aluguel</span>
-        <span className="nav">Vendas</span>
+        </Link>
+        <Link to="/carrosCompra">
+        <span className="nav">Compra</span>
+        </Link>
+        <Link to="/sobreNos">
         <span className="nav">Sobre nós</span>
+        </Link>
 
         <div className="user">
           {username ? (

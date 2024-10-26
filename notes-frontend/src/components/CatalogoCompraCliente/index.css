@@ -1,0 +1,11 @@
+.catalogo-carros {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+    justify-content: flex-start; /* Alinha os itens no início (pode ser alterado para 'center', se preferir) */
+    gap: 2.5rem; /* Espaçamento entre os cards */
+    padding: 1rem;
+  }
+
+.card-carro {
+  margin-right: 5rem;
+  }
