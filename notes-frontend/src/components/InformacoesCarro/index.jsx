@@ -179,7 +179,7 @@ export default function InformacoesCarro() {
         ) : (
           <form className='form-agendamento' onSubmit={handleRentCar}>
             <h1>Reserva de Aluguel</h1>
-            
+
             <label>Data de Retirada:</label>
             <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
             <label>Horário de Retirada:</label>
@@ -216,7 +216,10 @@ export default function InformacoesCarro() {
             {errorMessage && <p className="erro">{errorMessage}</p>}
           </form>
         )}
+        <BotaoFavoritos></BotaoFavoritos>
       </div>
+      
     </div>
+    
   );
 }
