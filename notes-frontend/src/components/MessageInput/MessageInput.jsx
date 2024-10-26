@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import './MessageInput.css';
 
 const token = localStorage.getItem('token');
 
@@ -28,14 +29,14 @@ export default function MessageInput({ chatId, isEmployee, onMessageSent }) {
   };
 
   return (
-    <form onSubmit={handleSendMessage}>
+    <form className='input-msg' onSubmit={handleSendMessage}>
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Digite sua mensagem"
         required
       />
-      <button type="submit">Enviar</button>
+      <button className='enviar' type="submit">Enviar</button>
     </form>
   );
 }
