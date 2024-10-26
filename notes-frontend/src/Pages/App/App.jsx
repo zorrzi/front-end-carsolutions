@@ -5,6 +5,7 @@ import Formulario from "../../components/Formulario";
 import Footer from "../../components/Footer";
 import CatalogoCarrosCliente from "../../components/CatalogoCarrosCliente";
 import BotaoChat from "../../components/BotaoChat";
+import ChatCliente from "../../components/ChatCliente";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       </div>
       
       <BotaoChat />
+      <ChatCliente />
 
       <Footer />
 
