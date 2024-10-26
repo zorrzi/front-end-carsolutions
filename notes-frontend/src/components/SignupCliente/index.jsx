@@ -8,6 +8,7 @@ export default function SignupCliente() {
     username: "",
     email: "",
     cpf: "",
+    cnh: "",  // Novo campo para CNH
     senha: "",
     confirmar_senha: "",
   });
@@ -19,42 +20,38 @@ export default function SignupCliente() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Adiciona validação básica de CPF
   const validateCPF = (cpf) => {
     return cpf.length === 11 && /^[0-9]+$/.test(cpf);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validações no frontend
+
     if (!validateCPF(formData.cpf)) {
       setMessage("CPF inválido! O CPF deve ter 11 dígitos.");
       return;
     }
-    
+
     if (formData.senha !== formData.confirmar_senha) {
       setMessage("As senhas não coincidem!");
       return;
     }
 
     try {
-      // Faz a requisição de cadastro para o backend
       const response = await axios.post("http://localhost:8000/cadastro/", {
         username: formData.username,
         email: formData.email,
         cpf: formData.cpf,
+        cnh: formData.cnh,  // Inclui o campo CNH na requisição
         senha: formData.senha,
         confirmar_senha: formData.confirmar_senha
       });
 
-      // Armazena o token no localStorage
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("username", formData.username); // Armazena o nome de usuário
+      localStorage.setItem("username", formData.username);
       setMessage("Cadastro realizado com sucesso!");
       navigate("/"); // Redireciona para a página principal
     } catch (error) {
-      // Exibe mensagem de erro do backend
       setMessage(error.response?.data.message || "Erro ao cadastrar. Verifique os dados e tente novamente.");
     }
   };
@@ -91,6 +88,17 @@ export default function SignupCliente() {
             name="cpf"
             placeholder="CPF"
             value={formData.cpf}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="text"
+            name="cnh"
+            placeholder="CNH"
+            value={formData.cnh}
             onChange={handleChange}
             required
           />
