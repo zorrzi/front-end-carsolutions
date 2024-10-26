@@ -8,7 +8,7 @@ export default function ListaAtendimentoFuncionario() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:8000/agendamentos/meus/', {
+    axios.get('http://localhost:8000/agendamentos/agendamento/meus/', {
       headers: {
         Authorization: `Token ${token}`
       }
@@ -21,17 +21,14 @@ export default function ListaAtendimentoFuncionario() {
     });
   }, []);
 
-  // Função para formatar a data no formato dd/mm/aaaa
-  function formatarData(data) {
-    const dataSplit = data.split('-');
-    return `${dataSplit[2]}/${dataSplit[1]}/${dataSplit[0]}`;
-  }
+  const formatarData = (data) => {
+    if (!data) return '';
+    return data.split('-').reverse().join('/');
+  };
 
-  // Função para deixar a primeira letra da string em maiúscula
-  function capitalizeFirstLetter(string) {
+  const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
+  };
 
   return (
     <div className="atendimentos-container">

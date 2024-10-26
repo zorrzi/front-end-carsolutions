@@ -5,179 +5,218 @@ import './index.css';
 import BotaoFavoritos from '../BotaoFavoritos';
 
 export default function InformacoesCarro() {
-  const { id } = useParams();  // Pega o ID do carro a partir da URL
+  const { id } = useParams();
   const [car, setCar] = useState(null);
-  const [isScheduling, setIsScheduling] = useState(false);  // Estado para controlar a exibição do formulário de agendamento/compra
-  const [isRenting, setIsRenting] = useState(false);  // Estado para controlar a exibição do formulário de aluguel
-  const [date, setDate] = useState('');  // Data da visita/agendamento
-  const [time, setTime] = useState('');  // Horário da visita/agendamento
-  const [pickupDate, setPickupDate] = useState('');  // Data de retirada para aluguel
-  const [returnDate, setReturnDate] = useState('');  // Data de devolução para aluguel
-  const [pickupTime, setPickupTime] = useState('');  // Horário de retirada
-  const [returnTime, setReturnTime] = useState('');  // Horário de devolução
-  const [errorMessage, setErrorMessage] = useState('');  // Para exibir erros ao usuário
+  const [activeForm, setActiveForm] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [pickupDate, setPickupDate] = useState('');
+  const [pickupTime, setPickupTime] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+  const [returnTime, setReturnTime] = useState('');
+  const [creditCards, setCreditCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState('');
+  const [creditCard, setCreditCard] = useState({
+    numero_cartao: '',
+    nome_titular: '',
+    data_validade: '',
+    codigo_seguranca: '',
+    salvar_para_futuro: false,
+  });
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // Faz a requisição para buscar as informações do carro pelo ID
+    // Fetch car details
     axios.get(`http://localhost:8000/cars/${id}/`)
       .then(response => {
-        setCar(response.data);  // Define o estado com os dados do carro
+        setCar(response.data);
       })
       .catch(error => {
         console.error('Erro ao buscar o carro:', error);
       });
+
+    // Fetch saved credit cards
+    const fetchCreditCards = async () => {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8000/cartaodecredito/listar/', {
+        headers: { Authorization: `Token ${token}` },
+      });
+      setCreditCards(response.data);
+    };
+    fetchCreditCards();
   }, [id]);
 
   if (!car) {
-    return <p>Carregando...</p>;  // Mostra um texto de carregamento enquanto os dados não chegam
+    return <p>Carregando...</p>;
   }
 
-  // Função para lidar com o agendamento de visitas (venda)
-  const handleScheduleSubmit = (e) => {
+  const handleScheduleVisit = async (e) => {
     e.preventDefault();
-  
-    const token = localStorage.getItem('token');  // Pega o token do usuário logado
-    
-    if (!token) {
-      setErrorMessage('Usuário não autenticado. Faça login para agendar.');
-      return;
+    const token = localStorage.getItem('token');
+    try {
+      await axios.post('http://localhost:8000/agendamentos/agendar/visita/', {
+        carro_id: car.id,
+        data: date,
+        horario: time,
+      }, {
+        headers: { Authorization: `Token ${token}` }
+      });
+      alert('Visita agendada com sucesso!');
+      setActiveForm('');
+    } catch (error) {
+      setErrorMessage('Erro ao agendar visita: ' + (error.response?.data?.error || error.message));
     }
-
-    const agendamentoData = {
-      carro_id: car.id,  // ID do carro sendo agendado
-      data: date,
-      horario: time,
-      tipo: 'venda'  // Agendamento de venda
-    };
-  
-    axios.post('http://localhost:8000/agendamentos/agendar/', agendamentoData, {
-      headers: {
-        Authorization: `Token ${token}`  // Envia o token no cabeçalho da requisição
-      }
-    })
-    .then(response => {
-      alert('Visita agendada com sucesso!');  // Exibe um alerta de sucesso
-      setErrorMessage('');  // Limpa a mensagem de erro
-    })
-    .catch(error => {
-      if (error.response && (error.response.status === 403 || error.response.status === 401)) {
-        setErrorMessage('Você precisa estar logado para agendar uma visita.');
-      } else {
-        setErrorMessage('Erro ao agendar a visita. Tente novamente.');
-      }
-      console.error('Erro ao agendar a visita:', error);
-    });
   };
 
-  // Função para lidar com a reserva de aluguel
-  const handleRentSubmit = (e) => {
+  const handleReserveVehicle = async (e) => {
     e.preventDefault();
-    
-    const token = localStorage.getItem('token');  // Pega o token do usuário logado
-    
-    if (!token) {
-      setErrorMessage('Usuário não autenticado. Faça login para reservar.');
-      return;
-    }
+    const token = localStorage.getItem('token');
+    const data = selectedCard
+      ? { carro_id: car.id, cartao_id: selectedCard }
+      : { carro_id: car.id, novo_cartao: creditCard };
 
-    const aluguelData = {
-      carro_id: car.id,
-      data_retirada: pickupDate,
-      horario_retirada: pickupTime,
-      data_devolucao: returnDate,
-      horario_devolucao: returnTime,
-      tipo: 'aluguel'
-    };
-    
-    axios.post('http://localhost:8000/agendamentos/agendar/', aluguelData, {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    })
-    .then(response => {
-      alert('Aluguel agendado com sucesso!');
-      setErrorMessage('');
-    })
-    .catch(error => {
-      if (error.response && (error.response.status === 403 || error.response.status === 401)) {
-        setErrorMessage('Você precisa estar logado para reservar.');
-      } else {
-        setErrorMessage('Erro ao reservar o carro. Tente novamente.');
-      }
-      console.error('Erro ao reservar o carro:', error);
-    });
+    try {
+      await axios.post('http://localhost:8000/agendamentos/reservar/veiculo/', data, {
+        headers: { Authorization: `Token ${token}` }
+      });
+      alert('Reserva de veículo realizada com sucesso!');
+      setActiveForm('');
+    } catch (error) {
+      setErrorMessage('Erro ao reservar veículo: ' + (error.response?.data?.error || error.message));
+    }
+  };
+
+  const handleRentCar = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    const rentalDays = (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24);
+    const totalPrice = rentalDays * car.rental_price;
+    const partialPayment = totalPrice / 2;
+
+    const data = selectedCard
+      ? {
+          carro_id: car.id,
+          cartao_id: selectedCard,
+          data_retirada: pickupDate,
+          horario_retirada: pickupTime,
+          data_devolucao: returnDate,
+          horario_devolucao: returnTime,
+        }
+      : {
+          carro_id: car.id,
+          novo_cartao: creditCard,
+          data_retirada: pickupDate,
+          horario_retirada: pickupTime,
+          data_devolucao: returnDate,
+          horario_devolucao: returnTime,
+        };
+
+    try {
+      await axios.post('http://localhost:8000/agendamentos/reservar/aluguel/', data, {
+        headers: { Authorization: `Token ${token}` }
+      });
+      alert(`Aluguel reservado com pagamento parcial de R$${partialPayment.toFixed(2)}`);
+      setActiveForm('');
+    } catch (error) {
+      setErrorMessage('Erro ao reservar aluguel: ' + (error.response?.data?.error || error.message));
+    }
   };
 
   return (
-    <>
-      <div className="anuncio-carro">
-        <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
-        <div className='infos'>
-          <h1 className='titulo-carro-1'>{car.year} {car.brand} {car.model}</h1>
-          <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
-          {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
-          {car.is_for_rent && <p className='preco-aluguel'>Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia</p>}
-          
-          {/* Se isScheduling for true, mostrar o formulário de visita (venda) */}
-          {isScheduling ? (
-            <form className='form-agendamento' onSubmit={handleScheduleSubmit}>
-              <img src='/de-volta.png' alt='Fechar' className='fechar' onClick={() => setIsScheduling(false)} />
+    <div className="anuncio-carro">
+      <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
+      <div className='infos'>
+        <h1 className='titulo-carro-1'>{car.year} {car.brand} {car.model}</h1>
+        <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
+        {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
+        {car.is_for_rent && <p className='preco-aluguel'>Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia</p>}
 
-              <label>
-                Data da visita:
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-              </label>
-              <label>
-                Horário da visita:
-                <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
-              </label>
-              
-              {/* Mostrar o preço total do carro logo abaixo do formulário */}
-              <button type="submit" className='botao-venda'>Confirmar Visita</button>
+        {/* Condicional para mostrar botões ou o formulário ativo */}
+        {activeForm === '' ? (
+          <>
+            <button className='botao-venda' onClick={() => setActiveForm('visita')}>Agende uma Visita</button>
+            {car.is_for_sale && <button className='botao-venda' onClick={() => setActiveForm('reserva')}>Reserve o Veículo</button>}
+            {car.is_for_rent && <button className='botao-aluguel' onClick={() => setActiveForm('aluguel')}>Reserve o Aluguel</button>}
+          </>
+        ) : activeForm === 'visita' ? (
+          <form className='form-agendamento' onSubmit={handleScheduleVisit}>
+            <label>Data da Visita:</label>
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+            <label>Horário da Visita:</label>
+            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
+            <button type="submit" className='botao-venda'>Confirmar Visita</button>
+            {errorMessage && <p className="erro">{errorMessage}</p>}
+          </form>
+        ) : activeForm === 'reserva' ? (
+          <form className='form-agendamento' onSubmit={handleReserveVehicle}>
+            <h1>Reserva de Veículo</h1>
+            <p>Preço da reserva: R$200,00</p>
+            <label>Escolha um Cartão Salvo:</label>
+            <select onChange={(e) => setSelectedCard(e.target.value)}>
+              <option value="">Selecione um cartão</option>
+              {creditCards.map(card => (
+                <option value={card.id} key={card.id}>
+                  {card.numero_cartao} - {card.nome_titular}
+                </option>
+              ))}
+            </select>
 
-              {/* Exibe a mensagem de erro, se houver */}
-              {errorMessage && <p className="erro">{errorMessage}</p>}
-            </form>
-          ) : isRenting ? (
-            <form className='form-agendamento' onSubmit={handleRentSubmit}>
-              <img src='/de-volta.png' alt='Fechar' className='fechar' onClick={() => setIsRenting(false)} />
-              <label>
-                Data de Retirada:
-                <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
-              </label>
-              <label>
-                Horário de Retirada:
-                <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
-              </label>
-              <label>
-                Data de Devolução:
-                <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} required />
-              </label>
-              <label>
-                Horário de Devolução:
-                <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
-              </label>
+            {!selectedCard && (
+              <>
+                <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
+                <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
+                <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                <label>
+                  <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
+                  Salvar cartão para futuras transações
+                </label>
+              </>
+            )}
+            <button type="submit" className='botao-venda'>Confirmar Reserva</button>
+            {errorMessage && <p className="erro">{errorMessage}</p>}
+          </form>
+        ) : (
+          <form className='form-agendamento' onSubmit={handleRentCar}>
+            <h1>Reserva de Aluguel</h1>
+            
+            <label>Data de Retirada:</label>
+            <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
+            <label>Horário de Retirada:</label>
+            <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
 
-              {/* Mostrar o preço total do aluguel logo abaixo do formulário multiplicando pela diferença de dias  apenas depois de escolher os dois dias*/}
-              <p className='preco-aluguel-total'>Total: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <label>Data de Devolução:</label>
+            <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} required />
+            <label>Horário de Devolução:</label>
+            <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
 
-              
-              <button type="submit" className='botao-aluguel'>Confirmar Reserva</button>
+            <label>Escolha um Cartão Salvo:</label>
+            <select onChange={(e) => setSelectedCard(e.target.value)}>
+              <option value="">Selecione um cartão</option>
+              {creditCards.map(card => (
+                <option value={card.id} key={card.id}>
+                  {card.numero_cartao} - {card.nome_titular}
+                </option>
+              ))}
+            </select>
 
-              {/* Exibe a mensagem de erro, se houver */}
-              {errorMessage && <p className="erro">{errorMessage}</p>}
-            </form>
-          ) : (
-            <>
-              {/* Botões de ação: Agendar Visita ou Reservar Aluguel */}
-              {car.is_for_sale && <button className='botao-venda' onClick={() => setIsScheduling(true)}><span className="texto-venda">Reserve sua Compra</span></button>}  
-              {car.is_for_rent && <button className='botao-aluguel' onClick={() => setIsRenting(true)}><span className="texto-aluguel">Reserve seu Aluguel</span></button>}
-            </>
-          )}
-
-          <BotaoFavoritos />
-        </div>
+            {!selectedCard && (
+              <>
+                <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
+                <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
+                <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                <label>
+                  <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
+                  Salvar cartão para futuras transações
+                </label>
+              </>
+            )}
+            <button type="submit" className='botao-aluguel'>Confirmar Reserva de Aluguel</button>
+            {errorMessage && <p className="erro">{errorMessage}</p>}
+          </form>
+        )}
       </div>
-    </>
+    </div>
   );
 }
