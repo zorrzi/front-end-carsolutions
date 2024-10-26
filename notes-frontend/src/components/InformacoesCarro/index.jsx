@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './index.css';
 import BotaoFavoritos from '../BotaoFavoritos';
 
 export default function InformacoesCarro() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [car, setCar] = useState(null);
   const [activeForm, setActiveForm] = useState('');
   const [date, setDate] = useState('');
@@ -26,29 +27,30 @@ export default function InformacoesCarro() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // Fetch car details
     axios.get(`http://localhost:8000/cars/${id}/`)
-      .then(response => {
-        setCar(response.data);
-      })
-      .catch(error => {
-        console.error('Erro ao buscar o carro:', error);
-      });
+      .then(response => setCar(response.data))
+      .catch(error => console.error('Erro ao buscar o carro:', error));
 
-    // Fetch saved credit cards
     const fetchCreditCards = async () => {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/cartaodecredito/listar/', {
-        headers: { Authorization: `Token ${token}` },
-      });
-      setCreditCards(response.data);
+      if (token) {
+        const response = await axios.get('http://localhost:8000/cartaodecredito/listar/', {
+          headers: { Authorization: `Token ${token}` },
+        });
+        setCreditCards(response.data);
+      }
     };
     fetchCreditCards();
   }, [id]);
 
-  if (!car) {
-    return <p>Carregando...</p>;
-  }
+  const handleAuthentication = (action) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/loginCliente');
+    } else {
+      setActiveForm(action);
+    }
+  };
 
   const handleScheduleVisit = async (e) => {
     e.preventDefault();
@@ -122,6 +124,10 @@ export default function InformacoesCarro() {
     }
   };
 
+  if (!car) {
+    return <p>Carregando...</p>;
+  }
+
   return (
     <div className="anuncio-carro">
       <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
@@ -131,14 +137,16 @@ export default function InformacoesCarro() {
         {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
         {car.is_for_rent && <p className='preco-aluguel'>Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia</p>}
 
-        {/* Condicional para mostrar botões ou o formulário ativo */}
-        {activeForm === '' ? (
+        {activeForm === '' && (
           <>
-            <button className='botao-venda' onClick={() => setActiveForm('visita')}>Agende uma Visita</button>
-            {car.is_for_sale && <button className='botao-venda' onClick={() => setActiveForm('reserva')}>Reserve o Veículo</button>}
-            {car.is_for_rent && <button className='botao-aluguel' onClick={() => setActiveForm('aluguel')}>Reserve o Aluguel</button>}
+            <button className='botao-venda' onClick={() => handleAuthentication('visita')}>Agende uma Visita</button>
+            {car.is_for_sale && <button className='botao-venda' onClick={() => handleAuthentication('reserva')}>Reserve o Veículo</button>}
+            {car.is_for_rent && <button className='botao-aluguel' onClick={() => handleAuthentication('aluguel')}>Reserve seu Aluguel</button>}
+            <BotaoFavoritos />
           </>
-        ) : activeForm === 'visita' ? (
+        )}
+
+        {activeForm === 'visita' && (
           <form className='form-agendamento' onSubmit={handleScheduleVisit}>
             <label>Data da Visita:</label>
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
@@ -147,10 +155,10 @@ export default function InformacoesCarro() {
             <button type="submit" className='botao-venda'>Confirmar Visita</button>
             {errorMessage && <p className="erro">{errorMessage}</p>}
           </form>
-        ) : activeForm === 'reserva' ? (
+        )}
+
+        {activeForm === 'reserva' && (
           <form className='form-agendamento' onSubmit={handleReserveVehicle}>
-            <h1>Reserva de Veículo</h1>
-            <p>Preço da reserva: R$200,00</p>
             <label>Escolha um Cartão Salvo:</label>
             <select onChange={(e) => setSelectedCard(e.target.value)}>
               <option value="">Selecione um cartão</option>
@@ -176,10 +184,10 @@ export default function InformacoesCarro() {
             <button type="submit" className='botao-venda'>Confirmar Reserva</button>
             {errorMessage && <p className="erro">{errorMessage}</p>}
           </form>
-        ) : (
-          <form className='form-agendamento' onSubmit={handleRentCar}>
-            <h1>Reserva de Aluguel</h1>
+        )}
 
+        {activeForm === 'aluguel' && (
+          <form className='form-agendamento' onSubmit={handleRentCar}>
             <label>Data de Retirada:</label>
             <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
             <label>Horário de Retirada:</label>
@@ -216,10 +224,7 @@ export default function InformacoesCarro() {
             {errorMessage && <p className="erro">{errorMessage}</p>}
           </form>
         )}
-        <BotaoFavoritos></BotaoFavoritos>
       </div>
-      
     </div>
-    
   );
 }
