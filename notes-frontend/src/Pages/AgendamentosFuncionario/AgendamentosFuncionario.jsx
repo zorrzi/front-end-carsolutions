@@ -4,6 +4,7 @@ import './AgendamentosFuncionario.css';
 import ListaAtendimentoFuncionario from '../../components/ListaAtendimentoFuncionario';
 import HeaderFuncionario from '../../components/HeaderFuncionario';
 import BotaoVoltar from '../../components/BotaoVoltar';
+import ChatFuncionario from '../../components/ChatFuncionario';
 
 
 function AgendamentosFuncionario() {
@@ -12,6 +13,7 @@ function AgendamentosFuncionario() {
         <HeaderFuncionario />
         <BotaoVoltar />
         <ListaAtendimentoFuncionario />
+        <ChatFuncionario />
 
         
       
