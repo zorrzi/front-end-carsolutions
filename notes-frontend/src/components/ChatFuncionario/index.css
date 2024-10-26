@@ -1,0 +1,161 @@
+/* Estilos principais do contêiner do chat */
+.chatContainerFuncionario {
+    width: 100%;
+    max-width: 600px;
+    margin-right: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cabeçalho do chat */
+  .header-chat {
+    background-color: #373774;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .backButton{
+    background-color: #373774;
+    color: #fff;
+  }
+
+  h2 {
+    margin: 0;
+  }
+  
+  /* Barra de pesquisa */
+  .searchBar {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #f4f4f4;
+  }
+  
+  .searchBar input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+  }
+  
+  .searchBar input:focus {
+    outline: none;
+  }
+  
+  /* Lista de conversas */
+  .chatList {
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+  }
+  
+  .chatItem {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .chatItem:hover {
+    background-color: #eaeaea;
+  }
+  
+  .chatItem.active {
+    background-color: #eaeaea;
+  }
+  
+  .userIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+    color: #666;
+  }
+  
+  .chatContent {
+    flex: 1;
+  }
+  
+  .chatContent h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+  
+  .chatContent p {
+    font-size: 0.875rem;
+    color: #777;
+    margin: 0.25rem 0 0;
+  }
+  
+  /* Área da conversa ativa */
+  .activeChatHeader {
+    background-color: #373774;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .activeChatHeader .backButton {
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .activeChatHeader h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .messageContainer {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .messageBubble {
+    padding: 0.75rem 1rem;
+    border-radius: 20px;
+    max-width: 70%;
+    font-size: 0.875rem;
+  }
+  
+  .messageBubble.client {
+    background-color: #f4f4f4;
+    align-self: flex-start;
+    color: #333;
+  }
+  
+  .messageBubble.employee {
+    background-color: #333;
+    color: #fff;
+    align-self: flex-end;
+  }
+  
+  /* Input para envio de mensagens */
+  
