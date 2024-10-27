@@ -213,17 +213,29 @@ export default function InformacoesCarro() {
 
         {activeForm === 'aluguel' && (
           <>
+            <p className='info-aluguel'>Escolha a data e hora tanto para retirada quanto devolução do veículo</p>
             <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
             <form className='form-agendamento' onSubmit={handleRentCar}>
-              <label>Data de Retirada:</label>
-              <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
-              <label>Horário de Retirada:</label>
-              <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
-
+              <div className='retirada'>
+                <div className='data-retirada'>
+                  <label>Data de Retirada:</label>
+                  <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
+                </div>
+                <div className='horario-retirada'>
+                  <label>Horário de Retirada:</label>
+                  <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
+                </div>
+              </div>
+            <div className='devolucao'>
+              <div className='data-devolucao'>
               <label>Data de Devolução:</label>
               <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} required />
+              </div>
+              <div className='horario-devolucao'>
               <label>Horário de Devolução:</label>
               <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
+              </div>
+            </div>
 
               <label>Escolha um Cartão Salvo:</label>
               <select onChange={(e) => setSelectedCard(e.target.value)}>
@@ -235,19 +247,25 @@ export default function InformacoesCarro() {
                 ))}
               </select>
 
+
               {!selectedCard && (
                 <>
                   <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
                   <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
                   <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
-                  <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
-                  <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                  <div className='data-cvv    '>
+                    <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                    <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                  </div>
                   <label className='salvar-cartao'>
-                    <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
+                    <input className='input-save' type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
                     Salvar cartão para futuras transações
                   </label>
                 </>
               )}
+
+              <p className='preco-total-aluguel'>Preco total do aluguel: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </p>
               <button type="submit" className='botao-aluguel'>Confirmar Reserva de Aluguel</button>
               {errorMessage && <p className="erro">{errorMessage}</p>}
             </form>
