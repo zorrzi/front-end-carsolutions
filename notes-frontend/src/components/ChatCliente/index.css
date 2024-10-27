@@ -72,3 +72,21 @@
     align-self: flex-end;
     text-align: right;
     }
+
+  .iniciarChatContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .ChatButton {
+    background-color: #373774;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
