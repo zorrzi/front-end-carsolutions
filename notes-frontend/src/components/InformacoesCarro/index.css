@@ -171,6 +171,35 @@ button{
     margin-bottom: 1rem;
   }
   
+  .info-aluguel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    text-align: center;
+    background-color: rgb(220, 221, 221);
+    padding: 0.5rem;
+    border-radius: 1rem;
+
+  }
+
+  .preco-total-aluguel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.2rem;
+    text-align: center;
+    background-color: rgb(220, 221, 221);
+    padding: 0.5rem;
+    border-radius: 1rem;
+
+  }
+
+
   .botao-retornar{
     width: 100%;
     display: flex;
@@ -184,13 +213,51 @@ button{
     font-weight: bold;
     box-shadow: 0 0.2rem 0.5rem #2B2B68;
     }
+    
+  .data-cvv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .retirada{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .devolucao{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 1rem;
+    align-items: end;
+    }
+
+
 
     .salvar-cartao{
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
         font-weight: bold;
-        height: 2rem;
+        height: 1.5rem;
+    }
+
+    .input-save{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1rem;
+        align-items: flex-start;
+        width: 20%;    
     }
 
     .botao-back{
