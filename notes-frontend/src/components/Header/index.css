@@ -123,6 +123,7 @@ span {
     text-decoration: none;
     display: inline-block;
     vertical-align: middle;
+    color: black;
 }
 
 .user-name {

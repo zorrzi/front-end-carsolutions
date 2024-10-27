@@ -185,6 +185,23 @@ button{
     box-shadow: 0 0.2rem 0.5rem #2B2B68;
     }
 
+    .salvar-cartao{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        font-weight: bold;
+        height: 2rem;
+    }
+
+    .botao-back{
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        font-size: 1rem;
+        color: #2B2B68;
+    }
+
 @media (max-width: 1258px){
     .anuncio-carro{
         display: flex;

@@ -1,8 +1,11 @@
+// components/InformacoesCarro.jsx
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './index.css';
 import BotaoFavoritos from '../BotaoFavoritos';
+import BotaoVoltar from '../BotaoVoltar/';
 
 export default function InformacoesCarro() {
   const { id } = useParams();
@@ -101,10 +104,6 @@ export default function InformacoesCarro() {
   const handleRentCar = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    const rentalDays = (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24);
-    const totalPrice = rentalDays * car.rental_price;
-    const partialPayment = totalPrice / 2;
-
     const data = selectedCard
       ? {
           carro_id: car.id,
@@ -166,84 +165,93 @@ export default function InformacoesCarro() {
         )}
 
         {activeForm === 'visita' && (
-          <form className='form-agendamento' onSubmit={handleScheduleVisit}>
-            <label>Data da Visita:</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-            <label>Horário da Visita:</label>
-            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
-            <button type="submit" className='botao-venda'>Confirmar Visita</button>
-            {errorMessage && <p className="erro">{errorMessage}</p>}
-          </form>
+          <>
+            <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+            <form className='form-agendamento' onSubmit={handleScheduleVisit}>
+              <label>Data da Visita:</label>
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+              <label>Horário da Visita:</label>
+              <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
+              <button type="submit" className='botao-venda'>Confirmar Visita</button>
+              {errorMessage && <p className="erro">{errorMessage}</p>}
+            </form>
+          </>
         )}
 
         {activeForm === 'reserva' && (
-          <form className='form-agendamento' onSubmit={handleReserveVehicle}>
-            <label>Escolha um Cartão Salvo:</label>
-            <select onChange={(e) => setSelectedCard(e.target.value)}>
-              <option value="">Selecione um cartão</option>
-              {creditCards.map(card => (
-                <option value={card.id} key={card.id}>
-                  {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
-                </option>
-              ))}
-            </select>
+          <>
+            <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+            <form className='form-agendamento' onSubmit={handleReserveVehicle}>
+              <label>Escolha um Cartão Salvo:</label>
+              <select onChange={(e) => setSelectedCard(e.target.value)}>
+                <option value="">Selecione um cartão</option>
+                {creditCards.map(card => (
+                  <option value={card.id} key={card.id}>
+                    {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
+                  </option>
+                ))}
+              </select>
 
-            {!selectedCard && (
-              <>
-                <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
-                <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
-                <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
-                <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
-                <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
-                <label>
-                  <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
-                  Salvar cartão para futuras transações
-                </label>
-              </>
-            )}
-            <button type="submit" className='botao-venda'>Confirmar Reserva</button>
-            {errorMessage && <p className="erro">{errorMessage}</p>}
-          </form>
+              {!selectedCard && (
+                <>
+                  <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
+                  <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
+                  <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
+                  <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                  <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                  <label className='salvar-cartao'>
+                    <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
+                    Salvar cartão para futuras transações
+                  </label>
+                </>
+              )}
+              <button type="submit" className='botao-venda'>Confirmar Reserva</button>
+              {errorMessage && <p className="erro">{errorMessage}</p>}
+            </form>
+          </>
         )}
 
         {activeForm === 'aluguel' && (
-          <form className='form-agendamento' onSubmit={handleRentCar}>
-            <label>Data de Retirada:</label>
-            <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
-            <label>Horário de Retirada:</label>
-            <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
+          <>
+            <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+            <form className='form-agendamento' onSubmit={handleRentCar}>
+              <label>Data de Retirada:</label>
+              <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} required />
+              <label>Horário de Retirada:</label>
+              <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
 
-            <label>Data de Devolução:</label>
-            <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} required />
-            <label>Horário de Devolução:</label>
-            <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
+              <label>Data de Devolução:</label>
+              <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} required />
+              <label>Horário de Devolução:</label>
+              <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
 
-            <label>Escolha um Cartão Salvo:</label>
-            <select onChange={(e) => setSelectedCard(e.target.value)}>
-              <option value="">Selecione um cartão</option>
-              {creditCards.map(card => (
-                <option value={card.id} key={card.id}>
-                  {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
-                </option>
-              ))}
-            </select>
+              <label>Escolha um Cartão Salvo:</label>
+              <select onChange={(e) => setSelectedCard(e.target.value)}>
+                <option value="">Selecione um cartão</option>
+                {creditCards.map(card => (
+                  <option value={card.id} key={card.id}>
+                    {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
+                  </option>
+                ))}
+              </select>
 
-            {!selectedCard && (
-              <>
-                <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
-                <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
-                <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
-                <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
-                <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
-                <label>
-                  <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
-                  Salvar cartão para futuras transações
-                </label>
-              </>
-            )}
-            <button type="submit" className='botao-aluguel'>Confirmar Reserva de Aluguel</button>
-            {errorMessage && <p className="erro">{errorMessage}</p>}
-          </form>
+              {!selectedCard && (
+                <>
+                  <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
+                  <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
+                  <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
+                  <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                  <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                  <label className='salvar-cartao'>
+                    <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
+                    Salvar cartão para futuras transações
+                  </label>
+                </>
+              )}
+              <button type="submit" className='botao-aluguel'>Confirmar Reserva de Aluguel</button>
+              {errorMessage && <p className="erro">{errorMessage}</p>}
+            </form>
+          </>
         )}
       </div>
     </div>
