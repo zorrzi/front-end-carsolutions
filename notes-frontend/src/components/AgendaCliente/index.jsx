@@ -14,12 +14,7 @@ export default function AgendamentoCliente() {
       },
     })
     .then(response => {
-      // Ordena os agendamentos: visitas, depois alugueis, depois reservas
-      const sortedAgendamentos = response.data.sort((a, b) => {
-        const order = ['visita', 'aluguel', 'reserva'];
-        return order.indexOf(a.tipo) - order.indexOf(b.tipo);
-      });
-      setAgendamentos(sortedAgendamentos);
+      setAgendamentos(response.data);
     })
     .catch(error => {
       console.error('Erro ao buscar agendamentos:', error);
@@ -59,77 +54,116 @@ export default function AgendamentoCliente() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
+  const visitas = agendamentos.filter(agendamento => agendamento.tipo === 'visita');
+  const reservas = agendamentos.filter(agendamento => agendamento.tipo === 'reserva');
+  const alugueis = agendamentos.filter(agendamento => agendamento.tipo === 'aluguel');
+
   return (
     <div className="lista-agendamentos-container">
-        <h2 className="titulo-agendamentos">Lista de Agendamentos</h2>
-        <table className="tabela-agendamentos">
-            <thead>
-                <tr>
-                    <th>Carro</th>
-                    <th>Operação</th>
-                    <th>Data da Retirada</th>
-                    <th>Horário da Retirada</th>
-                    <th>Data da Devolução</th>
-                    <th>Horário da Devolução</th>
-                    <th>Data da Visita</th>
-                    <th>Horário da Visita</th>
-                    <th>Data Expiração (Reserva)</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {agendamentos.length > 0 ? (
-                    agendamentos.map((agendamento, index) => (
-                        <tr key={index}>
-                            <td>{agendamento.carro}</td>
-                            <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
-                            <td>
-                              {agendamento.tipo === 'reserva' 
-                                ? formatarData(agendamento.data) 
-                                : formatarData(agendamento.data_retirada)}
-                            </td>
-                            <td>
-                              {agendamento.tipo === 'reserva' 
-                                ? formatarHorario(agendamento.horario) 
-                                : formatarHorario(agendamento.horario_retirada)}
-                            </td>
-                            <td>
-                              {agendamento.tipo === 'aluguel' 
-                                ? formatarData(agendamento.data_devolucao) 
-                                : ''}
-                            </td>
-                            <td>
-                              {agendamento.tipo === 'aluguel' 
-                                ? formatarHorario(agendamento.horario_devolucao) 
-                                : ''}
-                            </td>
-                            <td>
-                              {agendamento.tipo === 'visita' 
-                                ? formatarData(agendamento.data) 
-                                : ''}
-                            </td>
-                            <td>
-                              {agendamento.tipo === 'visita' 
-                                ? formatarHorario(agendamento.horario) 
-                                : ''}
-                            </td>
-                            <td>
-                              {agendamento.tipo === 'reserva' 
-                                ? formatarData(agendamento.data_expiracao) 
-                                : ''}
-                            </td>
-                            <td className={getStatusClass(agendamento.status)}>
-                              {capitalizeFirstLetter(agendamento.status)}
-                            </td>
-                        </tr>
-                    ))
-                ) : (
-                    <tr>
-                        <td colSpan="10">Nenhum agendamento encontrado</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>
+      <h2 className="titulo-agendamentos">Lista de Agendamentos</h2>
+
+      {/* Tabela de Visitas */}
+      <h3 className='titulo-lista1'>Lista de Visitas</h3>
+      <table className="tabela-agendamentos">
+        <thead>
+          <tr>
+            <th>Carro</th>
+            <th>Operação</th>
+            <th>Data da Visita</th>
+            <th>Horário da Visita</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {visitas.length > 0 ? (
+            visitas.map((agendamento, index) => (
+              <tr key={index}>
+                <td>{agendamento.carro}</td>
+                <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
+                <td>{formatarData(agendamento.data)}</td>
+                <td>{formatarHorario(agendamento.horario)}</td>
+                <td className={getStatusClass(agendamento.status)}>
+                  {capitalizeFirstLetter(agendamento.status)}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">Nenhuma visita encontrada</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      {/* Tabela de Compras/Reservas */}
+      <h3 className='titulo-lista'>Lista de Compras</h3>
+      <table className="tabela-agendamentos">
+        <thead>
+          <tr>
+            <th>Carro</th>
+            <th>Operação</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reservas.length > 0 ? (
+            reservas.map((agendamento, index) => (
+              <tr key={index}>
+                <td>{agendamento.carro}</td>
+                <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
+                <td>{formatarData(agendamento.data)}</td>
+                <td>{formatarHorario(agendamento.horario)}</td>
+                <td className={getStatusClass(agendamento.status)}>
+                  {capitalizeFirstLetter(agendamento.status)}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">Nenhuma compra/reserva encontrada</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      {/* Tabela de Aluguéis */}
+      <h3 className='titulo-lista'>Lista de Aluguéis</h3>
+      <table className="tabela-agendamentos">
+        <thead>
+          <tr>
+            <th>Carro</th>
+            <th>Operação</th>
+            <th>Data da Retirada</th>
+            <th>Horário da Retirada</th>
+            <th>Data da Devolução</th>
+            <th>Horário da Devolução</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {alugueis.length > 0 ? (
+            alugueis.map((agendamento, index) => (
+              <tr key={index}>
+                <td>{agendamento.carro}</td>
+                <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
+                <td>{formatarData(agendamento.data_retirada)}</td>
+                <td>{formatarHorario(agendamento.horario_retirada)}</td>
+                <td>{formatarData(agendamento.data_devolucao)}</td>
+                <td>{formatarHorario(agendamento.horario_devolucao)}</td>
+                <td className={getStatusClass(agendamento.status)}>
+                  {capitalizeFirstLetter(agendamento.status)}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7">Nenhum aluguel encontrado</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
