@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import FundoInicial from "../../components/FundoInicial";
 import Formulario from "../../components/Formulario";
 import Footer from "../../components/Footer";
-import CatalogoCarrosCliente from "../../components/CatalogoCarrosCliente";
+import Destaques from "../../components/Destaques";
 import BotaoChat from "../../components/BotaoChat";
 import ChatCliente from "../../components/ChatCliente";
 import { useState } from "react";
@@ -20,7 +20,7 @@ function App() {
       </div>
       <h1 className="destaques">Destaques</h1>
       <div className="carros-container">
-        <CatalogoCarrosCliente />
+        <Destaques />
       </div>
 
       
