@@ -9,9 +9,9 @@ export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
   const [chat, setChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState('');
-  const token = localStorage.getItem('token');
-
+  
   useEffect(() => {
+    const token = localStorage.getItem('token');
     if (isChatOpen && token) {
       axios.get('http://127.0.0.1:8000/chat/cliente/', {
         headers: {
@@ -37,6 +37,7 @@ export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
 
   // Função para recarregar as mensagens do chat
   const loadMessages = (chatId) => {
+    const token = localStorage.getItem('token');
     axios.get(`http://127.0.0.1:8000/chat/cliente/${chatId}/`, {
       headers: {
         'Authorization': `Token ${token}`
@@ -52,6 +53,7 @@ export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
 
   // Função para iniciar o chat
   const iniciarChat = () => {
+    const token = localStorage.getItem('token');
     axios.post('http://127.0.0.1:8000/chat/iniciar/', {}, {
       headers: {
         'Authorization': `Token ${token}`

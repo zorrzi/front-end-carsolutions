@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './MessageInput.css';
 
-const token = localStorage.getItem('token');
 
 export default function MessageInput({ chatId, isEmployee, onMessageSent }) {
   const [message, setMessage] = useState('');
-
+  
   const handleSendMessage = (event) => {
+    const token = localStorage.getItem('token');
     event.preventDefault();
     axios.post(`http://127.0.0.1:8000/chat/send/${chatId}/`, 
       { 
