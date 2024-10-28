@@ -65,6 +65,10 @@ export default function LoginCliente() {
           Entrar
         </button>
 
+        <div className="forgot-password">
+          <Link to={"/esqueciMinhaSenha"}>Esqueci minha senha</Link>
+        </div>
+
         <div className="signup-link">
           <p>Não tem uma conta?</p>
           <Link to={"/signupCliente"}>Crie a sua</Link>

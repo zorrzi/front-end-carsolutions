@@ -19,8 +19,9 @@ import CarrosFavoritos from './Pages/CarrosFavoritos/CarrosFavoritos.jsx';
 import ResultadosBusca from './Pages/ResultadoBusca/ResultadoBusca.jsx';
 import AgendamentoCliente from './Pages/AgendamentosCliente/AgendamentosCliente.jsx';
 import AgendamentosFuncionario from './Pages/AgendamentosFuncionario/AgendamentosFuncionario.jsx';
-import CarrosCompra from './Pages/CarrosCompra/CarrosCompra.jsx';
-import CarrosAluguel from './Pages/CarrosAluguel/CarrosAluguel.jsx';
+import CarrosDisponiveis from './Pages/CarrosDisponiveis/CarrosDisponiveis.jsx';
+import SobreNos from './Pages/SobreNos/SobreNos.jsx';
+import EsqueciMinhaSenha from './Pages/EsqueciMinhaSenha/EsqueciMinhaSenha.jsx';
 
 const router = createBrowserRouter([
   {
@@ -86,14 +87,20 @@ const router = createBrowserRouter([
     element: <AgendamentosFuncionario />,
   },
 
+
   {
-    path: "/carrosCompra",
-    element: <CarrosCompra />,
+    path: "/carrosDisponiveis",
+    element: <CarrosDisponiveis />,
   },
 
   {
-    path: "/carrosAluguel",
-    element: <CarrosAluguel />,
+    path: "/sobreNos",
+    element: <SobreNos />,
+  },
+
+  {
+    path: "/esqueciMinhaSenha",
+    element: <EsqueciMinhaSenha/>,
   },
 
 

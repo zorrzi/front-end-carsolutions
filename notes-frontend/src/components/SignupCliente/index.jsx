@@ -64,7 +64,7 @@ export default function SignupCliente() {
           <input
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder="Nome de usuário"
             value={formData.username}
             onChange={handleChange}
             required
