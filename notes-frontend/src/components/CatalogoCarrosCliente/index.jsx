@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import debounce from 'lodash.debounce';
 import CarroCliente from '../CarroCliente';
 import './index.css';
 
@@ -22,6 +21,7 @@ export default function CatalogoCarrosCliente() {
 
   const [cars, setCars] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
+  const [appliedFilters, setAppliedFilters] = useState(initialFilters); // Armazena filtros aplicados
 
   // Salvar mudanças no localStorage e atualizar o estado de filtros
   const handleFilterChange = (e) => {
@@ -39,39 +39,66 @@ export default function CatalogoCarrosCliente() {
     }));
   };
 
-  // Função para buscar carros, ignorando filtros de preço de aluguel ou venda se não estiverem habilitados
-  const fetchCars = useCallback(
-    debounce(() => {
-      const query = Object.keys(filters)
-        .filter((key) => {
-          // Ignora os filtros de preço de aluguel se a checkbox de aluguel não estiver marcada
-          if (!filters.isForRent && (key === 'minRentPrice' || key === 'maxRentPrice')) return false;
-          // Ignora os filtros de preço de venda se a checkbox de venda não estiver marcada
-          if (!filters.isForSale && (key === 'minSalePrice' || key === 'maxSalePrice')) return false;
-          return true;
-        })
-        .map((key) => `${key}=${filters[key]}`)
-        .join('&');
-        
-      axios.get(`http://127.0.0.1:8000/cars/catalogo/?${query}`)
-        .then(response => {
-          setCars(response.data);
-        })
-        .catch(error => {
-          console.error('Erro ao buscar os carros:', error);
-        });
-    }, 300), // 300 ms debounce
-    [filters]
-  );
+  // Função para buscar carros com base nos filtros aplicados
+  const fetchCars = useCallback(() => {
+    const query = Object.keys(appliedFilters)
+      .filter((key) => {
+        // Ignora os filtros de preço de aluguel se a checkbox de aluguel não estiver marcada
+        if (!appliedFilters.isForRent && (key === 'minRentPrice' || key === 'maxRentPrice')) return false;
+        // Ignora os filtros de preço de venda se a checkbox de venda não estiver marcada
+        if (!appliedFilters.isForSale && (key === 'minSalePrice' || key === 'maxSalePrice')) return false;
+        return true;
+      })
+      .map((key) => `${key}=${appliedFilters[key]}`)
+      .join('&');
+      
+    axios.get(`http://127.0.0.1:8000/cars/catalogo/?${query}`)
+      .then(response => {
+        setCars(response.data);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar os carros:', error);
+      });
+  }, [appliedFilters]);
 
   useEffect(() => {
     fetchCars();
-    return fetchCars.cancel; // Cancel debounce no cleanup
-  }, [filters, fetchCars]);
+  }, [fetchCars]);
+
+  // Função para aplicar os filtros quando o botão "Filtrar" é pressionado
+  const applyFilters = () => {
+    setAppliedFilters(filters);
+  };
 
   return (
     <div className='dividir'>
       <div className="filters-container">
+        {/* Filtros de Marca, Modelo e Ano no topo */}
+        <label>Marca</label>
+        <input
+          type="text"
+          name="brand"
+          value={filters.brand}
+          onChange={handleFilterChange}
+        />
+
+        <label>Modelo</label>
+        <input
+          type="text"
+          name="model"
+          value={filters.model}
+          onChange={handleFilterChange}
+        />
+
+        <label>Ano</label>
+        <input
+          type="text"
+          name="year"
+          value={filters.year}
+          onChange={handleFilterChange}
+        />
+
+        {/* Checkboxes para Disponibilidade */}
         <label>
           <input
             type="checkbox"
@@ -91,6 +118,7 @@ export default function CatalogoCarrosCliente() {
           Disponível para Aluguel
         </label>
   
+        {/* Faixa de Preço para Aluguel */}
         <label>Faixa de Preço para Aluguel: {filters.minRentPrice} - {filters.maxRentPrice}</label>
         <input
           type="range"
@@ -111,7 +139,9 @@ export default function CatalogoCarrosCliente() {
           disabled={!filters.isForRent} // Desabilita o slider se "Disponível para Aluguel" não estiver marcado
         />
   
+        {/* Faixa de Preço para Venda */}
         <label>Faixa de Preço para Venda: {filters.minSalePrice} - {filters.maxSalePrice}</label>
+        
         <input
           type="range"
           name="minSalePrice"
@@ -131,6 +161,7 @@ export default function CatalogoCarrosCliente() {
           disabled={!filters.isForSale} // Desabilita o slider se "Disponível para Venda" não estiver marcado
         />
   
+        {/* Faixa de Quilometragem */}
         <label>Faixa de Quilometragem: {filters.minMileage} - {filters.maxMileage}</label>
         <input
           type="range"
@@ -148,30 +179,9 @@ export default function CatalogoCarrosCliente() {
           value={filters.maxMileage}
           onChange={handleFilterChange}
         />
-  
-        <label>Marca</label>
-        <input
-          type="text"
-          name="brand"
-          value={filters.brand}
-          onChange={handleFilterChange}
-        />
-  
-        <label>Modelo</label>
-        <input
-          type="text"
-          name="model"
-          value={filters.model}
-          onChange={handleFilterChange}
-        />
-  
-        <label>Ano</label>
-        <input
-          type="text"
-          name="year"
-          value={filters.year}
-          onChange={handleFilterChange}
-        />
+        
+        {/* Botão para aplicar filtros */}
+        <button className='filtrar-btn' onClick={applyFilters}>Filtrar</button>
       </div>
   
       <div className="catalogo-carros">

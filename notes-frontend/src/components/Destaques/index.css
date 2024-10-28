@@ -1,0 +1,25 @@
+
+  /* Configuração para o catálogo de carros à direita da caixa de filtros */
+  .catalogo-carros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espaçamento entre os cards */
+    flex-grow: 1; /* Expande para ocupar o espaço restante */
+    justify-content: flex-start; /* Alinha os cards à esquerda */
+  }
+  
+  /* Estilos para os cards individuais */
+  .card-carro {
+    width: 300px; /* Define uma largura fixa para o card */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+
