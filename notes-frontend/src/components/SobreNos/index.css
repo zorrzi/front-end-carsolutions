@@ -1,0 +1,409 @@
+/* index.css */
+
+/* Estilos Globais */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.sobre-nos-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Banner de Introdução */
+.banner-introducao {
+  background-image: url('/path/to/banner-image.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-align: center;
+  padding: 150px 20px;
+  position: relative;
+}
+
+.banner-introducao::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3D348B;
+}
+
+.titulo-banner {
+  font-size: 3em;
+  color: #f0f0f0;
+  font-weight: bold;
+  margin: 0;
+  z-index: 1;
+  position: relative;
+  animation: slideInLeft 1s forwards;
+}
+
+.slogan {
+  font-size: 1.5em;
+  margin-top: 10px;
+  z-index: 1;
+  position: relative;
+  animation: slideInRight 1s forwards 0.5s;
+}
+
+.subtitulo-banner {
+  font-size: 1.2em;
+  margin-top: 20px;
+  z-index: 1;
+  position: relative;
+  animation: fadeIn 1s forwards 1s;
+}
+
+/* Títulos de Seção */
+.titulo-secao {
+  font-size: 2.5em;
+  text-align: center;
+  margin: 60px 0 40px;
+  position: relative;
+  color: #333;
+}
+
+.titulo-secao::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #373774;
+  margin: 20px auto 0;
+}
+
+/* Linha do Tempo */
+.linha-do-tempo {
+  background-color: #fff;
+  padding: 60px 20px;
+  position: relative;
+}
+
+.timeline-container {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #373774;
+}
+
+.timeline-events {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+
+.timeline-item {
+  position: relative;
+  width: 150px;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.6s ease-out;
+  margin-top: 60px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 4px solid #373774;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.item-visible {
+  opacity: 1;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.timeline-content {
+  margin-top: 30px;
+}
+
+.timeline-date {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  background-color: #373774;
+  color: #fff;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.timeline-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.timeline-content h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.timeline-content p {
+  font-size: 0.95em;
+  color: #666;
+}
+
+/* Seções Animadas */
+.animated-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Nossas Inovações */
+.inovacoes {
+  background-color: #f0f0f0;
+  padding: 60px 20px;
+}
+
+.inovacoes-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.inovacao-card {
+  background-color: #fff;
+  width: 250px;
+  padding: 30px 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.inovacao-card.inovacao-visible {
+  opacity: 1;
+  animation: flipInX 0.6s forwards;
+}
+
+.inovacao-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.inovacao-card h3 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+}
+
+.inovacao-card p {
+  font-size: 0.95em;
+  color: #666;
+}
+
+/* Nossos Próximos Passos */
+.metas-futuras {
+  background-color: #fff;
+  padding: 60px 20px;
+}
+
+.metas-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.meta-card {
+  background-color: #f9f9f9;
+  width: 250px;
+  padding: 30px 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.meta-card.meta-visible {
+  opacity: 1;
+  animation: slideInUp 0.6s forwards;
+}
+
+.meta-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.meta-card .card-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.meta-card h3 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+}
+
+.meta-card p {
+  font-size: 0.95em;
+  color: #666;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .titulo-banner {
+    font-size: 2.5em;
+  }
+
+  .slogan {
+    font-size: 1.2em;
+  }
+
+  .subtitulo-banner {
+    font-size: 1em;
+  }
+
+  .timeline-container {
+    width: 100%;
+  }
+
+  .timeline-events {
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    margin-left: 70px; /* Espaço para a linha vertical */
+  }
+
+  .timeline-line {
+    width: 4px;
+    height: 100%;
+    left: -3px; /* Posição da linha vertical */
+    top: 0;
+    background-color: #373774;
+  }
+
+  .timeline-item {
+    width: auto;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    left: -58px; /* Alinha o ponto com a linha vertical */
+    top: 10px;
+  }
+
+  .timeline-content {
+    margin-top: 0;
+  }
+}
+
+/* Animações */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotateX(-10deg);
+  }
+
+  70% {
+    transform: perspective(400px) rotateX(10deg);
+  }
+
+  100% {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
