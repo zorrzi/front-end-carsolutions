@@ -67,3 +67,21 @@
   display: flex;
   align-items: start;
 }
+
+
+.filtrar-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #3d348b;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  max-width: 150px;
+  align-self: center;
+}
+
+.filtrar-btn:hover {
+  background-color: #2e2670;
+}
