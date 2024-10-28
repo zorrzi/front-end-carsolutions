@@ -1,11 +1,69 @@
-.catalogo-carros {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
-    justify-content: flex-start; /* Alinha os itens no início (pode ser alterado para 'center', se preferir) */
-    gap: 2.5rem; /* Espaçamento entre os cards */
-    padding: 1rem;
-  }
+/* Configuração básica para o layout da página */
+.formulario-aluguel {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+}
 
+/* Caixa de filtros localizada à esquerda */
+.filters-container {
+  width: 250px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-right: 20px;
+  flex-shrink: 0; /* Impede a redução da largura dos filtros */
+}
+
+/* Configuração para o catálogo de carros à direita da caixa de filtros */
+.catalogo-carros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre os cards */
+  flex-grow: 1; /* Expande para ocupar o espaço restante */
+  justify-content: flex-start; /* Alinha os cards à esquerda */
+}
+
+/* Estilos para os cards individuais */
 .card-carro {
-  margin-right: 5rem;
-  }
+  width: 300px; /* Define uma largura fixa para o card */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Espaçamento e organização dos elementos de filtro */
+.filters-container label {
+  display: block;
+  font-weight: bold;
+  margin: 15px 0 5px;
+}
+
+.filters-container input[type="range"] {
+  width: 100%;
+}
+
+.filters-container input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.filters-container input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.dividir {
+  display: flex;
+  align-items: start;
+}

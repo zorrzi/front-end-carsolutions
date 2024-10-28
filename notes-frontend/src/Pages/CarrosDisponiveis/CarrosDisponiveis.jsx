@@ -1,18 +1,20 @@
-import "./CarrosAluguel.css";
+import "./CarrosDisponiveis.css";
 
 import React from 'react';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import FundoIncial from "../../components/FundoInicial";
-import CatalogoAluguelCliente from "../../components/CatalogoAluguelCliente";
+import CatalogoCarrosCliente from "../../components/CatalogoCarrosCliente";
 
-function CarrosAluguel() {
+function CarrosDisponiveis() {
   return (
     <>
     <Header />
     <FundoIncial />
     <h1 className="destaques">Carros Disponíveis para Aluguel</h1>
-    <CatalogoAluguelCliente />
+    <div className="formulario-aluguel">
+    <CatalogoCarrosCliente />
+    </div>
 
     <Footer />
     
@@ -21,4 +23,4 @@ function CarrosAluguel() {
   );
 }
 
-export default CarrosAluguel;
+export default CarrosDisponiveis;

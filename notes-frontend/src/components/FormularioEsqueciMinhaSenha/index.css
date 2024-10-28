@@ -94,6 +94,16 @@ input {
   text-decoration: underline;
 }
 
+.back-to-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #0000ee;
+    text-decoration: none;
+}
+
 
 /* Responsividade para dispositivos menores */
 @media (max-width: 768px) {

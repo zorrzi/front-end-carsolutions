@@ -1,0 +1,8 @@
+.image-container {
+    position: relative; /* Faz o contêiner ser o ponto de referência para o formulário */
+    width: 100%;
+  }
+
+.espaco{
+    margin-top: 20rem;
+}
