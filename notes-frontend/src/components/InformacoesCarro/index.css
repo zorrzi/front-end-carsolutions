@@ -173,10 +173,10 @@ button{
   
   .info-aluguel{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap:0.05rem;
     margin: 1rem;
     text-align: center;
     background-color: rgb(220, 221, 221);
@@ -189,8 +189,39 @@ button{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    font-weight: bold;
     align-items: center;
     gap: 1rem;
+    margin: 0.2rem;
+    text-align: center;
+    background-color: rgb(220, 221, 221);
+    padding: 0.2rem;
+    border-radius: 1rem;
+
+  }
+
+  .preco-total-aluguel1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    align-items: center;
+    gap: 0.05rem;
+    margin: 0.2rem;
+    text-align: center;
+    background-color: rgb(220, 221, 221);
+    padding: 0.2rem;
+    border-radius: 1rem;
+
+  }
+
+
+  .preco-total-venda{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.05rem;
     margin: 0.2rem;
     text-align: center;
     background-color: rgb(220, 221, 221);
@@ -199,6 +230,11 @@ button{
 
   }
 
+
+  .preco-venda1{
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
 
   .botao-retornar{
     width: 100%;

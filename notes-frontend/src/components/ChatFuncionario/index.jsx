@@ -5,7 +5,6 @@ import axios from 'axios';
 import MessageInput from "../MessageInput/MessageInput";
 import './index.css';
 
-const token = localStorage.getItem('token');
 
 export default function ChatFuncionario() {
   const [chats, setChats] = useState([]); // Lista de todos os chats
@@ -16,6 +15,8 @@ export default function ChatFuncionario() {
 
   // Carrega todos os chats ao montar o componente
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     axios.get('http://127.0.0.1:8000/chat/funcionario/', {
       headers: {
         'Authorization': `Token ${token}`
@@ -40,6 +41,7 @@ export default function ChatFuncionario() {
 
   // Carrega as mensagens do chat selecionado
   const loadMessages = (chatId) => {
+    const token = localStorage.getItem('token');
     axios.get(`http://127.0.0.1:8000/chat/cliente/${chatId}/`, {
       headers: {
         'Authorization': `Token ${token}`

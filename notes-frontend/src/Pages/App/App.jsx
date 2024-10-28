@@ -7,6 +7,7 @@ import CatalogoCarrosCliente from "../../components/CatalogoCarrosCliente";
 import BotaoChat from "../../components/BotaoChat";
 import ChatCliente from "../../components/ChatCliente";
 import { useState } from "react";
+import ComoFunciona from "../../components/ComoFunciona";
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false); // Define o estado para abrir/fechar o chat
@@ -21,6 +22,7 @@ function App() {
       <div className="carros-container">
         <CatalogoCarrosCliente />
       </div>
+
       
       <div>
       <BotaoChat setIsChatOpen={setIsChatOpen} /> {/* Passa setIsChatOpen como prop */}

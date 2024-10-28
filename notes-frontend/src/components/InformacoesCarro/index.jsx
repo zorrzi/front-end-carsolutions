@@ -181,6 +181,10 @@ export default function InformacoesCarro() {
         {activeForm === 'reserva' && (
           <>
             <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+            <div className='preco-total-venda'>
+                <p className='preco-venda1'>Preco da reserva: R$ 1.000,00</p>
+                <p>(Valor a ser descontado no momento da compra)</p>
+              </div>
             <form className='form-agendamento' onSubmit={handleReserveVehicle}>
               <label>Escolha um Cartão Salvo:</label>
               <select onChange={(e) => setSelectedCard(e.target.value)}>
@@ -197,14 +201,17 @@ export default function InformacoesCarro() {
                   <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
                   <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
                   <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
-                  <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
-                  <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                  <div className='data-cvv'>
+                    <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                    <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                  </div>
                   <label className='salvar-cartao'>
                     <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
                     Salvar cartão para futuras transações
                   </label>
                 </>
               )}
+
               <button type="submit" className='botao-venda'>Confirmar Reserva</button>
               {errorMessage && <p className="erro">{errorMessage}</p>}
             </form>
@@ -213,7 +220,10 @@ export default function InformacoesCarro() {
 
         {activeForm === 'aluguel' && (
           <>
-            <p className='info-aluguel'>Escolha a data e hora tanto para retirada quanto devolução do veículo</p>
+            <div className='info-aluguel'>
+              <p>Escolha a data e hora tanto para retirada quanto devolução do veículo</p>
+              <p>50% do preço total pago antecipadamente</p>
+            </div>
             <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
             <form className='form-agendamento' onSubmit={handleRentCar}>
               <div className='retirada'>
@@ -263,9 +273,12 @@ export default function InformacoesCarro() {
                   </label>
                 </>
               )}
-
+              <div className='preco-total-aluguel1'>
               <p className='preco-total-aluguel'>Preco total do aluguel: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
+              <p className='preco-total-aluguel'>Preco da reserva: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 *2 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </p>
+              </div>
               <button type="submit" className='botao-aluguel'>Confirmar Reserva de Aluguel</button>
               {errorMessage && <p className="erro">{errorMessage}</p>}
             </form>
