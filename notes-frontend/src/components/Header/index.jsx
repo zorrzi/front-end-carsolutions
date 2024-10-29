@@ -9,20 +9,20 @@ export default function Header() {
   const [showLoginChoice, setShowLoginChoice] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
-  
-  const loginButtonRef = useRef(null);
-  const loginChoiceRef = useRef(null);
+
+  const loginButtonRef = useRef(null); // Referência para o botão "Entrar"
+  const loginChoiceRef = useRef(null); // Referência para o card de escolha de login
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem('username');
+    const loggedInUser = localStorage.getItem("username");
     if (loggedInUser) {
       setUsername(loggedInUser);
     }
   }, []);
 
   const handleLogout = () => {
-    const token = localStorage.getItem('token');
-    
+    const token = localStorage.getItem("token");
+
     if (!token) {
       console.error("Usuário não está autenticado.");
       return;
@@ -34,16 +34,17 @@ export default function Header() {
       },
     };
 
-    axios.post('http://localhost:8000/logout/', {}, config)
-      .then(response => {
-        localStorage.removeItem('username');
-        localStorage.removeItem('token');
+    axios
+      .post("http://localhost:8000/logout/", {}, config)
+      .then((response) => {
+        localStorage.removeItem("username");
+        localStorage.removeItem("token");
         setUsername(null);
         setShowDropdown(false);
-        navigate('/');
+        navigate("/");
       })
-      .catch(error => {
-        console.error('Erro ao fazer logout:', error.response?.data || error.message);
+      .catch((error) => {
+        console.error("Erro ao fazer logout:", error.response?.data || error.message);
       });
   };
 
@@ -55,49 +56,40 @@ export default function Header() {
     setShowLoginChoice(!showLoginChoice);
   };
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
   useEffect(() => {
     const adjustPosition = () => {
       if (showLoginChoice && loginButtonRef.current && loginChoiceRef.current) {
         const buttonRect = loginButtonRef.current.getBoundingClientRect();
         const scrollOffset = window.scrollY;
 
-        if (window.innerWidth <= 768) {
-          loginChoiceRef.current.style.top = `${buttonRect.bottom + scrollOffset + 10}px`;
-          loginChoiceRef.current.style.left = `50%`;
-          loginChoiceRef.current.style.transform = `translateX(-50%)`;
-        } else {
-          loginChoiceRef.current.style.top = `${buttonRect.bottom + scrollOffset + 10}px`;
-          loginChoiceRef.current.style.left = `${buttonRect.left - 20}px`;
-          loginChoiceRef.current.style.transform = `none`;
-        }
+        loginChoiceRef.current.style.top = `${buttonRect.bottom + scrollOffset + 8}px`;
+        loginChoiceRef.current.style.left = `${buttonRect.left}px`;
       }
     };
 
     adjustPosition();
-    window.addEventListener('resize', adjustPosition);
+    window.addEventListener("resize", adjustPosition);
 
-    return () => window.removeEventListener('resize', adjustPosition);
+    return () => window.removeEventListener("resize", adjustPosition);
   }, [showLoginChoice]);
 
   return (
     <div className="header">
-      <div className="menu-icon" onClick={toggleMenu}>
-        <img className='menu-icon' src="/menu-aberto.png" alt="Menu" />
+      <div className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
+        <img className="menu-icon" src="/menu-aberto.png" alt="Menu" />
       </div>
       <Link to="/">
         <img className="logo" src="/logo.png" alt="Logo" />
       </Link>
       <div className={`info ${showMenu ? "show" : ""}`}>
-        <Link className='link' to="/carrosDisponiveis">
+        <Link className="link" to="/carrosDisponiveis">
           <span className="nav">Carros Disponíveis</span>
         </Link>
+        <p className="divisoria">|</p>
         <Link className="link" to="/sobreNos">
           <span className="nav">Sobre nós</span>
         </Link>
+        <p className="divisoria">|</p>
         <div className="user">
           {username ? (
             <>
@@ -122,10 +114,10 @@ export default function Header() {
               )}
             </>
           ) : (
-            <span 
-              onClick={handleLoginClick} 
+            <span
+              onClick={handleLoginClick}
               className="entrar-btn"
-              ref={loginButtonRef}
+              ref={loginButtonRef} // Referência para o botão "Entrar"
             >
               Entrar
             </span>
@@ -135,10 +127,7 @@ export default function Header() {
       </div>
 
       {showLoginChoice && (
-        <div 
-          ref={loginChoiceRef}
-          className="login-choice-card"
-        >
+        <div ref={loginChoiceRef} className="login-choice-card">
           <Link to="/loginCliente" className="login-overlay">
             <img className="favorites" src="/usuario-login.png" alt="Login Cliente" />
             <span>Cliente</span>
