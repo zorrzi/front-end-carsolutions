@@ -1,17 +1,19 @@
 .image-container {
-    position: relative; /* Faz o contêiner ser o ponto de referência para o formulário */
-    width: 100%;
-  }
-
-.carros-container{
-  flex-wrap: wrap;
-  justify-content: space-around;
-  display: flex;
+  position: relative;
+  width: 100%;
 }
 
-.destaques{
-  font-size: 2.5rem;
+.carros-container {
+  margin-bottom: 6rem;
+}
+
+.destaques {
+  font-size: 3rem;
   margin-top: 4rem;
   margin-left: 6rem;
   font-weight: bold;
+  background: linear-gradient(to right, #373774, #ffffff); /* Gradiente do laranja ao pêssego */
+  color: transparent; /* Necessário para mostrar o gradiente */
+  background-clip: text; /* Aplica o gradiente apenas ao texto */
+  -webkit-background-clip: text; /* Suporte para navegadores baseados em WebKit */
 }
