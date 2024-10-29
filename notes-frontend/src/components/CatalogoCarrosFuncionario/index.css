@@ -13,6 +13,10 @@
   width: 68%;
 }
 
+.carros-container{
+  background-color: #FFFFFF;
+}
+
 /* Contêiner de busca */
 .search-container {
   width: 100%;
