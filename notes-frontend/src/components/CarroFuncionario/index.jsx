@@ -3,15 +3,14 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './index.css';
 
-export default function CarroFuncionario({ car, loadCars }) {
-
+export default function CarroFuncionario({ car, loadCars, isSelected, toggleSelection }) {
   const deleteCar = (event) => {
     event.preventDefault();
 
     axios
       .delete(`http://localhost:8000/cars/${car.id}/`)
       .then(() => {
-        loadCars();  // Recarregar os carros após a exclusão
+        loadCars(); // Recarrega os carros após a exclusão
       })
       .catch((err) => {
         console.error("Erro ao deletar o carro:", err);
@@ -19,7 +18,15 @@ export default function CarroFuncionario({ car, loadCars }) {
   };
 
   return (
-    <div className="card">
+    <div className={`card ${isSelected ? 'selected-card' : ''}`}>
+      {/* Checkbox para seleção em massa */}
+      <input
+        type="checkbox"
+        checked={isSelected}
+        onChange={toggleSelection}
+        className="select-checkbox"
+      />
+
       <div className="nome">
         <p className="card-title">{car.brand}</p>
         <p className="card-subtitle">{car.model}</p>
@@ -34,14 +41,11 @@ export default function CarroFuncionario({ car, loadCars }) {
         {car.is_for_sale && <span className="banner-item">Venda</span>}
       </div>
 
-      {/* Botões de editar e apagar */}
+      {/* Botão de apagar e de editar */}
       <div className="action-buttons">
-        {/* Botão de apagar */}
         <button className="action-button-delete" onClick={deleteCar}>
           <img className='delete-img' src="/apagar.png" alt="Apagar" />
         </button>
-
-        {/* Botão de editar, utilizando Link para redirecionar */}
         <Link to={`/editarCarro/${car.id}`}>
           <button className="action-button-edit">
             <img className='edit-img' src="/editar.png" alt="Editar" />
