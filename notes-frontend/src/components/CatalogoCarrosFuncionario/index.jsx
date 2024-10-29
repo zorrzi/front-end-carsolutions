@@ -67,7 +67,7 @@ export default function CatalogoCarrosFuncionario() {
       </div>
 
       {/* Lista de carros filtrados */}
-      <div className="catalogo-carros">
+      <div className="catalogo-carros-func">
         {filteredCars.length === 0 ? (
           <p>Nenhum carro encontrado</p>
         ) : (

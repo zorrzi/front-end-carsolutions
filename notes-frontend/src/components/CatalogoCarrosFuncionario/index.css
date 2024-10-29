@@ -1,10 +1,11 @@
 /* Contêiner para o catálogo de carros */
-.catalogo-carros {
+.catalogo-carros-func{
   display: flex;
   flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
   justify-content: flex-start; /* Alinha os itens no início */
   gap: 2rem; /* Espaçamento entre os cards */
   padding: 1rem 2rem;
+  margin-top: 1rem;
   width: 100%;
 }
 
@@ -94,7 +95,7 @@
     width: 85%;
   }
 
-  .catalogo-carros {
+  .catalogo-carros-func {
     width: 100%;
   }
 }
@@ -106,12 +107,11 @@
 }
 
 @media (max-width: 768px) {
-  .catalogo-carros {
+  .catalogo-carros-func {
     justify-content: center; /* Alinha os itens no centro */
     max-height: 30rem;
     overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
-    margin: 1rem 1rem;
   }
 }

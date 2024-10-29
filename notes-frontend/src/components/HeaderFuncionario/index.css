@@ -1,86 +1,105 @@
 .header-funcionario {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ccc;
+}
+
+.logo-func {
+  height: 50px;
+}
+
+.menu-funcionario {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.menu-item-func {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.menu-icon-func {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+}
+
+.span-func:hover {
+  color: #373774;
+  cursor: pointer;
+}
+
+.menu-item-logout-btn-func {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.menu-item-logout-btn-func:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.menu-item-func:hover {
+  color: #373774;
+  cursor: pointer;
+}
+
+button {
+  border: none;
+  background-color: white;
+}
+
+/* Ícone de menu toggle, visível apenas em telas menores */
+.menu-toggle-icon {
+  display: none;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* Estilos responsivos para telas menores que 768px */
+@media (max-width: 768px) {
+  .header-funcionario {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
   }
-  
-  .logo {
-    height: 50px;
-  }
-  
+
   .menu-funcionario {
-    display: flex;
-    align-items: center;
-  }
-  
-  .menu-item {
-    display: flex;
-    align-items: center;
-    margin-left: 2rem;
-    text-decoration: none;
-    color: black;
-    font-size: 1.1rem;
-    font-weight: 500;
-  }
-  
-  .menu-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 0.5rem;
-  }
-
-  .menu-item-logout-btn {
-    display: flex;
-    align-items: center;
-    margin-left: 2rem;
-    text-decoration: none;
-    color: black;
-    font-size: 1.1rem;
-    font-weight: 500;
-  }
-  
-  
-  .menu-item-logout-btn:hover {
-    color: red;
-    cursor: pointer;
-  }
-  .menu-item:hover {
-    color: #373774;
-    cursor: pointer;
-  }
-  
-  button{
-    border: none;
-    background-color: white;
-  }
-
-  @media (max-width: 768px) {
-    .header-funcionario {
-      display: flex;
+      display: none; /* Oculta o menu por padrão em telas menores */
       flex-direction: column;
-      align-items: center;  /* Centraliza os itens */
-      padding: 1rem;  /* Reduz o padding para melhorar o layout em telas menores */
-    }
-  
-    .menu-funcionario {
-      display: flex;
-      flex-direction: column;
-      align-items: center;  /* Centraliza os itens */
-    }
-  
-    
-    .menu-item {
-      margin-top: 1rem;
-      margin-left: 0;  /* Remove a margem à esquerda */
-    }
-
-    .menu-item-logout-btn {
-      margin-top: 1rem;
-      margin-left: 0;  /* Remove a margem à esquerda */
-    }
+      align-items: center;
   }
-    
+
+  /* Exibe o menu quando a classe "show" é adicionada */
+  .menu-funcionario.show {
+      display: flex;
+  }
+
+  .menu-toggle-icon {
+      display: block; /* Exibe o ícone de menu toggle em telas menores */
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+  }
+
+  .menu-item-func, .menu-item-logout-btn-func {
+      margin-top: 1rem;
+  }
+}

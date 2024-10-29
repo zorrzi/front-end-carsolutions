@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from '../../utils/axiosConfig';  // Importa o axios personalizado
+import axios from '../../utils/axiosConfig';
 import "./index.css";
 
 export default function HeaderFuncionario() {
   const [username, setUsername] = useState(null);
+  const [showMenu, setShowMenu] = useState(false); // Estado para controlar a visibilidade do menu
   const navigate = useNavigate();
 
   // Carregar o nome do funcionário do localStorage quando o header for montado
@@ -12,59 +13,70 @@ export default function HeaderFuncionario() {
     const storedUsername = localStorage.getItem("username");
     const isFuncionario = localStorage.getItem("isFuncionario");
 
-    // Verifica se o usuário logado é funcionário
     if (storedUsername && isFuncionario === "true") {
       setUsername(storedUsername);
     }
   }, []);
 
-  // Função para fazer logout e limpar o localStorage
   const handleLogout = async () => {
-    const token = localStorage.getItem("token");  // Obtém o token do localStorage
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     try {
       const config = {
         headers: {
-          Authorization: `Token ${token}`,  // Envia o token no cabeçalho
+          Authorization: `Token ${token}`,
         },
       };
 
-      // Requisição para o backend para realizar o logout usando o axios personalizado
       const response = await axios.post("http://localhost:8000/logoutFuncionario/", {}, config);
       
       if (response.status === 200) {
-        // Limpa o localStorage
-        localStorage.removeItem("username");  // Remove o nome do funcionário do localStorage
-        localStorage.removeItem("isFuncionario");  // Remove a flag de funcionário
-        localStorage.removeItem("token");  // Remove o token de autenticação
-        setUsername(null);  // Limpa o estado do nome do funcionário
-        navigate("/");  // Redireciona para a página inicial
+        localStorage.removeItem("username");
+        localStorage.removeItem("isFuncionario");
+        localStorage.removeItem("token");
+        setUsername(null);
+        navigate("/");
       }
     } catch (error) {
       console.error("Erro ao realizar logout:", error);
     }
   };
 
+  // Função para alternar a visibilidade do menu
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
   return (
     <div className="header-funcionario">
-      <img className="logo" src="/logo.png" alt="Logo Car Solutions" />
+      <img className="logo-func" src="/logo.png" alt="Logo Car Solutions" />
 
-      {/* Opções do menu de funcionário */}
-      <div className="menu-funcionario">
-        <Link to="/funcionario" className="menu-item">
-          <img className="menu-icon" src="/funcionario.png" alt="Funcionário" />
-          <span>{username ? username : "Funcionário"}</span>
+      {/* Ícone para abrir o menu em telas menores */}
+      <img
+        className="menu-toggle-icon"
+        src="/menu-aberto.png"
+        alt="Abrir menu"
+        onClick={toggleMenu}
+      />
+
+      {/* Menu do funcionário, visível apenas se showMenu for true em telas menores */}
+      <div className={`menu-funcionario ${showMenu ? "show" : ""}`}>
+        <Link to="/funcionario" className="menu-item-func">
+          <img className="menu-icon-func" src="/funcionario.png" alt="Funcionário" />
+          <span className="span-func">{username ? username : "Funcionário"}</span>
+        </Link>
+        <p className="divisoria">|</p>
+        <Link to="/agendamentosFuncionario" className="menu-item-func">
+          <img className="menu-icon-func" src="/atendimento.png" alt="Atendimento" />
+          <span className="span-func">Atendimento</span>
         </Link>
 
-        <Link to="/agendamentosFuncionario" className="menu-item">
-          <img className="menu-icon" src="/atendimento.png" alt="Atendimento" />
-          <span>Atendimento</span>
-        </Link>
+        <p className="divisoria">|</p>
 
-        <button onClick={handleLogout} className="menu-item-logout-btn">
-          <img className="menu-icon" src="/sair.png" alt="Sair" />
-          <span>Sair</span>
+        <button onClick={handleLogout} className="menu-item-logout-btn-func">
+          <img className="menu-icon-func" src="/sair.png" alt="Sair" />
+          <span className="span-func">Sair</span>
         </button>
       </div>
     </div>
