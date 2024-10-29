@@ -74,10 +74,10 @@ useEffect(() => {
   ];
 
   const inovacoes = [
-    { id: 1, title: 'Atendimento com IA', description: 'Oferecemos suporte personalizado e imediato através de inteligência artificial.', icon: '/conhecimento-de-ia.png' },
-    { id: 2, title: 'Gestão Automatizada de Frota', description: 'Monitoramento em tempo real de todos os veículos para otimizar segurança e eficiência.', icon: '/gestao-de-frota.png' },
-    { id: 3, title: 'Reservas Online', description: 'Sistema de reservas em tempo real com confirmação instantânea e feedback dos clientes.', icon: '/reserva.png' },
-    { id: 4, title: 'Monitoramento de Segurança', description: 'Tecnologias avançadas de rastreamento para garantir a segurança do cliente.', icon: '/escudo-de-seguranca.png' }
+
+    { id: 1, title: 'Gestão Automatizada de Frota', description: 'Monitoramento em tempo real de todos os veículos para otimizar segurança e eficiência.', icon: '/gestao-de-frota.png' },
+    { id: 2, title: 'Reservas Online', description: 'Sistema de reservas em tempo real com confirmação instantânea e feedback dos clientes.', icon: '/reserva.png' },
+    { id: 3, title: 'Monitoramento de Segurança', description: 'Tecnologias avançadas de rastreamento para garantir a segurança do cliente.', icon: '/escudo-de-seguranca.png' }
   ];
 
   const metas = [
@@ -96,7 +96,7 @@ useEffect(() => {
       </section>
 
     <section className="linha-do-tempo">
-    <h2 className="titulo-secao">Nossa Trajetória</h2>
+    <h2 className="titulo-secao">Trajetória</h2>
     <div className="timeline-container">
         <div className="timeline-events">
         <div className="timeline-line"></div> {/* Mova a linha para dentro de timeline-events */}
@@ -123,7 +123,7 @@ useEffect(() => {
 
       {/* Nossas Inovações */}
       <section id="inovacoes" className={`animated-section inovacoes ${visibleInovacoes ? 'section-visible' : ''}`}>
-        <h2 className="titulo-secao">Nossas Inovações</h2>
+        <h2 className="titulo-secao">Inovações</h2>
         <div className="inovacoes-cards">
           {inovacoes.map((inovacao) => (
             <div key={inovacao.id} className="inovacao-card">
@@ -137,7 +137,7 @@ useEffect(() => {
 
       {/* Nossos Próximos Passos */}
       <section id="metas-futuras" className={`animated-section metas-futuras ${visibleMetas ? 'section-visible' : ''}`}>
-        <h2 className="titulo-secao">Nossos Próximos Passos</h2>
+        <h2 className="titulo-secao">Próximos Passos</h2>
         <div className="metas-cards">
           {metas.map((meta) => (
             <div key={meta.id} className="meta-card">

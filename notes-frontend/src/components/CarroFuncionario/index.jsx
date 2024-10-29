@@ -32,7 +32,7 @@ export default function CarroFuncionario({ car, loadCars, isSelected, toggleSele
         <p className="card-subtitle">{car.model}</p>
       </div>
       <div>
-        <img className="carro" src={car.image_url || '/default-image.jpg'} alt={car.model} />
+        <img className="carro" src={car.image_url_1 || '/default-image.jpg'} alt={car.model} />
       </div>
 
       {/* Seção de banner para Aluguel e Venda */}
