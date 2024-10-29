@@ -131,7 +131,7 @@ export default function AgendamentoCliente() {
                 <th>Carro</th>
                 <th>Operação</th>
                 <th>Data</th>
-                <th>Horário</th>
+                <th>Data Limite</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -142,7 +142,7 @@ export default function AgendamentoCliente() {
                     <td>{agendamento.carro}</td>
                     <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
                     <td>{formatarData(agendamento.data)}</td>
-                    <td>{formatarHorario(agendamento.horario)}</td>
+                    <td>{formatarHorario(agendamento.data_expiracao)}</td>
                     <td className={getStatusClass(agendamento.status)}>
                       {capitalizeFirstLetter(agendamento.status)}
                     </td>

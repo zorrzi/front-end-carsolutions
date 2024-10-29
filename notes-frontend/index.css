@@ -5,9 +5,31 @@
 
 body{
     font-family: 'Bahnschrift';
+    background-color: #FFFFFF;
 }
 
-.html{
+p{
+    font-family: 'Bahnschrift';
+    cursor: default;
+}
+
+h3{
+    cursor: default;
+}
+
+h2{
+    cursor: default;
+}
+
+h1{
+    cursor: default;
+}
+
+span{
+    cursor: default;
+}
+
+html{
     width: 100%;
     background-color: #FFFFFF;
 }

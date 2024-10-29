@@ -9,6 +9,15 @@
     color: #373774;
 }
 
+.nav-disp{
+    color: #373774;
+}
+
+.nav-disp:hover{
+    cursor: pointer;
+    color: #373774;
+}
+
 .login-overlay {
     display: flex;
     flex-direction: row;

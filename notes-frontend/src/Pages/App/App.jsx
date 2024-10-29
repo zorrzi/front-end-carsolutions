@@ -14,22 +14,13 @@ import Carrossel from "../../components/Carrossel";
 
 const featuredCars = [
   {
-    image: "kicks.png",
-    name: 'Nissan Kicks',
-    description: 'Um carro incrível para todas as ocasiões.',
-    price: 'R$ 50.000'
+    image: "/1.png"
   },
   {
-    image: 'honda-civic.png',
-    name: 'Honda Civic',
-    description: 'Perfeito para aventuras urbanas e viagens.',
-    price: 'R$ 60.000'
+    image: '/2.png'
   },
   {
-    image: 't-cross.png',
-    name: 'Volkswagen T-Cross',
-    description: 'Elegante, confortável e com excelente desempenho.',
-    price: 'R$ 70.000'
+    image: '/3.png'
   }
 ];
 
@@ -43,7 +34,6 @@ function App() {
         <FundoInicial />
         <Formulario />
       </div>
-      <h1 className="destaques">Destaques</h1>
       <div className="carros-container">
         <Carrossel featuredCars={featuredCars} />
       </div>
