@@ -1,5 +1,3 @@
-// components/FormularioEdicao.jsx
-
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import axios from 'axios';
@@ -31,7 +29,7 @@ function FormularioEdicao() {
         setMileage(car.mileage);
         setPurchasePrice(car.purchase_price || '');
         setRentalPrice(car.rental_price || '');
-        setImageUrl(car.image_url || '');
+        setImageUrl(car.image_url_1 || '');  // Alterado para image_url_1
         setImageUrl2(car.image_url_2 || '');
         setImageUrl3(car.image_url_3 || '');
         setIsCompraChecked(car.is_for_sale);
@@ -52,7 +50,7 @@ function FormularioEdicao() {
       mileage: mileage,
       purchase_price: isCompraChecked ? purchasePrice : null,
       rental_price: isAluguelChecked ? rentalPrice : null,
-      image_url: imageUrl,
+      image_url_1: imageUrl,
       image_url_2: imageUrl2,
       image_url_3: imageUrl3,
       is_for_sale: isCompraChecked,
