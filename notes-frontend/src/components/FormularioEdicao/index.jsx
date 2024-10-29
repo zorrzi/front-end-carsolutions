@@ -1,3 +1,5 @@
+// components/FormularioEdicao.jsx
+
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import axios from 'axios';
@@ -12,6 +14,8 @@ function FormularioEdicao() {
   const [purchasePrice, setPurchasePrice] = useState('');
   const [rentalPrice, setRentalPrice] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl2, setImageUrl2] = useState('');
+  const [imageUrl3, setImageUrl3] = useState('');
   const [isAluguelChecked, setIsAluguelChecked] = useState(false);
   const [isCompraChecked, setIsCompraChecked] = useState(false);
 
@@ -28,6 +32,8 @@ function FormularioEdicao() {
         setPurchasePrice(car.purchase_price || '');
         setRentalPrice(car.rental_price || '');
         setImageUrl(car.image_url || '');
+        setImageUrl2(car.image_url_2 || '');
+        setImageUrl3(car.image_url_3 || '');
         setIsCompraChecked(car.is_for_sale);
         setIsAluguelChecked(car.is_for_rent);
       })
@@ -35,14 +41,6 @@ function FormularioEdicao() {
         console.error('Erro ao buscar o carro:', error);
       });
   }, [id]);
-
-  const handleAluguelCheckboxChange = (e) => {
-    setIsAluguelChecked(e.target.checked);
-  };
-
-  const handleCompraCheckboxChange = (e) => {
-    setIsCompraChecked(e.target.checked);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,12 +53,13 @@ function FormularioEdicao() {
       purchase_price: isCompraChecked ? purchasePrice : null,
       rental_price: isAluguelChecked ? rentalPrice : null,
       image_url: imageUrl,
+      image_url_2: imageUrl2,
+      image_url_3: imageUrl3,
       is_for_sale: isCompraChecked,
       is_for_rent: isAluguelChecked,
     };
 
     try {
-      // Requisicao PUT para atualizar os dados do veículo
       const response = await axios.put(`http://127.0.0.1:8000/cars/${id}/`, carData);
 
       if (response.status === 200) {
@@ -80,7 +79,36 @@ function FormularioEdicao() {
       <h1>Edite os dados do veículo</h1>
       
       <form className="form" onSubmit={handleSubmit}>
-
+        <div className="form-group">
+          <label htmlFor="ano">Ano*</label>
+          <input
+            type="text"
+            id="ano"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="marca">Marca*</label>
+          <input
+            type="text"
+            id="marca"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="modelo">Modelo*</label>
+          <input
+            type="text"
+            id="modelo"
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            required
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="kilometragem">Kilometragem*</label>
           <input
@@ -105,7 +133,7 @@ function FormularioEdicao() {
               type="checkbox"
               id="compra"
               checked={isCompraChecked}
-              onChange={handleCompraCheckboxChange}
+              onChange={(e) => setIsCompraChecked(e.target.checked)}
             />
             <label htmlFor="compra">Compra</label>
           </div>
@@ -124,19 +152,39 @@ function FormularioEdicao() {
               type="checkbox"
               id="aluguel"
               checked={isAluguelChecked}
-              onChange={handleAluguelCheckboxChange}
+              onChange={(e) => setIsAluguelChecked(e.target.checked)}
             />
             <label htmlFor="aluguel">Aluguel</label>
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="imagem">URL da imagem*</label>
+          <label htmlFor="imagem">URL da imagem principal*</label>
           <input
             type="text"
             id="imagem"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="imagem2">URL da segunda imagem</label>
+          <input
+            type="text"
+            id="imagem2"
+            value={imageUrl2}
+            onChange={(e) => setImageUrl2(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="imagem3">URL da terceira imagem</label>
+          <input
+            type="text"
+            id="imagem3"
+            value={imageUrl3}
+            onChange={(e) => setImageUrl3(e.target.value)}
           />
         </div>
 

@@ -1,3 +1,5 @@
+// components/FormularioVeiculo.jsx
+
 import React, { useState } from 'react';
 import './index.css';
 import axios from 'axios';
@@ -10,44 +12,35 @@ function FormularioVeiculo() {
   const [mileage, setMileage] = useState('');
   const [purchasePrice, setPurchasePrice] = useState('');
   const [rentalPrice, setRentalPrice] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl1, setImageUrl1] = useState('');
+  const [imageUrl2, setImageUrl2] = useState('');
+  const [imageUrl3, setImageUrl3] = useState('');
   const [isAluguelChecked, setIsAluguelChecked] = useState(false);
   const [isCompraChecked, setIsCompraChecked] = useState(false);
 
-  const navigate = useNavigate(); // Hook para redirecionamento
-
-  // Função para habilitar/desabilitar o campo de preço de aluguel
-  const handleAluguelCheckboxChange = (e) => {
-    setIsAluguelChecked(e.target.checked);
-  };
-
-  // Função para habilitar/desabilitar o campo de preço de compra
-  const handleCompraCheckboxChange = (e) => {
-    setIsCompraChecked(e.target.checked);
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Dados que serão enviados para a API
     const carData = {
       year: year,
       brand: brand,
       model: model,
       mileage: mileage,
-      purchase_price: isCompraChecked ? purchasePrice : null, // Se o checkbox estiver marcado, envia o valor
-      rental_price: isAluguelChecked ? rentalPrice : null, // Se o checkbox estiver marcado, envia o valor
-      image_url: imageUrl,
-      is_for_sale: isCompraChecked, // Indica se o carro está à venda
-      is_for_rent: isAluguelChecked, // Indica se o carro está para aluguel
+      purchase_price: isCompraChecked ? purchasePrice : null,
+      rental_price: isAluguelChecked ? rentalPrice : null,
+      image_url_1: imageUrl1,
+      image_url_2: imageUrl2,
+      image_url_3: imageUrl3,
+      is_for_sale: isCompraChecked,
+      is_for_rent: isAluguelChecked,
     };
 
     try {
-      // Faz a requisição POST para o backend do Django
       const response = await axios.post('http://127.0.0.1:8000/cars/', carData);
 
       if (response.status === 201) {
-        // Redireciona para a página de funcionários após adicionar com sucesso
         navigate('/funcionario');
       }
     } catch (error) {
@@ -71,7 +64,6 @@ function FormularioVeiculo() {
             id="ano"
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            placeholder="Escolha um ano"
             required
           />
         </div>
@@ -82,7 +74,6 @@ function FormularioVeiculo() {
             id="marca"
             value={brand}
             onChange={(e) => setBrand(e.target.value)}
-            placeholder="Escolha uma marca"
             required
           />
         </div>
@@ -93,7 +84,6 @@ function FormularioVeiculo() {
             id="modelo"
             value={model}
             onChange={(e) => setModel(e.target.value)}
-            placeholder="Escolha um modelo"
             required
           />
         </div>
@@ -104,7 +94,6 @@ function FormularioVeiculo() {
             id="kilometragem"
             value={mileage}
             onChange={(e) => setMileage(e.target.value)}
-            placeholder="Escolha uma kilometragem"
             required
           />
         </div>
@@ -115,7 +104,6 @@ function FormularioVeiculo() {
             id="preco-compra"
             value={purchasePrice}
             onChange={(e) => setPurchasePrice(e.target.value)}
-            placeholder="Escolha o preço de compra (se aplicável)"
             disabled={!isCompraChecked}
           />
           <div className="checkbox-group">
@@ -123,7 +111,7 @@ function FormularioVeiculo() {
               type="checkbox"
               id="compra"
               checked={isCompraChecked}
-              onChange={handleCompraCheckboxChange}
+              onChange={(e) => setIsCompraChecked(e.target.checked)}
             />
             <label htmlFor="compra">Compra</label>
           </div>
@@ -135,7 +123,6 @@ function FormularioVeiculo() {
             id="preco-aluguel"
             value={rentalPrice}
             onChange={(e) => setRentalPrice(e.target.value)}
-            placeholder="Escolha o preço de aluguel (se aplicável)"
             disabled={!isAluguelChecked}
           />
           <div className="checkbox-group">
@@ -143,22 +130,46 @@ function FormularioVeiculo() {
               type="checkbox"
               id="aluguel"
               checked={isAluguelChecked}
-              onChange={handleAluguelCheckboxChange}
+              onChange={(e) => setIsAluguelChecked(e.target.checked)}
             />
             <label htmlFor="aluguel">Aluguel</label>
           </div>
         </div>
+
         <div className="form-group">
-          <label htmlFor="imagem">URL da imagem*</label>
+          <label htmlFor="imagem1">URL da imagem principal*</label>
           <input
             type="text"
-            id="imagem"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder="Escolha o URL da imagem"
+            id="imagem1"
+            value={imageUrl1}
+            onChange={(e) => setImageUrl1(e.target.value)}
             required
           />
         </div>
+
+        {imageUrl1 && (
+          <div className="form-group">
+            <label htmlFor="imagem2">URL da segunda imagem</label>
+            <input
+              type="text"
+              id="imagem2"
+              value={imageUrl2}
+              onChange={(e) => setImageUrl2(e.target.value)}
+            />
+          </div>
+        )}
+
+        {imageUrl2 && (
+          <div className="form-group">
+            <label htmlFor="imagem3">URL da terceira imagem</label>
+            <input
+              type="text"
+              id="imagem3"
+              value={imageUrl3}
+              onChange={(e) => setImageUrl3(e.target.value)}
+            />
+          </div>
+        )}
 
         <button type="submit" className="botaoAdicionarVeiculo">
           Adicionar veículo
