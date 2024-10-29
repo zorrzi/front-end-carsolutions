@@ -1,9 +1,17 @@
 .carousel {
     position: relative;
     width: 100%;
-    height: 500px; /* Ajuste conforme necessário */
+    height: 600px; /* Ajuste conforme necessário */
     overflow: hidden;
     border-radius: 10px;
+  }
+
+  .img-next{
+    width: 1rem;
+  }
+
+  .img-back{
+    width: 1rem;
   }
   
   .carousel-slide {

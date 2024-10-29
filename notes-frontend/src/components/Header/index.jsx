@@ -83,7 +83,7 @@ export default function Header() {
       </Link>
       <div className={`info ${showMenu ? "show" : ""}`}>
         <Link className="link" to="/carrosDisponiveis">
-          <span className="nav">Carros Disponíveis</span>
+          <span className="nav-disp">Carros Disponíveis</span>
         </Link>
         <p className="divisoria">|</p>
         <Link className="link" to="/sobreNos">

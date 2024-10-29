@@ -29,17 +29,12 @@ export default function Carousel({ featuredCars = [] }) {
     <div className="carousel">
       <div
         className="carousel-slide"
-        style={{ backgroundImage: `url(${featuredCars[currentIndex].image})` }}
+        style={{ backgroundImage: `url(${featuredCars[currentIndex].image})`}}
       >
-        <div className="carousel-content">
-          <h2>{featuredCars[currentIndex].name}</h2>
-          <p>{featuredCars[currentIndex].description}</p>
-          <span className="carousel-price">Preço: {featuredCars[currentIndex].price}</span>
-        </div>
       </div>
       <div className="carousel-controls">
-        <button onClick={handlePrev}>◀</button>
-        <button onClick={handleNext}>▶</button>
+        <button onClick={handlePrev}><img className='img-back' src="/seta-para-a-esquerda.png" alt="" /></button>
+        <button onClick={handleNext}><img className='img-next' src="/seta-para-a-direita.png" alt="" /></button>
       </div>
     </div>
   );
