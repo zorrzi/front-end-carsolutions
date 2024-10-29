@@ -99,8 +99,8 @@ export default function CatalogoCarrosCliente() {
         />
 
         {/* Checkboxes para Disponibilidade */}
-        <label>
-          <input
+        <label className='check-aluguel'>
+          <input className='checkbox'
             type="checkbox"
             name="isForSale"
             checked={filters.isForSale}
@@ -110,6 +110,7 @@ export default function CatalogoCarrosCliente() {
         </label>
         <label>
           <input
+            className='checkbox'
             type="checkbox"
             name="isForRent"
             checked={filters.isForRent}
@@ -119,7 +120,9 @@ export default function CatalogoCarrosCliente() {
         </label>
   
         {/* Faixa de Preço para Aluguel */}
-        <label>Faixa de Preço para Aluguel: {filters.minRentPrice} - {filters.maxRentPrice}</label>
+        <label  className='range'><p>Faixa de Preço para Aluguel:</p>
+        <p>{filters.minRentPrice} - {filters.maxRentPrice}</p>
+        </label>
         <input
           type="range"
           name="minRentPrice"
@@ -140,7 +143,10 @@ export default function CatalogoCarrosCliente() {
         />
   
         {/* Faixa de Preço para Venda */}
-        <label>Faixa de Preço para Venda: {filters.minSalePrice} - {filters.maxSalePrice}</label>
+        <label className='range'>
+        <p>Faixa de Preço para Venda:</p>
+        <p> {filters.minSalePrice} - {filters.maxSalePrice}</p>
+        </label>
         
         <input
           type="range"
@@ -162,7 +168,10 @@ export default function CatalogoCarrosCliente() {
         />
   
         {/* Faixa de Quilometragem */}
-        <label>Faixa de Quilometragem: {filters.minMileage} - {filters.maxMileage}</label>
+        <label className='rang'>
+          <p>Faixa de Quilometragem:</p> 
+          <p>{filters.minMileage} - {filters.maxMileage}</p>
+          </label>
         <input
           type="range"
           name="minMileage"

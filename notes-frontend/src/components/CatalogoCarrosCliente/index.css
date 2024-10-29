@@ -10,44 +10,69 @@
   width: 250px;
   padding: 20px;
   background-color: #f8f8f8;
-  border: 1px solid #ddd;
+  border: 2px solid #3d348b;
   border-radius: 8px;
   margin-right: 20px;
-  flex-shrink: 0; /* Impede a redução da largura dos filtros */
+  flex-shrink: 0;
 }
 
-/* Configuração para o catálogo de carros à direita da caixa de filtros */
-.catalogo-carros {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Espaçamento entre os cards */
-  flex-grow: 1; /* Expande para ocupar o espaço restante */
-  justify-content: flex-start; /* Alinha os cards à esquerda */
+.checkbox {
+  width: 0.8rem;
 }
 
-/* Estilos para os cards individuais */
-.card-carro {
-  width: 300px; /* Define uma largura fixa para o card */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+/* Estilo das Checkboxes */
+.filters-container input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #3d348b; /* Cor da checkbox */
 }
 
-/* Espaçamento e organização dos elementos de filtro */
+/* Estilo para os controles deslizantes (range) */
+.filters-container input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.filters-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #3d348b;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -4px; /* Alinha o thumb ao centro do track */
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+}
+
+.filters-container input[type="range"]::-webkit-slider-runnable-track {
+  background: #bcbbc7;
+  height: 8px;
+  border-radius: 5px;
+}
+
+.filters-container input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #3d348b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.filters-container input[type="range"]::-moz-range-track {
+  background: #e0e0e0;
+  height: 8px;
+  border-radius: 5px;
+}
+
+/* Outros estilos */
 .filters-container label {
   display: block;
   font-weight: bold;
   margin: 15px 0 5px;
-}
-
-.filters-container input[type="range"] {
-  width: 100%;
 }
 
 .filters-container input[type="text"] {
@@ -56,18 +81,14 @@
   margin-top: 5px;
   box-sizing: border-box;
   border: 1px solid #ccc;
+  color: #2e2670;
   border-radius: 3px;
-}
-
-.filters-container input[type="checkbox"] {
-  margin-right: 8px;
 }
 
 .dividir {
   display: flex;
   align-items: start;
 }
-
 
 .filtrar-btn {
   padding: 0.75rem 1.5rem;
@@ -79,9 +100,29 @@
   font-weight: bold;
   cursor: pointer;
   max-width: 150px;
+  margin-top: 1rem;
   align-self: center;
 }
 
 .filtrar-btn:hover {
   background-color: #2e2670;
+}
+
+@media (max-width: 768px) {
+  .dividir {
+    flex-direction: column;
+  }
+
+  .filters-container {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .catalogo-carros {
+    justify-content: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
 }
