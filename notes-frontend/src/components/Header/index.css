@@ -1,15 +1,18 @@
 /* Estilos gerais de outros elementos */
+.link{
+    border: none;
+    text-decoration: none;
+}
+
 .nav:hover {
     cursor: pointer;
     color: #373774;
 }
 
-
 .login-overlay {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
     gap: 0.5rem;
     text-decoration: none;
     color: black;
@@ -27,28 +30,16 @@
 
 .entrar-btn{
     display: flex;
-    align-items: center; /* Certifica-se que o texto e o ícone do botão "Entrar" fiquem alinhados */
+    align-items: center;
     gap: 0.5rem;
 }
 
-
-/* Outros estilos gerais da página */
-.favoritos-overlay {
+.favoritos-overlay, .agenda-overlay {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
-    color: black;
-}
-
-.agenda-overlay {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    height: 1.3rem;
     color: black;
 }
 
@@ -59,16 +50,13 @@
     padding: 0.5rem 1rem;
 }
 
-.perfil,
-.favorites,
-.agenda,
-.sair-img {
+.perfil, .favorites, .agenda, .sair-img {
     height: 1.3rem;
     display: inline-block;
     vertical-align: middle;
 }
 
-.Sair{
+.Sair {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -77,18 +65,16 @@
 
 .logo {
     height: 3.25rem;
-    margin-right: 6rem;
-    padding-left: 5rem;
+    margin: 0 auto;
 }
 
-.info {
-    display: flex;
-    flex-direction: row; /* Elementos em linha inicialmente */
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    gap: 2rem;
-    margin-right: 5rem;
+.menu-icon {
+    height: 1.8rem;
+    width: 1.8rem;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
 }
 
 .header {
@@ -98,10 +84,8 @@
     background-color: #ffffff;
     padding: 0.5rem 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-wrap: nowrap;
     width: 100%;
     box-sizing: border-box;
-    position: relative;
 }
 
 .user-name:hover {
@@ -110,7 +94,6 @@
 }
 
 .user {
-    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -120,16 +103,14 @@
 span {
     font-size: 1rem;
     font-weight: bold;
-    text-decoration: none;
-    display: inline-block;
-    vertical-align: middle;
     color: black;
+    border: none;
+    text-decoration: none;
 }
 
 .user-name {
     cursor: pointer;
     font-weight: bold;
-    position: relative;
 }
 
 .dropdown {
@@ -140,41 +121,22 @@ span {
     padding: 1rem;
     z-index: 1000;
     width: 150px;
-    text-align: center;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    left: auto; /* Para evitar desalinhamento */
-    right: -2.5rem;   /* Alinha à direita em telas grandes */
-    top: 1.5rem; /* Posiciona o card abaixo do botão */
+    right: -2.5rem;
+    top: 1.5rem;
 }
 
-.dropdown span,
-.dropdown button {
-    text-align: left;
+.dropdown span, .dropdown button {
     background: none;
     border: none;
-    width: 100%;
     cursor: pointer;
     font-size: 1rem;
     display: flex;
     align-items: center;
     padding: 0.75rem;
-    text-decoration: bold;
     font-weight: bold;
-}
-
-.agenda-overlay :hover {
-    color: #373774;
-}
-
-.favoritos-overlay :hover {
-    color: #373774;
-}
-
-
-.dropdown button:hover {
-    color: red;
 }
 
 .entrar-btn:hover {
@@ -182,8 +144,6 @@ span {
     cursor: pointer;
 }
 
-
-/* Estilos gerais do login-choice-card */
 .login-choice-card {
     position: absolute;
     background-color: #fff;
@@ -192,69 +152,69 @@ span {
     padding: 1rem;
     z-index: 1000;
     width: 150px;
-    text-align: center;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    left: auto; /* Para evitar desalinhamento */
-    right: 0;   /* Alinha à direita em telas grandes */
+    right: 0;
 }
 
-/* Ajustes de responsividade */
+.info{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
 
-/* Para telas menores que 768px (tablets e celulares) */
+}
+
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column; /* De linha para coluna */
-        padding: 1rem; /* Aumenta o padding para espaçamento */
-        align-items: center; /* Centraliza os itens verticalmente */
-        justify-content: center; /* Centraliza horizontalmente */
+    .info {
+        display: none; /* Esconde o menu .info em telas menores */
     }
 
-    .info {
-        flex-direction: column; /* Empilha os elementos de navegação */
-        align-items: center; /* Centraliza o texto */
-        gap: 2rem; /* Espaçamento entre os itens */
-        margin-right: 0; /* Remove margem lateral */
-        justify-content: center; /* Garante que os itens fiquem centralizados */
+    .menu-icon {
+        display: block; /* Mostra o ícone de menu em telas menores */
+    }
+
+    .header {
+        padding: 1rem;
+        justify-content: center;
     }
 
     .logo {
-        margin-bottom: 1rem; /* Espaçamento abaixo da logo */
-    }
-
-    .user {
-        flex-direction: row; /* Empilha o botão "Entrar" e o ícone */
-        align-items: center; /* Centraliza o conteúdo */
-        gap: 0.5rem; /* Espaçamento entre o botão e o ícone */
-    }
-
-    .login-choice-card {
-        left: 50%; /* Centraliza o card em telas menores */
-        transform: translateX(-50%); /* Garante centralização exata */
-    }
-}
-
-/* Para telas menores que 480px (celulares pequenos) */
-@media (max-width: 480px) {
-    .header {
-        padding: 0.5rem; /* Reduz padding em telas pequenas */
-    }
-
-    .info {
-        flex-direction: column; /* Empilha os elementos */
-        gap: 2rem; /* Reduz o espaçamento entre os itens de navegação */
-        align-items: center; /* Centraliza o conteúdo */
-        justify-content: center; /* Garante que os itens fiquem no centro */
-    }
-
-    .logo {
-        height: 2.5rem; /* Reduz tamanho da logo */
+        margin: 0 auto;
     }
 
     .login-choice-card {
         left: 50%;
         transform: translateX(-50%);
-        width: 120px; /* Ajusta largura para caber melhor em telas pequenas */
+    }
+
+    .info.show {
+        display: flex; /* Mostra o menu quando .show é adicionado em telas menores */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 1rem;
+        z-index: 1000;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 0.5rem;
+    }
+
+    .logo {
+        height: 2.5rem;
+    }
+
+    .login-choice-card {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
     }
 }

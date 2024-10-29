@@ -11,7 +11,7 @@ function CarrosDisponiveis() {
     <>
     <Header />
     <FundoIncial />
-    <h1 className="destaques">Carros Disponíveis para Aluguel</h1>
+    <h1 className="destaques">Carros Disponíveis</h1>
     <div className="formulario-aluguel">
     <CatalogoCarrosCliente />
     </div>
