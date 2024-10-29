@@ -9,4 +9,9 @@ body{
 
 .html{
     width: 100%;
+    background-color: #FFFFFF;
+}
+
+#root{
+    background-color: #FFFFFF;
 }

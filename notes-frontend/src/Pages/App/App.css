@@ -12,8 +12,4 @@
   margin-top: 4rem;
   margin-left: 6rem;
   font-weight: bold;
-  background: linear-gradient(to right, #373774, #ffffff); /* Gradiente do laranja ao pêssego */
-  color: transparent; /* Necessário para mostrar o gradiente */
-  background-clip: text; /* Aplica o gradiente apenas ao texto */
-  -webkit-background-clip: text; /* Suporte para navegadores baseados em WebKit */
 }
