@@ -6,6 +6,7 @@ import axios from 'axios';
 import './index.css';
 import BotaoFavoritos from '../BotaoFavoritos';
 import useCarActions from './hooks/useCarActions';
+import Carrossel from '../Carrossel';
 
 export default function InformacoesCarro() {
   const { id } = useParams();
@@ -55,19 +56,28 @@ export default function InformacoesCarro() {
     return <p>Carregando...</p>;
   }
 
+  // Filtrar as imagens válidas
+  const images = [car.image_url_1, car.image_url_2, car.image_url_3].filter(url => url && url !== '');
+
   return (
     <div className="anuncio-carro">
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <img className='sucesso' src='/sucesso.png' alt='Sucesso' />
             <h2>Agendamento Realizado com Sucesso!</h2>
             <p>Vá até a loja para concluir seu agendamento!</p>
             <button className='botao-retornar' onClick={handleClosePopup}>Voltar à tela inicial</button>
           </div>
         </div>
       )}
-      <img className='quadro-imagem' src={car.image_url || '/default-image.jpg'} alt={car.model} />
+
+      {/* Verificar o número de imagens e exibir o carrossel ou imagem única */}
+      {images.length > 1 ? (
+        <Carrossel featuredCars={images.map(image => ({ image }))} />
+      ) : (
+        <img className='quadro-imagem' src={images[0]} alt="Imagem do carro" />
+      )}
+
       <div className={`infos ${showPopup ? 'blurred' : ''}`}>
         <h1 className='titulo-carro-1'>{car.year} {car.brand} {car.model}</h1>
         <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>

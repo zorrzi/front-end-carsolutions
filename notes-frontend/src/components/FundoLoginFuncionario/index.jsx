@@ -3,7 +3,7 @@ import "./index.css";
 export default function FundoLoginFuncionario() {
     return (
       <div>
-        <img className="fundo" src="/fundoLoginFuncionario.png" alt="Fundo" />
+        <img className="fundo" src="/banner-funcionario.png" alt="Fundo" />
       </div>
     )
   }
