@@ -22,6 +22,8 @@ import AgendamentosFuncionario from './Pages/AgendamentosFuncionario/Agendamento
 import CarrosDisponiveis from './Pages/CarrosDisponiveis/CarrosDisponiveis.jsx';
 import SobreNos from './Pages/SobreNos/SobreNos.jsx';
 import EsqueciMinhaSenha from './Pages/EsqueciMinhaSenha/EsqueciMinhaSenha.jsx';
+import RedefinirSenha from './Pages/RedefinirSenha/RedefinirSenha.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -102,6 +104,12 @@ const router = createBrowserRouter([
     path: "/esqueciMinhaSenha",
     element: <EsqueciMinhaSenha/>,
   },
+
+  {
+    path: "/redefinirSenha/:uid/:token",
+    element: <RedefinirSenha/>,
+  },
+
 
 
   
