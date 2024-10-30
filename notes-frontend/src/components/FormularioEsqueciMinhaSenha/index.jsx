@@ -26,7 +26,7 @@ export default function EsqueciMinhaSenha() {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container-esqueci">
       <h1>Esqueci minha senha</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-group">

@@ -49,7 +49,7 @@ export default function CatalogoCarrosFavoritos() {
   return (
     <div className="catalogo-carros">
       {favoriteCars.length === 0 ? (
-        <p>Nenhum carro favoritado disponível</p>  // Exibe uma mensagem se não houver carros favoritados
+        <p className='nenhum-fav'>Nenhum carro favoritado disponível</p>  // Exibe uma mensagem se não houver carros favoritados
       ) : (
         favoriteCars.map((car) => (
           <CarroCliente className="card-carro" key={car.id} car={car} />  // Renderiza um Card para cada carro favoritado

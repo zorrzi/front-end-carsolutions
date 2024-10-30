@@ -1,6 +1,6 @@
-.login-container{
+.login-container-func{
     position: absolute; /* Faz o formulário ficar sobre a imagem */
-    top: 75%; /* Move o formulário para o meio verticalmente */
+    top: 110%; /* Move o formulário para o meio verticalmente */
     left: 50%;
     transform: translate(-50%, -50%); /* Centraliza horizontalmente e verticalmente */
     background-color: #ffffff;
@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 800px;
-    width: 30%; /* O formulário se adapta ao tamanho da tela */
+    width: 25rem; /* O formulário se adapta ao tamanho da tela */
     z-index: 10; /* Garante que o formulário fique sobre a imagem */
 }
 
@@ -76,10 +76,11 @@ input {
 
 
 /* Responsividade para dispositivos menores */
-@media (max-width: 768px) {
-  .login-container {
-    width: 90%;
+@media (max-width: 760px) {
+  .login-container-func {
     margin: 3rem auto;
+    top: 250%;
+    width: 70%;
   }
 
   h1 {

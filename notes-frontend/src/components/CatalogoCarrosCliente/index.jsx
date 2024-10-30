@@ -10,7 +10,7 @@ export default function CatalogoCarrosCliente() {
     minRentPrice: 0,
     maxRentPrice: 1000,
     minSalePrice: 5000,
-    maxSalePrice: 100000,
+    maxSalePrice: 300000,
     minMileage: 0,
     maxMileage: 200000,
     brand: '',
@@ -75,24 +75,43 @@ export default function CatalogoCarrosCliente() {
         <label>Ano</label>
         <input type="text" name="year" value={filters.year} onChange={handleFilterChange} />
 
+        {/* Checkboxes para Disponibilidade */}
         <label className='check-aluguel'>
           <input className='checkbox' type="checkbox" name="isForSale" checked={filters.isForSale} onChange={handleFilterChange} />
           Disponível para Venda
         </label>
+
+        {/* Faixa de Preço para Venda - exibida apenas se "Disponível para Venda" estiver marcado */}
+        {filters.isForSale && (
+          <>
+            <label className='range'>
+              <p>Faixa de Preço para Venda:</p>
+              <p>R$ {Number(filters.minSalePrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - R$ {Number(filters.maxSalePrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            </label>
+            <input type="range" name="minSalePrice" min="5000" max="300000" value={filters.minSalePrice} onChange={handleFilterChange} />
+            <input type="range" name="maxSalePrice" min="5000" max="300000" value={filters.maxSalePrice} onChange={handleFilterChange} />
+          </>
+        )}
+
         <label>
           <input className='checkbox' type="checkbox" name="isForRent" checked={filters.isForRent} onChange={handleFilterChange} />
           Disponível para Aluguel
         </label>
+
+        {/* Faixa de Preço para Aluguel - exibida apenas se "Disponível para Aluguel" estiver marcado */}
+        {filters.isForRent && (
+          <>
+            <label className='range'>
+              <p>Faixa de Preço para Aluguel:</p>
+              <p>R$ {Number(filters.minRentPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - R$ {Number(filters.maxRentPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            </label>
+            <input type="range" name="minRentPrice" min="0" max="5000" value={filters.minRentPrice} onChange={handleFilterChange} />
+            <input type="range" name="maxRentPrice" min="0" max="5000" value={filters.maxRentPrice} onChange={handleFilterChange} />
+          </>
+        )}
   
-        <label className='range'><p>Faixa de Preço para Aluguel:</p><p>{filters.minRentPrice} - {filters.maxRentPrice}</p></label>
-        <input type="range" name="minRentPrice" min="0" max="5000" value={filters.minRentPrice} onChange={handleFilterChange} disabled={!filters.isForRent} />
-        <input type="range" name="maxRentPrice" min="0" max="5000" value={filters.maxRentPrice} onChange={handleFilterChange} disabled={!filters.isForRent} />
-  
-        <label className='range'><p>Faixa de Preço para Venda:</p><p>{filters.minSalePrice} - {filters.maxSalePrice}</p></label>
-        <input type="range" name="minSalePrice" min="5000" max="100000" value={filters.minSalePrice} onChange={handleFilterChange} disabled={!filters.isForSale} />
-        <input type="range" name="maxSalePrice" min="5000" max="100000" value={filters.maxSalePrice} onChange={handleFilterChange} disabled={!filters.isForSale} />
-  
-        <label className='rang'><p>Faixa de Quilometragem:</p><p>{filters.minMileage} - {filters.maxMileage}</p></label>
+        {/* Faixa de Quilometragem */}
+        <label className='rang'><p>Faixa de Quilometragem:</p><p>{Number(filters.minMileage).toLocaleString('pt-BR')} km - {Number(filters.maxMileage).toLocaleString('pt-BR')} km</p></label>
         <input type="range" name="minMileage" min="0" max="300000" value={filters.minMileage} onChange={handleFilterChange} />
         <input type="range" name="maxMileage" min="0" max="300000" value={filters.maxMileage} onChange={handleFilterChange} />
         

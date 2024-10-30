@@ -115,7 +115,7 @@ export default function ChatFuncionario() {
               messages.map((message) => (
                 <div 
                   key={message.id} 
-                  className={`message ${message.is_employee ? 'employee' : 'client'}`}
+                  className={`message ${message.is_employee ? 'employee-func' : 'client-func'}`}
                 >
                   {message.content}
                 </div>

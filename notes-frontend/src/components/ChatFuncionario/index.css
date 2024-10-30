@@ -158,4 +158,16 @@
   }
   
   /* Input para envio de mensagens */
+  .employee-func {
+    background-color: #d1ffd6;
+    color: #333;
+    align-self: flex-end;
+  }
   
+  /* Mensagens do cliente */
+  .client-func{
+    background-color: #e1eaf5;
+    color: #333;
+    align-self: flex-start;
+    text-align: right;
+    }
