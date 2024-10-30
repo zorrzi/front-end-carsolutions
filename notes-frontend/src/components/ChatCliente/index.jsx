@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageInput from '../MessageInput/MessageInput';
 import './index.css';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL; 
 
 export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
   const [chat, setChat] = useState(null);

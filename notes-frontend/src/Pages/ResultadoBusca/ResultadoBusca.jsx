@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 import FundoInicial from '../../components/FundoInicial';
 import Footer from '../../components/Footer';
 import './ResultadoBusca.css';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL; 
 
 
 export default function ResultadoBusca() {
