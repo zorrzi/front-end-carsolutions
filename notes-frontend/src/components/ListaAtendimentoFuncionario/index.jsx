@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function ListaAtendimentoFuncionario() {
   const [meusAtendimentos, setMeusAtendimentos] = useState([]);
@@ -8,7 +9,7 @@ export default function ListaAtendimentoFuncionario() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:8000/agendamentos/agendamento/meus/', {
+    axios.get(`${apiBaseUrl}/agendamentos/agendamento/meus/`, {
       headers: {
         Authorization: `Token ${token}`
       }

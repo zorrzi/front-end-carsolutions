@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageInput from "../MessageInput/MessageInput";
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 
 export default function ChatFuncionario() {
@@ -17,7 +18,7 @@ export default function ChatFuncionario() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    axios.get('http://127.0.0.1:8000/chat/funcionario/', {
+    axios.get(`${apiBaseUrl}/chat/funcionario/`, {
       headers: {
         'Authorization': `Token ${token}`
       }
@@ -42,7 +43,7 @@ export default function ChatFuncionario() {
   // Carrega as mensagens do chat selecionado
   const loadMessages = (chatId) => {
     const token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/chat/cliente/${chatId}/`, {
+    axios.get(`${apiBaseUrl}/chat/cliente/${chatId}/`, {
       headers: {
         'Authorization': `Token ${token}`
       }

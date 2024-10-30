@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarroCliente from '../CarroCliente';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function CatalogoCompraCliente() {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/cars/')
+    axios.get(`${apiBaseUrl}/cars/`)
       .then(response => {
         const availableForSale = response.data.filter(car => car.is_for_sale);
         setCars(availableForSale);

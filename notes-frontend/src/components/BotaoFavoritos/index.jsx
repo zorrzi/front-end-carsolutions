@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../utils/axiosConfig';  // Importando o axios configurado
 import { useParams, useNavigate } from 'react-router-dom';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function BotaoFavoritos() {
   const { id } = useParams();  // ID do carro
@@ -28,7 +29,7 @@ export default function BotaoFavoritos() {
         },
       };
 
-      axios.get(`http://localhost:8000/favoritar/${id}/status`, config)  // Endpoint que retorna o status do favorito
+      axios.get(`${apiBaseUrl}/favoritar/${id}/status`, config)  // Endpoint que retorna o status do favorito
         .then(response => {
           setIsFavorito(response.data.isFavorito);  // Atualiza o estado com base na resposta do backend
         })
@@ -51,7 +52,7 @@ export default function BotaoFavoritos() {
       },
     };
 
-    axios.post(`http://localhost:8000/favoritar/${id}/`, {}, config)  // Usar axios configurado com token
+    axios.post(`${apiBaseUrl}/favoritar/${id}/`, {}, config)  // Usar axios configurado com token
       .then(response => {
         setIsFavorito(!isFavorito);  // Inverte o estado do favorito
         console.log(response.data.message);

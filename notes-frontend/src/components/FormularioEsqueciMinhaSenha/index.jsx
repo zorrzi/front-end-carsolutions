@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; 
 import "./index.css";
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function EsqueciMinhaSenha() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function EsqueciMinhaSenha() {
     e.preventDefault();
     try {
       // Faz a requisição para a API de esqueci a senha
-      const response = await axios.post("http://localhost:8000/solicitar-redefinicao-senha/", {
+      const response = await axios.post(`${apiBaseUrl}/solicitar-redefinicao-senha/`, {
         email: email,
       });
 

@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import FundoInicial from '../../components/FundoInicial';
 import Footer from '../../components/Footer';
 import './ResultadoBusca.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+
 
 export default function ResultadoBusca() {
     const [carros, setCarros] = useState([]);
@@ -19,14 +21,14 @@ export default function ResultadoBusca() {
 
     // Faz a busca dos carros assim que a página é carregada
     useEffect(() => {
-        let url = 'http://localhost:8000/cars/';
+        let url = `${apiBaseUrl}/cars/`;
 
         if (ano && marca && modelo) {
-            url = `http://localhost:8000/cars/buscar/${ano}/${marca}/${modelo}`;
+            url = `${apiBaseUrl}/cars/buscar/${ano}/${marca}/${modelo}`;
         } else if (ano && marca) {
-            url = `http://localhost:8000/cars/buscar/${ano}/${marca}`;
+            url = `${apiBaseUrl}/cars/buscar/${ano}/${marca}`;
         } else if (ano) {
-            url = `http://localhost:8000/cars/buscar/${ano}`;
+            url = `${apiBaseUrl}/cars/buscar/${ano}`;
         }
 
         // Faz a requisição à API com os parâmetros de busca

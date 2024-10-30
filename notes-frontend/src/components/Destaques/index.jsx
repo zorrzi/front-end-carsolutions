@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarroCliente from '../CarroCliente'; // Importa o componente de Card de Carro
 import './index.css'; // Estilos do CatalogoCarros
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+
 
 export default function Destaques() {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/cars/')
+    axios.get(`${apiBaseUrl}/cars/`)
       .then(response => {
         setCars(response.data); 
       })

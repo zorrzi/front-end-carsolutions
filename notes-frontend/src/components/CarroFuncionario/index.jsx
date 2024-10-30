@@ -2,13 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function CarroFuncionario({ car, loadCars, isSelected, toggleSelection }) {
   const deleteCar = (event) => {
     event.preventDefault();
 
     axios
-      .delete(`http://localhost:8000/cars/${car.id}/`)
+      .delete(`${apiBaseUrl}/cars/${car.id}/`)
       .then(() => {
         loadCars(); // Recarrega os carros após a exclusão
       })

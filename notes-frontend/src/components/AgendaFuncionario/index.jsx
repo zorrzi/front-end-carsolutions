@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function AgendaFuncionario() {
   const [agendamentosPendentes, setAgendamentosPendentes] = useState([]);
@@ -8,7 +9,7 @@ export default function AgendaFuncionario() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:8000/agendamentos/agendamento/pendentes/', {
+    axios.get(`${apiBaseUrl}/agendamentos/agendamento/pendentes/`, {
       headers: {
         Authorization: `Token ${token}`
       }
@@ -24,7 +25,7 @@ export default function AgendaFuncionario() {
   const handleAtenderAgendamento = (agendamentoId) => {
     const token = localStorage.getItem('token');
     
-    axios.post(`http://localhost:8000/agendamentos/agendamento/assumir/${agendamentoId}/`, {}, {
+    axios.post(`${apiBaseUrl}/agendamentos/agendamento/assumir/${agendamentoId}/`, {}, {
       headers: {
         Authorization: `Token ${token}`
       }

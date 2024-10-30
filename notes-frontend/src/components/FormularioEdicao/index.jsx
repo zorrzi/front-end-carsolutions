@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 function FormularioEdicao() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function FormularioEdicao() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/cars/${id}/`)
+    axios.get(`${apiBaseUrl}/cars/${id}/`)
       .then(response => {
         const car = response.data;
         setYear(car.year);
@@ -58,7 +59,7 @@ function FormularioEdicao() {
     };
 
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/cars/${id}/`, carData);
+      const response = await axios.put(`${apiBaseUrl}/cars/${id}/`, carData);
 
       if (response.status === 200) {
         navigate('/funcionario');

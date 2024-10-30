@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageInput from '../MessageInput/MessageInput';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
   const [chat, setChat] = useState(null);
@@ -13,7 +14,7 @@ export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (isChatOpen && token) {
-      axios.get('http://127.0.0.1:8000/chat/cliente/', {
+      axios.get(`${apiBaseUrl}/chat/cliente/`, {
         headers: {
           'Authorization': `Token ${token}`
         }
@@ -38,7 +39,7 @@ export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
   // Função para recarregar as mensagens do chat
   const loadMessages = (chatId) => {
     const token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/chat/cliente/${chatId}/`, {
+    axios.get(`${apiBaseUrl}/chat/cliente/${chatId}/`, {
       headers: {
         'Authorization': `Token ${token}`
       }
@@ -54,7 +55,7 @@ export default function ChatCliente({ isChatOpen, setIsChatOpen }) {
   // Função para iniciar o chat
   const iniciarChat = () => {
     const token = localStorage.getItem('token');
-    axios.post('http://127.0.0.1:8000/chat/iniciar/', {}, {
+    axios.post(`${apiBaseUrl}/chat/iniciar/`, {}, {
       headers: {
         'Authorization': `Token ${token}`
       }
