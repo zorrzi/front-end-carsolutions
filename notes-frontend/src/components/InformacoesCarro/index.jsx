@@ -7,7 +7,7 @@ import './index.css';
 import BotaoFavoritos from '../BotaoFavoritos';
 import BotaoVoltar from '../BotaoVoltar/';
 import Carrossel from '../Carrossel';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function InformacoesCarro() {
   const { id } = useParams();

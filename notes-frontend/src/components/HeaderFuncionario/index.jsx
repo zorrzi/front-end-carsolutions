@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from '../../utils/axiosConfig';
 import "./index.css";
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function HeaderFuncionario() {
   const [username, setUsername] = useState(null);

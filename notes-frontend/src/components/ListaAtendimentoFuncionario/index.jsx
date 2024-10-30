@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './index.css';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function ListaAtendimentoFuncionario() {
   const [meusAtendimentos, setMeusAtendimentos] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function SignupCliente() {
   const [formData, setFormData] = useState({

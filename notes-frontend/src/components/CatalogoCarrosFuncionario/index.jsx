@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarroFuncionario from '../CarroFuncionario';
 import './index.css';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function CatalogoCarrosFuncionario() {
   const [cars, setCars] = useState([]);

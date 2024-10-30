@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 function FormularioEdicao() {
   const { id } = useParams();

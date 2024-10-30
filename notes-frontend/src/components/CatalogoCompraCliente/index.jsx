@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarroCliente from '../CarroCliente';
 import './index.css';
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function CatalogoCompraCliente() {
   const [cars, setCars] = useState([]);

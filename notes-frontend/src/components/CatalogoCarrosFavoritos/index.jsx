@@ -3,7 +3,7 @@ import axios from '../../utils/axiosConfig';  // Usando o axios configurado
 import { useNavigate } from 'react-router-dom';
 import CarroCliente from '../CarroCliente';  // Componente que exibe o card do carro
 import './index.css';  // Estilos
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function CatalogoCarrosFavoritos() {
   const [favoriteCars, setFavoriteCars] = useState([]);
