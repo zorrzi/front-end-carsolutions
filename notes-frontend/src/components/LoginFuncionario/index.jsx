@@ -38,7 +38,7 @@ export default function LoginFuncionario() {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container-func">
       <h1>Bem-vindo(a)!</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-group">
