@@ -1,0 +1,7 @@
+.nenhum-fav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7rem;
+}
