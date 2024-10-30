@@ -306,6 +306,12 @@ button{
         color: #2B2B68;
     }
 
+    .erro{
+        color: red;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
 @media (max-width: 1258px){
     .anuncio-carro{
         display: flex;
