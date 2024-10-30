@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function SignupCliente() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ export default function SignupCliente() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/cadastro/", {
+      const response = await axios.post(`${apiBaseUrl}/cadastro/`, {
         username: formData.username,
         email: formData.email,
         cpf: formData.cpf,

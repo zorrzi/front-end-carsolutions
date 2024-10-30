@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import CarroCliente from '../CarroCliente';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function CatalogoCarrosCliente() {
   const initialFilters = {
@@ -46,7 +47,7 @@ export default function CatalogoCarrosCliente() {
       .map((key) => `${key}=${appliedFilters[key]}`)
       .join('&');
       
-    axios.get(`http://127.0.0.1:8000/cars/catalogo/?${query}`)
+    axios.get(`${apiBaseUrl}/cars/catalogo/?${query}`)
       .then(response => {
         setCars(response.data);
       })

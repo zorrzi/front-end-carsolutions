@@ -7,6 +7,7 @@ import './index.css';
 import BotaoFavoritos from '../BotaoFavoritos';
 import BotaoVoltar from '../BotaoVoltar/';
 import Carrossel from '../Carrossel';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 export default function InformacoesCarro() {
   const { id } = useParams();
@@ -33,14 +34,14 @@ export default function InformacoesCarro() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/cars/${id}/`)
+    axios.get(`${apiBaseUrl}/cars/${id}/`)
       .then(response => setCar(response.data))
       .catch(error => console.error('Erro ao buscar o carro:', error));
 
     const fetchCreditCards = async () => {
       const token = localStorage.getItem('token');
       if (token) {
-        const response = await axios.get('http://localhost:8000/cartaodecredito/listar/', {
+        const response = await axios.get(`${apiBaseUrl}/cartaodecredito/listar/`, {
           headers: { Authorization: `Token ${token}` },
         });
         setCreditCards(response.data);
@@ -72,7 +73,7 @@ export default function InformacoesCarro() {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.post('http://localhost:8000/agendamentos/agendar/visita/', {
+      await axios.post(`${apiBaseUrl}/agendamentos/agendar/visita/`, {
         carro_id: car.id,
         data: date,
         horario: time,
@@ -93,11 +94,11 @@ export default function InformacoesCarro() {
       : { carro_id: car.id, novo_cartao: creditCard };
 
     try {
-      await axios.post('http://localhost:8000/agendamentos/reservar/veiculo/', data, {
+      await axios.post(`${apiBaseUrl}/agendamentos/reservar/veiculo/`, data, {
         headers: { Authorization: `Token ${token}` }
       });
 
-      await axios.post(`http://localhost:8000/cars/reserve/${car.id}/`, { is_reserved: true }, {
+      await axios.post(`${apiBaseUrl}/cars/reserve/${car.id}/`, { is_reserved: true }, {
         headers: { Authorization: `Token ${token}` }
       });
 
@@ -129,7 +130,7 @@ export default function InformacoesCarro() {
         };
 
     try {
-      const availabilityResponse = await axios.post('http://localhost:8000/agendamentos/verificar-disponibilidade/', {
+      const availabilityResponse = await axios.post(`${apiBaseUrl}/agendamentos/verificar-disponibilidade/`, {
         carro_id: car.id,
         data_retirada: pickupDate,
         horario_retirada: pickupTime,
@@ -140,7 +141,7 @@ export default function InformacoesCarro() {
       });
 
       if (availabilityResponse.data.disponivel) {
-        await axios.post('http://localhost:8000/agendamentos/reservar/aluguel/', data, {
+        await axios.post(`${apiBaseUrl}/agendamentos/reservar/aluguel/`, data, {
           headers: { Authorization: `Token ${token}` }
         });
         handleSuccess();

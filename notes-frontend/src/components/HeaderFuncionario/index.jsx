@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from '../../utils/axiosConfig';
 import "./index.css";
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function HeaderFuncionario() {
   const [username, setUsername] = useState(null);
@@ -29,7 +30,7 @@ export default function HeaderFuncionario() {
         },
       };
 
-      const response = await axios.post("http://localhost:8000/logoutFuncionario/", {}, config);
+      const response = await axios.post(`${apiBaseUrl}/logoutFuncionario/`, {}, config);
       
       if (response.status === 200) {
         localStorage.removeItem("username");

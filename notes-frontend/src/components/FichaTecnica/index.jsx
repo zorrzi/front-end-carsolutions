@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 const mapeamentoCampos = {
     class: "Classe do Carro",
@@ -23,7 +24,7 @@ export default function FichaTecnica() {
 
     useEffect(() => {
         // Faz a requisição para buscar as informações do carro pelo ID
-        axios.get(`http://localhost:8000/cars/${id}/`)
+        axios.get(`${apiBaseUrl}/cars/${id}/`)
             .then(response => {
                 const carData = response.data;  
                 setCar(carData);  // Define o estado com os dados do carro

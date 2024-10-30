@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";  // Importa o axios personalizado
 import { useNavigate } from "react-router-dom";
 import "./index.css";
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function LoginFuncionario() {
   const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ export default function LoginFuncionario() {
 
     try {
       // Usando o axios personalizado para enviar a requisição de login
-      const response = await axios.post("http://localhost:8000/loginFuncionario/", {
+      const response = await axios.post(`${apiBaseUrl}/loginFuncionario/`, {
         username: username,
         password: password,
       });

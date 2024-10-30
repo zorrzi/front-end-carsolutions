@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './MessageInput.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 
 export default function MessageInput({ chatId, isEmployee, onMessageSent }) {
@@ -11,7 +12,7 @@ export default function MessageInput({ chatId, isEmployee, onMessageSent }) {
   const handleSendMessage = (event) => {
     const token = localStorage.getItem('token');
     event.preventDefault();
-    axios.post(`http://127.0.0.1:8000/chat/send/${chatId}/`, 
+    axios.post(`${apiBaseUrl}/chat/send/${chatId}/`, 
       { 
         content: message, 
         is_employee: isEmployee 

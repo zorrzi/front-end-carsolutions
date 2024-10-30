@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarroFuncionario from '../CarroFuncionario';
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function CatalogoCarrosFuncionario() {
   const [cars, setCars] = useState([]);
@@ -11,7 +12,7 @@ export default function CatalogoCarrosFuncionario() {
   const [selectedCars, setSelectedCars] = useState([]); // Estado para armazenar os carros selecionados
 
   const loadCars = () => {
-    axios.get('http://localhost:8000/cars/')
+    axios.get(`${apiBaseUrl}/cars/`)
       .then(response => {
         setCars(response.data);
       })
@@ -34,7 +35,7 @@ export default function CatalogoCarrosFuncionario() {
 
   const deleteSelectedCars = () => {
     axios
-      .delete('http://localhost:8000/cars/delete-em-massa/', { data: { ids: selectedCars } })
+      .delete(`${apiBaseUrl}/cars/delete-em-massa/`, { data: { ids: selectedCars } })
       .then(() => {
         setSelectedCars([]);
         loadCars();

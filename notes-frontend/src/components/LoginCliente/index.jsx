@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; 
 import "./index.css";
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function LoginCliente() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ export default function LoginCliente() {
     e.preventDefault();
     try {
       // Faz a requisição para a API de login
-      const response = await axios.post("http://localhost:8000/login/", {
+      const response = await axios.post(`${apiBaseUrl}/login/`, {
         username: formData.username,
         password: formData.senha, // Ajuste de nome para 'password' no payload da requisição
       });

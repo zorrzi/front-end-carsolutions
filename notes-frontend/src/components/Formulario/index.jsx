@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';  // Usar useNavigate para redirecionar
 import './index.css';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 export default function Formulario() {
     const [anos, setAnos] = useState([]);
@@ -16,7 +17,7 @@ export default function Formulario() {
 
     // Carregar todos os anos ao montar o componente
     useEffect(() => {
-        axios.get('http://localhost:8000/cars/years/')
+        axios.get(`${apiBaseUrl}/cars/years/`)
             .then(response => setAnos(response.data))
             .catch(error => console.error('Erro ao buscar anos:', error));
     }, []);
@@ -24,7 +25,7 @@ export default function Formulario() {
     // Carregar as marcas quando o ano é selecionado
     useEffect(() => {
         if (anoSelecionado) {
-            axios.get(`http://localhost:8000/cars/brands/${anoSelecionado}/`)
+            axios.get(`${apiBaseUrl}/cars/brands/${anoSelecionado}/`)
                 .then(response => setMarcas(response.data))
                 .catch(error => console.error('Erro ao buscar marcas:', error));
         }
@@ -33,7 +34,7 @@ export default function Formulario() {
     // Carregar os modelos quando a marca é selecionada
     useEffect(() => {
         if (anoSelecionado && marcaSelecionada) {
-            axios.get(`http://localhost:8000/cars/models/${anoSelecionado}/${marcaSelecionada}/`)
+            axios.get(`${apiBaseUrl}/cars/models/${anoSelecionado}/${marcaSelecionada}/`)
                 .then(response => setModelos(response.data))
                 .catch(error => console.error('Erro ao buscar modelos:', error));
         }

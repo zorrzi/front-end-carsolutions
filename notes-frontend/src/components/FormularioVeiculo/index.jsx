@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import './index.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL; 
 
 function FormularioVeiculo() {
   const [year, setYear] = useState('');
@@ -38,7 +39,7 @@ function FormularioVeiculo() {
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/cars/', carData);
+      const response = await axios.post(`${apiBaseUrl}/cars/`, carData);
 
       if (response.status === 201) {
         navigate('/funcionario');
