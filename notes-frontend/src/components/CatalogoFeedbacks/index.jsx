@@ -1,11 +1,14 @@
+// CatalogoFeedbacks.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import FeedbackFuncionario from '../FeedbackFuncionario';
 import './index.css';
+
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function CatalogoFeedbacks() {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [ordenacao, setOrdenacao] = useState('mais_recentes'); // Padrão de ordenação
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -23,15 +26,38 @@ export default function CatalogoFeedbacks() {
       });
   }, []);
 
+  // Função para aplicar a ordenação
+  const ordenarFeedbacks = () => {
+    switch (ordenacao) {
+      case 'maior_nota':
+        return [...feedbacks].sort((a, b) => b.nota - a.nota);
+      case 'menor_nota':
+        return [...feedbacks].sort((a, b) => a.nota - b.nota);
+      case 'mais_antigas':
+        return feedbacks;
+      case 'mais_recentes':
+        return [...feedbacks].reverse();
+      default:
+        return feedbacks;
+    }
+  };
+
   return (
     <div className="catalogo-feedbacks">
-      {feedbacks.length === 0 ? (
-        <p>Nenhum feedback disponível</p>
-      ) : (
-        feedbacks.map((feedback) => (
-          <FeedbackFuncionario key={feedback.id} feedback={feedback} />
-        ))
-      )}
+    <h2 className='titulo-feedbacks-catalogo'>Feedbacks</h2>
+      <div className="ordenacao-container">
+        <label>Ordenar por:</label>
+        <select value={ordenacao} onChange={(e) => setOrdenacao(e.target.value)}>
+          <option value="maior_nota">Maior para menor nota</option>
+          <option value="menor_nota">Menor para maior nota</option>
+          <option value="mais_recentes">Mais recentes</option>
+          <option value="mais_antigas">Mais antigas</option>
+        </select>
+      </div>
+
+      {ordenarFeedbacks().map((feedback) => (
+        <FeedbackFuncionario key={feedback.id} feedback={feedback} />
+      ))}
     </div>
   );
 }
