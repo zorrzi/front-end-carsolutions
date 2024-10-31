@@ -4,13 +4,13 @@ import './index.css';
 
 export default function FeedbackFuncionario({ feedback }) {
   return (
-    <div className="card feedback-card-feedback">
+    <div className="card-feed feedback-card-feedback">
       <div className="nome-feedback">
         <p className="card-title-feedback">{feedback.usuario}</p>
         <p className="feedback-comment">{feedback.comentario}</p>
         
       </div>
-      <p className="card-subtitle-feedback">Nota: {renderStars(feedback.nota)}</p>
+      <p className="card-subtitle-feedback">Nota:      {renderStars(feedback.nota)}</p>
       
     </div>
   );

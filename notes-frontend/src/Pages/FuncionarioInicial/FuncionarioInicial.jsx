@@ -12,10 +12,12 @@ function FuncionarioInicial() {
       <>
         <HeaderFuncionario />
         <div className="carros-container">
-          <CatalogoCarrosFuncionario />
-          <AgendaFuncionario />
+          <CatalogoCarrosFuncionario className='carros-catalogo-func' />
+          <div className='agenda-feedback'>
+            <AgendaFuncionario />
+            <CatalogoFeedbacks />
+          </div>
         </div>
-        <CatalogoFeedbacks />
 
 
         
