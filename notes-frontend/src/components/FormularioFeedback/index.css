@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    margin-top: 2rem;
 }
 
 /* Estilos da caixinha */
@@ -51,7 +51,7 @@
 
 /* Estilos do botão */
 .feedback-form button {
-    background-color: #4CAF50;
+    background-color: #3D348B;
     color: white;
     border: none;
     border-radius: 4px;

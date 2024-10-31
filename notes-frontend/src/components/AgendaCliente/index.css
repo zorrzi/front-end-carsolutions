@@ -36,6 +36,33 @@
     margin-bottom: 20px;
   }
   
+  .texto-avaliar{
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .texto-avaliar:hover{
+    background-color: none;
+    cursor: pointer;
+  }
+
+  .botao-avaliar{
+    background-color: #3D348B;
+    border-radius: 5%;
+    padding: 5px 5px;
+    cursor: pointer;
+  }
+
+  .botao-avaliar:hover{
+    background-color: none;
+    cursor: pointer;
+  }
+
+  p{
+    margin-bottom: 0;
+  }
+
   .botao-tabela {
     padding: 10px 20px;
     background-color: white;
@@ -80,15 +107,18 @@
   .tabela-agendamentos td {
     padding: 10px 15px;
     text-align: center;
+    cursor: default;
   }
   
   .tabela-agendamentos th {
     font-size: 1.2rem;
     font-weight: bold;
+    cursor: default;
   }
   
   .tabela-agendamentos td {
     font-size: 1rem;
+    cursor: default;
   }
   
   .tabela-agendamentos tr:nth-child(even) {
