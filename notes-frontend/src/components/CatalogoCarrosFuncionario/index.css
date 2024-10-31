@@ -80,8 +80,8 @@
 /* Estilo do checkbox de seleção */
 .select-checkbox {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 15rem;
+  left: 0px;
   transform: scale(1.2);
   cursor: pointer;
 }
