@@ -99,12 +99,6 @@ export default function AgendamentoCliente() {
         </button>
       </div>
 
-      {showFeedbackForm && (
-        <FormularioFeedback
-          agendamentoId={selectedAgendamentoId}
-          onFeedbackSubmit={handleFeedbackSubmit}
-        />
-      )}
 
       {/* Tabela de Visitas */}
       {tabelaAtiva === 'visita' && (
@@ -134,17 +128,17 @@ export default function AgendamentoCliente() {
                     </td>
                     <td>
                       {agendamento.status === 'concluido' && !agendamento.feedbackEnviado ? (
-                        <button onClick={() => handleAvaliarClick(agendamento.id)}>
-                          Avaliar
+                        <button className='botao-avaliar' onClick={() => handleAvaliarClick(agendamento.id)}>
+                          <p className='texto-avaliar'>Avaliar</p>
                         </button>
                       ) : (
                         <span>{agendamento.feedbackEnviado ? 'Avaliado' : '-'}</span>
-                      )}
+                        )}
                     </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
+                ) : (
+                  <tr>
                   <td colSpan="6">Nenhuma visita encontrada</td>
                 </tr>
               )}
@@ -186,12 +180,12 @@ export default function AgendamentoCliente() {
                         </button>
                       ) : (
                         <span>{agendamento.feedbackEnviado ? 'Avaliado' : '-'}</span>
-                      )}
+                        )}
                     </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
+                ) : (
+                  <tr>
                   <td colSpan="6">Nenhuma compra/reserva encontrada</td>
                 </tr>
               )}
@@ -237,18 +231,24 @@ export default function AgendamentoCliente() {
                         </button>
                       ) : (
                         <span>{agendamento.feedbackEnviado ? 'Avaliado' : '-'}</span>
-                      )}
+                        )}
                     </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
+                ) : (
+                  <tr>
                   <td colSpan="8">Nenhum aluguel encontrado</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
+      )}
+      {showFeedbackForm && (
+        <FormularioFeedback className="formulario-feedback"
+          agendamentoId={selectedAgendamentoId}
+          onFeedbackSubmit={handleFeedbackSubmit}
+        />
       )}
     </div>
   );
