@@ -2,7 +2,7 @@
 .catalogo-carros-func{
   display: flex;
   flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
-  justify-content: flex-start; /* Alinha os itens no início */
+  justify-content: center; /* Alinha os itens no início */
   gap: 2rem; /* Espaçamento entre os cards */
   padding: 1rem 2rem;
   margin-top: 1rem;
@@ -81,7 +81,8 @@
 .select-checkbox {
   position: absolute;
   top: 15rem;
-  left: 0px;
+  width: 30px;
+  left: 43%;
   transform: scale(1.2);
   cursor: pointer;
 }

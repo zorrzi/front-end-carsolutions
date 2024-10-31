@@ -5,7 +5,7 @@
     flex-wrap: wrap;
     gap: 20px; /* Espaçamento entre os cards */
     flex-grow: 1; /* Expande para ocupar o espaço restante */
-    justify-content: flex-start; /* Alinha os cards à esquerda */
+    justify-content: center; /* Alinha os cards à esquerda */
   }
   
   /* Estilos para os cards individuais */

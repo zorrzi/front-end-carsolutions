@@ -14,7 +14,7 @@ body {
 
 /* Banner de Introdução */
 .banner-introducao {
-  background-image: url('/path/to/banner-image.jpg');
+  background-image: url('/loja.png');
   background-size: cover;
   background-position: center;
   color: #fff;
