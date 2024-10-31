@@ -1,24 +1,25 @@
 /* Estilos do card */
-.card {
-    flex: 1 1 15rem;
-    height: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    border-radius: 0.4rem;
-    margin: 0.7rem 5rem;
-    padding: 0.5rem 0.8rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 16rem;
+.card-feed {
+  width: 100%;
+  height: 100%;
+  margin: 1rem 1rem 2.5rem;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #3B3B8F; /* Borda externa azul como na imagem */
   }
   
   .feedback-card-feedback {
     max-width: 18rem;
+    margin: 1rem 0;
+    padding: 0.5rem;
   }
   
   .nome-feedback {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.4rem;
     color: #373774;
   }
   
