@@ -5,6 +5,7 @@ import HeaderFuncionario from '../../components/HeaderFuncionario';
 import BotaoAdicionar from '../../components/BotaoAdicionar';
 import CatalogoCarrosFuncionario from '../../components/CatalogoCarrosFuncionario';
 import AgendaFuncionario from '../../components/AgendaFuncionario';
+import CatalogoFeedbacks from '../../components/CatalogoFeedbacks';
 
 function FuncionarioInicial() {
     return (
@@ -14,7 +15,7 @@ function FuncionarioInicial() {
           <CatalogoCarrosFuncionario />
           <AgendaFuncionario />
         </div>
-        
+        <CatalogoFeedbacks />
 
 
         

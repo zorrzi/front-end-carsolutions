@@ -1,0 +1,52 @@
+/* Estilos do card */
+.card {
+    flex: 1 1 15rem;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    border-radius: 0.4rem;
+    margin: 0.7rem 5rem;
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 16rem;
+  }
+  
+  .feedback-card-feedback {
+    max-width: 18rem;
+  }
+  
+  .nome-feedback {
+    display: flex;
+    flex-direction: column;
+    color: #373774;
+  }
+  
+  .card-title-feedback {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .card-subtitle-feedback {
+    font-weight: bold;
+    color: #373774;
+    display: flex;
+    align-items: center;
+  }
+  
+  .feedback-feedback-comment {
+    color: #4c4c4c;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .star-feedback {
+    font-size: 1rem;
+    color: #d3d3d3;
+    margin-right: 3px;
+  }
+  
+  .star-feedback.filled {
+    color: #f5c518; /* Cor dourada para estrelas preenchidas */
+  }
+  
