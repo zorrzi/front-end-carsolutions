@@ -1,0 +1,92 @@
+/* Estilos gerais para centralizar o formulário */
+.feedback-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilos da caixinha */
+.feedback-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+/* Estilos para o label */
+.feedback-form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Estilos do textarea */
+.feedback-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para o select das notas */
+.feedback-form select {
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+    margin-bottom: 20px;
+    appearance: none; /* Remove a seta padrão */
+}
+
+/* Estilos do botão */
+.feedback-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.feedback-form button:hover {
+    background-color: #45a049;
+}
+
+
+.star-rating {
+    display: flex;
+    gap: 5px;
+    
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  
+  .star {
+    font-size: 1.5em;
+    color: lightgray;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  
+  .star.filled {
+    color: gold;
+  }
+  
+  .star:hover,
+  .star:hover ~ .star {
+    color: gold;
+  }
