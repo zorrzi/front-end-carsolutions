@@ -2,9 +2,19 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import CarroCliente from '../CarroCliente';
 import './index.css';
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL; 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+import { useLocation } from 'react-router-dom'; 
 
 export default function CatalogoCarrosCliente() {
+
+
+  // Pega os parâmetros da URL (ano, marca, modelo)
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const ano = searchParams.get('ano');
+  const marca = searchParams.get('marca');
+  const modelo = searchParams.get('modelo');
+
   const initialFilters = {
     isForSale: localStorage.getItem('isForSale') === 'false' ? false : true,
     isForRent: localStorage.getItem('isForRent') === 'false' ? false : true,
@@ -14,9 +24,9 @@ export default function CatalogoCarrosCliente() {
     maxSalePrice: 300000,
     minMileage: 0,
     maxMileage: 200000,
-    brand: '',
-    model: '',
-    year: '',
+    brand: marca || '',
+    model: modelo || '',
+    year:  ano || '',
   };
 
   const [cars, setCars] = useState([]);

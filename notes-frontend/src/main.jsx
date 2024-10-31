@@ -73,12 +73,6 @@ const router = createBrowserRouter([
     element: <CarrosFavoritos />,
   },
 
-  
-  {
-    path: "/resultados",
-    element: <ResultadosBusca />,
-  },
-
   {
     path: "/agendamentoCliente",
     element: <AgendamentoCliente />,
