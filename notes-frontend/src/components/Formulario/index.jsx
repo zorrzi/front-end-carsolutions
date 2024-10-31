@@ -45,13 +45,13 @@ export default function Formulario() {
         event.preventDefault();
 
         // Monta a URL com base nos parâmetros selecionados
-        let url = '/resultados';
+        let url = '/carrosDisponiveis';
         if (anoSelecionado && marcaSelecionada && modeloSelecionado) {
-            url = `/resultados?ano=${anoSelecionado}&marca=${marcaSelecionada}&modelo=${modeloSelecionado}`;
+            url = `/carrosDisponiveis?ano=${anoSelecionado}&marca=${marcaSelecionada}&modelo=${modeloSelecionado}`;
         } else if (anoSelecionado && marcaSelecionada) {
-            url = `/resultados?ano=${anoSelecionado}&marca=${marcaSelecionada}`;
+            url = `/carrosDisponiveis?ano=${anoSelecionado}&marca=${marcaSelecionada}`;
         } else if (anoSelecionado) {
-            url = `/resultados?ano=${anoSelecionado}`;
+            url = `/carrosDisponiveis?ano=${anoSelecionado}`;
         }
 
         // Redireciona para a página de resultados com os parâmetros
