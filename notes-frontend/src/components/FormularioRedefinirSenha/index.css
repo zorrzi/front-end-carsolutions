@@ -1,6 +1,6 @@
 .login-container-redefinir{
     position: absolute; /* Faz o formulário ficar sobre a imagem */
-    top: 110%; /* Move o formulário para o meio verticalmente */
+    top: 40%; /* Move o formulário para o meio verticalmente */
     left: 50%;  
     transform: translate(-50%, -50%); /* Centraliza horizontalmente e verticalmente */
     background-color: #ffffff;
