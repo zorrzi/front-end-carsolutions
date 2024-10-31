@@ -30,8 +30,8 @@ export default function AgendamentoCliente() {
         return 'status-cancelado';
       case 'pendente':
         return 'status-pendente';
-      case 'em atendimento':
-        return 'status-atendimento';
+      case 'confirmado':
+        return 'status-confirmado';
       case 'concluido':
         return 'status-concluido';
       default:
