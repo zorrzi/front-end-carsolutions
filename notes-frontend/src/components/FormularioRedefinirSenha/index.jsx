@@ -28,7 +28,7 @@ export default function FormularioRedefinirSenha() {
       
       // Redireciona para a página de login após 3 segundos
       setTimeout(() => {
-        window.location.href = "/login";
+        window.location.href = "/loginCliente";
       }, 3000);
       
     } catch (err) {
