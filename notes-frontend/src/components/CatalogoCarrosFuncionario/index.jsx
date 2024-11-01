@@ -4,21 +4,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarroFuncionario from '../CarroFuncionario';
 import './index.css';
+
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function CatalogoCarrosFuncionario() {
   const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCars, setSelectedCars] = useState([]); // Estado para armazenar os carros selecionados
+  const [selectedCars, setSelectedCars] = useState([]);
+  const [showDiscountOptions, setShowDiscountOptions] = useState(false);
+  const [discountPercentage, setDiscountPercentage] = useState('');
+  const [discountType, setDiscountType] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const loadCars = () => {
     axios.get(`${apiBaseUrl}/cars/`)
-      .then(response => {
-        setCars(response.data);
-      })
-      .catch(error => {
-        console.error('Erro ao buscar os carros:', error);
-      });
+      .then(response => setCars(response.data))
+      .catch(error => console.error('Erro ao buscar os carros:', error));
   };
 
   useEffect(() => {
@@ -40,9 +41,31 @@ export default function CatalogoCarrosFuncionario() {
         setSelectedCars([]);
         loadCars();
       })
-      .catch(error => {
-        console.error('Erro ao apagar os carros:', error);
-      });
+      .catch(error => console.error('Erro ao apagar os carros:', error));
+  };
+
+  const applyDiscount = () => {
+    const discountValue = parseFloat(discountPercentage);
+
+    if (isNaN(discountValue) || discountValue < 0 || discountValue > 15) {
+      setErrorMessage('O desconto deve estar entre 0% e 15%.');
+      return;
+    }
+
+    axios.post(`${apiBaseUrl}/cars/apply-discount/`, {
+      ids: selectedCars,
+      discount_type: discountType,
+      discount_percentage: discountValue / 100  // Converter para valor decimal
+    })
+    .then(() => {
+      setSelectedCars([]);
+      setDiscountType('');
+      setDiscountPercentage('');
+      setShowDiscountOptions(false);
+      setErrorMessage('');
+      loadCars();
+    })
+    .catch(error => console.error('Erro ao aplicar desconto:', error));
   };
 
   const filteredCars = cars.filter(car =>
@@ -62,12 +85,69 @@ export default function CatalogoCarrosFuncionario() {
         />
       </div>
 
-      {/* Botão para apagar carros selecionados */}
+      {/* Botões de ação */}
       <div className="actions-container">
-        <button className='button' onClick={deleteSelectedCars} disabled={selectedCars.length === 0}>
+        <button
+          className='button'
+          onClick={deleteSelectedCars}
+          disabled={selectedCars.length === 0}
+        >
           Apagar Selecionados
         </button>
+        
+        <button
+          className='button'
+          onClick={() => setShowDiscountOptions(!showDiscountOptions)}
+          disabled={selectedCars.length === 0}
+        >
+          Aplicar Desconto
+        </button>
       </div>
+
+      {/* Opções de desconto */}
+      {showDiscountOptions && (
+        <div className="discount-options">
+          <input
+            type="number"
+            min="0"
+            max="15"
+            step="0.01"
+            placeholder="Desconto (%)"
+            value={discountPercentage}
+            onChange={(e) => setDiscountPercentage(e.target.value)}
+          />
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="discountType"
+                value="purchase"
+                checked={discountType === 'purchase'}
+                onChange={() => setDiscountType('purchase')}
+              />
+              Desconto na Compra
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="discountType"
+                value="rental"
+                checked={discountType === 'rental'}
+                onChange={() => setDiscountType('rental')}
+              />
+              Desconto no Aluguel
+            </label>
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button
+            className='button'
+            onClick={applyDiscount}
+            disabled={!discountType || discountPercentage === ''}
+          >
+            Confirmar Desconto
+          </button>
+        </div>
+      )}
 
       {/* Lista de carros filtrados */}
       <div className="catalogo-carros-func">

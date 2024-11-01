@@ -86,3 +86,7 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   
 }
+
+.discount-icon{
+  width: 1.5rem;
+}
