@@ -74,8 +74,9 @@ export default function LoginCliente() {
           <p>Não tem uma conta?</p>
           <Link to={"/signupCliente"}>Crie a sua</Link>
         </div>
-
-        {message && <p>{message}</p>}
+        <div className="msg-erro">
+        {message && <p className="erro-login">{message}</p>}
+        </div>
       </form>
     </div>
   );
