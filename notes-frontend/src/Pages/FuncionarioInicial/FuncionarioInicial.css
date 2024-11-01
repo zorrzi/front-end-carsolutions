@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 @media (max-width: 768px) {
@@ -29,5 +29,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .agenda-feedback{
+    width: 100%;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
   }
 }
