@@ -65,4 +65,11 @@
       font-size: 0.9rem;
     }
   }
+
+  @media (max-width: 768px) {
+    .agenda-funcionario-container{
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
   
