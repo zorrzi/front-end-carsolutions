@@ -171,3 +171,10 @@
     align-self: flex-start;
     text-align: right;
     }
+
+  @media (max-width: 768px) {
+    .chatContainerFuncionario {
+      margin-right: 0;
+    }
+    
+  }
