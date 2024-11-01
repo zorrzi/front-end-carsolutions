@@ -109,7 +109,7 @@ input {
 @media (max-width: 760px) {
   .login-container-redefinir {
     margin: 3rem auto;
-    top: 250%;
+    top: 18rem;
     width: 70%;
   }
 
