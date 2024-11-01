@@ -155,6 +155,18 @@ export default function InformacoesCarro() {
 
   const today = new Date().toISOString().split("T")[0];
 
+
+  // Calcular preço com desconto para venda, se aplicável
+    const discountedPurchasePrice = car?.is_discounted_sale
+    ? car.purchase_price * (1 - car.discount_percentage_sale)
+    : null;
+
+  // Calcular preço com desconto para aluguel, se aplicável
+  const discountedRentalPrice = car?.is_discounted_rent
+    ? car.rental_price * (1 - car.discount_percentage_rent)
+    : null;
+
+  
   if (!car) {
     return <p>Carregando...</p>;
   }
@@ -182,9 +194,33 @@ export default function InformacoesCarro() {
       <div className={`infos ${showPopup ? 'blurred' : ''}`}>
         <h1 className='titulo-carro-1'>{car.year} {car.brand} {car.model}</h1>
         <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
-        {car.is_for_sale && <p className='preco-venda'>Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
-        {car.is_for_rent && <p className='preco-aluguel'>Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia</p>}
+        {/* Exibir preço de venda com desconto, se aplicável */}
+        {car.is_for_sale && (
+          <div className="preco-container">
+            <p className={`preco-venda ${car.is_discounted_sale ? 'riscado' : ''}`}>
+              Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+            {car.is_discounted_sale && (
+              <p className="preco-desconto">
+                Preço com Desconto: R$ {Number(discountedPurchasePrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </p>
+            )}
+          </div>
+        )}
 
+        {/* Exibir preço de aluguel com desconto, se aplicável */}
+        {car.is_for_rent && (
+          <div className="preco-container">
+            <p className={`preco-aluguel ${car.is_discounted_rent ? 'riscado' : ''}`}>
+              Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia
+            </p>
+            {car.is_discounted_rent && (
+              <p className="preco-desconto">
+                Preço Desconto: R$ {Number(discountedRentalPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia
+              </p>
+            )}
+          </div>
+        )}
         {activeForm === '' && (
           <>
             <button className='botao-venda' onClick={() => handleAuthentication('visita')}>Agende uma Visita</button>

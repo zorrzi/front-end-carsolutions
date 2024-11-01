@@ -313,6 +313,16 @@ button{
         font-weight: bold;
     }
 
+    .riscado {
+        text-decoration: line-through;
+        color: gray;
+      }
+      
+      .preco-desconto {
+        font-weight: bold;
+        color: green;
+      }
+
 @media (max-width: 1258px){
     .anuncio-carro{
         display: flex;

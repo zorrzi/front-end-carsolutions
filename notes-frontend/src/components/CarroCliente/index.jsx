@@ -1,3 +1,5 @@
+// components/CarroCliente.jsx
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
@@ -15,7 +17,15 @@ export default function CarroCliente({ car }) {
         <p className="card-title">{car.brand}</p>
         <p className="card-subtitle">{car.model}</p>
       </div>
-      <img className="carro" src={car.image_url_1 || '/default-image.jpg'} alt={car.model} />
+
+      <div className="image-container">
+        <img className="carro" src={car.image_url_1 || '/default-image.jpg'} alt={car.model} />
+        
+        {/* Ícone de desconto */}
+        {(car.is_discounted_purchase || car.is_discounted_rent) && (
+          <img src='desconto.png' alt="Desconto" className="discount-icon" />
+        )}
+      </div>
 
       <div className="banner-container">
         {car.is_for_rent && <span className="banner-item">Aluguel</span>}
