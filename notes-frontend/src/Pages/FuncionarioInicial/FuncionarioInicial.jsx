@@ -11,6 +11,7 @@ function FuncionarioInicial() {
     return (
       <>
         <HeaderFuncionario />
+        <h1 className='destaques'>Visão Geral</h1>
         <div className="carros-container">
           <CatalogoCarrosFuncionario className='carros-catalogo-func' />
           <div className='agenda-feedback'>
