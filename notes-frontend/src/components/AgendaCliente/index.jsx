@@ -24,8 +24,14 @@ export default function AgendamentoCliente() {
   }, []);
 
   const handleAvaliarClick = (agendamentoId) => {
-    setSelectedAgendamentoId(agendamentoId);
-    setShowFeedbackForm(true);
+    // Alterna o formulário de feedback para o agendamento clicado
+    if (showFeedbackForm && selectedAgendamentoId === agendamentoId) {
+      setShowFeedbackForm(false); // Fecha o formulário se já estiver aberto para o mesmo agendamento
+      setSelectedAgendamentoId(null);
+    } else {
+      setSelectedAgendamentoId(agendamentoId);
+      setShowFeedbackForm(true); // Abre o formulário para o novo agendamento
+    }
   };
 
   const handleFeedbackSubmit = () => {
@@ -37,7 +43,16 @@ export default function AgendamentoCliente() {
       )
     );
     setShowFeedbackForm(false);
+    setSelectedAgendamentoId(null);
   };
+
+  useEffect(() => {
+    // Fecha o formulário de feedback ao mudar de tabela
+    if (showFeedbackForm) {
+      setShowFeedbackForm(false);
+      setSelectedAgendamentoId(null);
+    }
+  }, [tabelaAtiva]);
 
   const getStatusClass = (status) => {
     if (!status) return '';
@@ -99,7 +114,6 @@ export default function AgendamentoCliente() {
         </button>
       </div>
 
-
       {/* Tabela de Visitas */}
       {tabelaAtiva === 'visita' && (
         <div>
@@ -132,13 +146,13 @@ export default function AgendamentoCliente() {
                           <p className='texto-avaliar'>Avaliar</p>
                         </button>
                       ) : (
-                        <span>{agendamento.feedbackEnviado ? 'Avaliado' : '-'}</span>
-                        )}
+                        <span>{agendamento.feedbackEnviado ? 'Avaliado' : 'Não Disponível'}</span>
+                      )}
                     </td>
                   </tr>
                 ))
-                ) : (
-                  <tr>
+              ) : (
+                <tr>
                   <td colSpan="6">Nenhuma visita encontrada</td>
                 </tr>
               )}
@@ -179,13 +193,13 @@ export default function AgendamentoCliente() {
                           Avaliar
                         </button>
                       ) : (
-                        <span>{agendamento.feedbackEnviado ? 'Avaliado' : '-'}</span>
-                        )}
+                        <span>{agendamento.feedbackEnviado ? 'Avaliado' : 'Não Disponível'}</span>
+                      )}
                     </td>
                   </tr>
                 ))
-                ) : (
-                  <tr>
+              ) : (
+                <tr>
                   <td colSpan="6">Nenhuma compra/reserva encontrada</td>
                 </tr>
               )}
@@ -230,13 +244,13 @@ export default function AgendamentoCliente() {
                           Avaliar
                         </button>
                       ) : (
-                        <span>{agendamento.feedbackEnviado ? 'Avaliado' : '-'}</span>
-                        )}
+                        <span>{agendamento.feedbackEnviado ? 'Avaliado' : 'Não Disponível'}</span>
+                      )}
                     </td>
                   </tr>
                 ))
-                ) : (
-                  <tr>
+              ) : (
+                <tr>
                   <td colSpan="8">Nenhum aluguel encontrado</td>
                 </tr>
               )}
@@ -245,7 +259,8 @@ export default function AgendamentoCliente() {
         </div>
       )}
       {showFeedbackForm && (
-        <FormularioFeedback className="formulario-feedback"
+        <FormularioFeedback
+          className="formulario-feedback"
           agendamentoId={selectedAgendamentoId}
           onFeedbackSubmit={handleFeedbackSubmit}
         />
