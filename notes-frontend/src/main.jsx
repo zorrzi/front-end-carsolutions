@@ -10,6 +10,7 @@ import LoginCliente from './Pages/LoginCliente/loginCliente.jsx';
 import SignupCliente from './Pages/SignupCliente/signupCliente.jsx';
 import FuncionarioInicial from './Pages/FuncionarioInicial/FuncionarioInicial.jsx';
 import RotaProtegidaFuncionario from './components/RotaProtegidaFuncionario';
+import RedirecionarFuncionario from './components/RedirecionarFuncionario/index.jsx';
 import AdicionarVeiculo from './Pages/AdicionarVeiculo/AdicionarVeiculo.jsx';
 import Api from './Pages/Api/Api.jsx';
 import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
@@ -24,18 +25,31 @@ import EsqueciMinhaSenha from './Pages/EsqueciMinhaSenha/EsqueciMinhaSenha.jsx';
 import RedefinirSenha from './Pages/RedefinirSenha/RedefinirSenha.jsx';
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+    <RedirecionarFuncionario>
+      <App />
+    </RedirecionarFuncionario>
+    ),
   },
   {
     path: "/loginCliente",
-    element: <LoginCliente />,
+    element: (
+    <RedirecionarFuncionario>
+      <LoginCliente />
+    </RedirecionarFuncionario>
+    ),
   },
   {
     path: "/signupCliente",
-    element: <SignupCliente />,
+    element: (
+    <RedirecionarFuncionario>
+      <SignupCliente />
+    </RedirecionarFuncionario>
+    ),
   },
   {
     path: "/funcionario",
@@ -47,60 +61,100 @@ const router = createBrowserRouter([
   },
   {
     path: "/adicionarVeiculo",
-    element: <AdicionarVeiculo />,
-  },
-  {
-    path: "/api",
-    element: <Api />,
+    element: (
+    <RotaProtegidaFuncionario>
+      <AdicionarVeiculo />
+    </RotaProtegidaFuncionario>
+    ),
   },
   {
     path: "/loginFuncionario",
-    element: <LoginFuncionario />,
+    element: (
+    <RedirecionarFuncionario>
+      <LoginFuncionario />
+    </RedirecionarFuncionario>
+    ),
   },
   {
     path: "/anuncio/:id",
-    element: <AnuncioCarro />,
+    element: (
+    <RedirecionarFuncionario>
+      <AnuncioCarro />
+    </RedirecionarFuncionario>
+    ),
   },
 
   {
     path: "/editarCarro/:id",
-    element: <EditarCarro />,
+    element: (
+    <RotaProtegidaFuncionario>
+      <EditarCarro />
+    </RotaProtegidaFuncionario>
+    ),
   },
 
   {
     path: "/carrosFavoritos",
-    element: <CarrosFavoritos />,
+    element:(
+    <RedirecionarFuncionario> 
+      <CarrosFavoritos />
+    </RedirecionarFuncionario>
+    ),
   },
 
   {
     path: "/agendamentoCliente",
-    element: <AgendamentoCliente />,
+    element: (
+    <RedirecionarFuncionario>
+      <AgendamentoCliente />
+    </RedirecionarFuncionario>
+    ),
   },
 
   {
     path: "/agendamentosFuncionario",
-    element: <AgendamentosFuncionario />,
+    element: (
+    <RotaProtegidaFuncionario>
+      <AgendamentosFuncionario />
+    </RotaProtegidaFuncionario>
+    ),
   },
 
 
   {
     path: "/carrosDisponiveis",
-    element: <CarrosDisponiveis />,
+    element: (
+    <RedirecionarFuncionario>
+      <CarrosDisponiveis />
+    </RedirecionarFuncionario>
+    ),
   },
 
   {
     path: "/sobreNos",
-    element: <SobreNos />,
+    element: (
+    <RedirecionarFuncionario>
+      <SobreNos />
+    </RedirecionarFuncionario>
+    ),
   },
 
   {
     path: "/esqueciMinhaSenha",
-    element: <EsqueciMinhaSenha/>,
+    element: (
+    <RedirecionarFuncionario>
+      <EsqueciMinhaSenha/>
+    </RedirecionarFuncionario>
+    ),
   },
 
   {
     path: "/redefinirSenha/:uid/:token",
-    element: <RedefinirSenha/>,
+    element: (
+    <RedirecionarFuncionario>
+      <RedefinirSenha/>
+    </RedirecionarFuncionario>
+    ),
   },
 
 
