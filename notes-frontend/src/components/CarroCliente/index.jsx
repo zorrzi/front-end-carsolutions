@@ -21,7 +21,7 @@ export default function CarroCliente({ car }) {
     : car.rental_price;
 
   return (
-    <div className="card">
+    <div className="card-cliente">
       <div className="nome">
         <p className="card-title">{car.brand}</p>
         <p className="card-subtitle">{car.model}</p>
@@ -66,7 +66,7 @@ export default function CarroCliente({ car }) {
         )}
       </div>
 
-      <p className="card-content" onClick={handleVerMais}>Ver mais</p>
+      <p className="card-content-cliente" onClick={handleVerMais}>Ver mais</p>
     </div>
   );
 }
