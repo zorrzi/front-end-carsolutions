@@ -8,6 +8,15 @@
     width: 100%;
 }
 
+.preco-container-anuncio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
 .quadro-imagem{
     display: flex;
     flex-direction: row;
