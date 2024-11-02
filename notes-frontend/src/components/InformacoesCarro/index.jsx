@@ -83,8 +83,7 @@ export default function InformacoesCarro() {
     setConfirmAction(null);
   };
 
-  const handleScheduleVisit = async (e) => {
-    e.preventDefault();
+  const handleScheduleVisit = async () => {
     const token = localStorage.getItem('token');
     try {
       await axios.post(`${apiBaseUrl}/agendamentos/agendar/visita/`, {
@@ -100,8 +99,7 @@ export default function InformacoesCarro() {
     }
   };
 
-  const handleReserveVehicle = async (e) => {
-    e.preventDefault();
+  const handleReserveVehicle = async () => {
     const token = localStorage.getItem('token');
     const data = selectedCard
       ? { carro_id: car.id, cartao_id: selectedCard }
@@ -122,8 +120,7 @@ export default function InformacoesCarro() {
     }
   };
 
-  const handleRentCar = async (e) => {
-    e.preventDefault();
+  const handleRentCar = async () => {
     const token = localStorage.getItem('token');
     const data = selectedCard
       ? {
