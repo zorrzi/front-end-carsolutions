@@ -43,7 +43,7 @@ export default function CarroFuncionario({ car, loadCars, isSelected, toggleSele
         type="checkbox"
         checked={isSelected}
         onChange={toggleSelection}
-        className="select-checkbox"
+        className="select-checkbox" 
       />
 
       <div className="nome">
@@ -56,7 +56,7 @@ export default function CarroFuncionario({ car, loadCars, isSelected, toggleSele
         {/* Ícone de desconto com botão "X" para remover */}
         {(car.is_discounted_sale || car.is_discounted_rent) && (
           <div className="discount-icon-container">
-            <img src="desconto.png" alt="Desconto" className="discount-icon" />
+            <img src="desconto.png" alt="Desconto" className="discount-icon-func" />
             <button className="remove-discount-button" onClick={removeDiscount}>X</button>
           </div>
         )}

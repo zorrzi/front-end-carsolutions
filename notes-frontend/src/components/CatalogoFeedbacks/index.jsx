@@ -44,7 +44,7 @@ export default function CatalogoFeedbacks() {
 
   return (
     <div className="catalogo-feedbacks">
-    <h2 className='titulo-feedbacks-catalogo'>Feedbacks</h2>
+      <h2 className='titulo-feedbacks-catalogo'>Feedbacks</h2>
       <div className="ordenacao-container">
         <label>Ordenar por:</label>
         <select value={ordenacao} onChange={(e) => setOrdenacao(e.target.value)}>
@@ -55,9 +55,11 @@ export default function CatalogoFeedbacks() {
         </select>
       </div>
 
-      {ordenarFeedbacks().map((feedback) => (
-        <FeedbackFuncionario key={feedback.id} feedback={feedback} />
-      ))}
+      <div className="feedbacks-lista">
+        {ordenarFeedbacks().map((feedback) => (
+          <FeedbackFuncionario key={feedback.id} feedback={feedback} />
+        ))}
+      </div>
     </div>
   );
 }
