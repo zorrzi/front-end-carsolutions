@@ -51,7 +51,9 @@ export default function HeaderFuncionario() {
 
   return (
     <div className="header-funcionario">
-      <img className="logo-func" src="/logo.png" alt="Logo Car Solutions" />
+      <Link to="/funcionario" >
+        <img className="logo-func" src="/logo.png" alt="Logo Car Solutions" />
+      </Link>
 
       {/* Ícone para abrir o menu em telas menores */}
       <img

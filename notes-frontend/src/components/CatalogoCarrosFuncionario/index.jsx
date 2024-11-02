@@ -15,6 +15,9 @@ export default function CatalogoCarrosFuncionario() {
   const [discountPercentage, setDiscountPercentage] = useState('');
   const [discountType, setDiscountType] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteMode, setDeleteMode] = useState('');
+  const [carToDelete, setCarToDelete] = useState(null);
 
   const loadCars = () => {
     axios.get(`${apiBaseUrl}/cars/`)
@@ -34,15 +37,47 @@ export default function CatalogoCarrosFuncionario() {
     );
   };
 
-  const deleteSelectedCars = () => {
-    axios
-      .delete(`${apiBaseUrl}/cars/delete-em-massa/`, { data: { ids: selectedCars } })
-      .then(() => {
-        setSelectedCars([]);
-        loadCars();
-      })
-      .catch(error => console.error('Erro ao apagar os carros:', error));
+  const handleDeleteCar = (car) => {
+    setCarToDelete(car);
+    setDeleteMode('single');
+    setShowDeleteConfirm(true);
   };
+
+  const handleDeleteSelectedCars = () => {
+    if (selectedCars.length > 0) {
+      setDeleteMode('bulk');
+      setShowDeleteConfirm(true);
+    }
+  };
+
+  const confirmDelete = () => {
+    if (deleteMode === 'single' && carToDelete) {
+      axios
+        .delete(`${apiBaseUrl}/cars/${carToDelete.id}/`)
+        .then(() => {
+          loadCars();
+          setShowDeleteConfirm(false);
+          setCarToDelete(null);
+        })
+        .catch(error => console.error('Erro ao deletar o carro:', error));
+    } else if (deleteMode === 'bulk') {
+      axios
+        .delete(`${apiBaseUrl}/cars/delete-em-massa/`, { data: { ids: selectedCars } })
+        .then(() => {
+          setSelectedCars([]);
+          loadCars();
+          setShowDeleteConfirm(false);
+        })
+        .catch(error => console.error('Erro ao apagar os carros:', error));
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setCarToDelete(null);
+  };
+
+
 
   const applyDiscount = () => {
     const discountValue = parseFloat(discountPercentage);
@@ -87,7 +122,7 @@ export default function CatalogoCarrosFuncionario() {
       <div className="actions-container">
         <button
           className='button'
-          onClick={deleteSelectedCars}
+          onClick={handleDeleteSelectedCars}
           disabled={selectedCars.length === 0}
         >
           Apagar Selecionados
@@ -156,12 +191,25 @@ export default function CatalogoCarrosFuncionario() {
               key={car.id}
               car={car}
               loadCars={loadCars}
+              onDelete={() => handleDeleteCar(car)}
               isSelected={selectedCars.includes(car.id)}
               toggleSelection={() => toggleCarSelection(car.id)}
             />
           ))
         )}
       </div>
+
+        {showDeleteConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Tem certeza que deseja deletar {deleteMode === 'single' ? 'este anúncio' : 'os anúncios selecionados'}?</h3>
+            <div className="modal-buttons">
+              <button className="confirm-button" onClick={confirmDelete}>Confirmar</button>
+              <button className="cancel-button" onClick={cancelDelete}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
