@@ -196,7 +196,7 @@ export default function InformacoesCarro() {
         <p className='quilometragem'>{car.mileage.toLocaleString('pt-BR')} Km</p>
         {/* Exibir preço de venda com desconto, se aplicável */}
         {car.is_for_sale && (
-          <div className="preco-container">
+          <div className="preco-container-anuncio">
             <p className={`preco-venda ${car.is_discounted_sale ? 'riscado' : ''}`}>
               Compra: R$ {Number(car.purchase_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
@@ -210,7 +210,7 @@ export default function InformacoesCarro() {
 
         {/* Exibir preço de aluguel com desconto, se aplicável */}
         {car.is_for_rent && (
-          <div className="preco-container">
+          <div className="preco-container-anuncio">
             <p className={`preco-aluguel ${car.is_discounted_rent ? 'riscado' : ''}`}>
               Aluguel: R$ {Number(car.rental_price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} por dia
             </p>
