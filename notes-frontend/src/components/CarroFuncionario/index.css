@@ -1,6 +1,6 @@
 .card {
-    flex: 1 1 15rem;
     height: auto;
+    width: 17rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     border-radius: 0.4rem;
     margin: 0.7rem 0.4rem;
@@ -126,3 +126,35 @@
     justify-content: space-between;
   }
   
+.select-checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    position: absolute  ;
+    top: 14rem;
+    right: -0.5rem;
+}
+
+.remove-discount-button{
+  position:absolute;
+  top: 6.8rem;
+  right: 1rem;
+  background-color: red;
+  color: white;
+  border-radius: 5rem 5rem 5rem 5rem;
+  font-size: 0.6rem;
+  padding: 0.1rem 0.3rem;
+
+}
+
+.remove-discount-button:hover{
+  background-color: #4c4c4c;
+}
+
+.discount-icon-func{
+  position: absolute;
+  width: 1.5rem;
+  top: 7rem;
+  right: 1.5rem;
+}

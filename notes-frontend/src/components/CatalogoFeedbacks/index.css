@@ -4,18 +4,28 @@
   justify-content: center;
   align-items: center;
   border: 2px solid #3B3B8F; /* Borda externa azul como na imagem */
-    border-radius: 10px;
-    margin: 5rem 0rem 2.5rem;
-    padding: 20px;
-    width: 100%;
+  border-radius: 10px;
+  margin: 5rem 0rem 2.5rem;
+  padding: 20px;
+  width: 100%;
 }
 
-.titulo-feedbacks-catalogo{
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #3d348b;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid black;
+.ordenacao-container {
+  margin-bottom: 1rem;
+}
+
+.feedbacks-lista {
+  max-height: 15rem; /* Limita a altura para três feedbacks aproximadamente */
+  overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder a altura */
+  width: 100%;
+}
+
+.titulo-feedbacks-catalogo {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #3d348b;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid black;
 }

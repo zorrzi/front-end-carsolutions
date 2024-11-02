@@ -55,7 +55,7 @@ export default function CatalogoCarrosFuncionario() {
     axios.post(`${apiBaseUrl}/cars/apply-discount/`, {
       ids: selectedCars,
       discount_type: discountType,
-      discount_percentage: discountValue / 100  // Converter para valor decimal
+      discount_percentage: discountValue / 100
     })
     .then(() => {
       setSelectedCars([]);
@@ -74,7 +74,6 @@ export default function CatalogoCarrosFuncionario() {
 
   return (
     <div className="catalogo">
-      {/* Campo de busca */}
       <div className="search-container">
         <input
           type="text"
@@ -85,7 +84,6 @@ export default function CatalogoCarrosFuncionario() {
         />
       </div>
 
-      {/* Botões de ação */}
       <div className="actions-container">
         <button
           className='button'
@@ -104,20 +102,20 @@ export default function CatalogoCarrosFuncionario() {
         </button>
       </div>
 
-      {/* Opções de desconto */}
       {showDiscountOptions && (
         <div className="discount-options">
           <input
+            className='discount-input'
             type="number"
             min="0"
             max="15"
             step="0.01"
             placeholder="Desconto (%)"
-            value={discountPercentage}
+            value={discountPercentage} 
             onChange={(e) => setDiscountPercentage(e.target.value)}
           />
-          <div>
-            <label>
+          <div className='checkboxes'>
+            <label className='input-discount-checkbox'>
               <input
                 type="radio"
                 name="discountType"
@@ -127,7 +125,7 @@ export default function CatalogoCarrosFuncionario() {
               />
               Desconto na Compra
             </label>
-            <label>
+            <label className='input-discount-checkbox'>
               <input
                 type="radio"
                 name="discountType"
@@ -149,7 +147,6 @@ export default function CatalogoCarrosFuncionario() {
         </div>
       )}
 
-      {/* Lista de carros filtrados */}
       <div className="catalogo-carros-func">
         {filteredCars.length === 0 ? (
           <p>Nenhum carro encontrado</p>
