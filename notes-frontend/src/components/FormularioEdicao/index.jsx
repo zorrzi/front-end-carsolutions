@@ -30,7 +30,7 @@ function FormularioEdicao() {
         setMileage(car.mileage);
         setPurchasePrice(car.purchase_price || '');
         setRentalPrice(car.rental_price || '');
-        setImageUrl(car.image_url_1 || '');  // Alterado para image_url_1
+        setImageUrl(car.image_url_1 || '');
         setImageUrl2(car.image_url_2 || '');
         setImageUrl3(car.image_url_3 || '');
         setIsCompraChecked(car.is_for_sale);
@@ -78,36 +78,6 @@ function FormularioEdicao() {
       <h1>Edite os dados do veículo</h1>
       
       <form className="form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="ano">Ano*</label>
-          <input
-            type="text"
-            id="ano"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="marca">Marca*</label>
-          <input
-            type="text"
-            id="marca"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="modelo">Modelo*</label>
-          <input
-            type="text"
-            id="modelo"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
-            required
-          />
-        </div>
         <div className="form-group">
           <label htmlFor="kilometragem">Kilometragem*</label>
           <input
