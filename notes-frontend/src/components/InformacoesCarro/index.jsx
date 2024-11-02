@@ -32,6 +32,8 @@ export default function InformacoesCarro() {
   });
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
 
   useEffect(() => {
     axios.get(`${apiBaseUrl}/cars/${id}/`)
@@ -67,6 +69,18 @@ export default function InformacoesCarro() {
   const handleClosePopup = () => {
     setShowPopup(false);
     navigate('/');
+  };
+
+  const confirmActionExecution = async () => {
+    if (confirmAction === 'visita') {
+      await handleScheduleVisit();
+    } else if (confirmAction === 'reserva') {
+      await handleReserveVehicle();
+    } else if (confirmAction === 'aluguel') {
+      await handleRentCar();
+    }
+    setShowConfirmModal(false);
+    setConfirmAction(null);
   };
 
   const handleScheduleVisit = async (e) => {
@@ -153,6 +167,16 @@ export default function InformacoesCarro() {
     }
   };
 
+  const openConfirmModal = (action) => {
+    setConfirmAction(action);
+    setShowConfirmModal(true);
+  };
+
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+    setConfirmAction(null);
+  };
+
   const today = new Date().toISOString().split("T")[0];
 
 
@@ -233,7 +257,11 @@ export default function InformacoesCarro() {
         {activeForm === 'visita' && (
           <>
             <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
-            <form className='form-agendamento' onSubmit={handleScheduleVisit}>
+            <form className='form-agendamento'
+            onSubmit={(e) => {
+              e.preventDefault();
+              openConfirmModal('visita');
+            }}>
               <label>Data da Visita:</label>
               <input type="date" value={date} onChange={(e) => setDate(e.target.value)} min={today} required />
               <label>Horário da Visita:</label>
@@ -251,7 +279,11 @@ export default function InformacoesCarro() {
                 <p className='preco-venda1'>Preco da reserva: R$ 1.000,00</p>
                 <p>(Valor a ser descontado no momento da compra)</p>
               </div>
-            <form className='form-agendamento' onSubmit={handleReserveVehicle}>
+            <form className='form-agendamento'
+            onSubmit={(e) => {
+              e.preventDefault();
+              openConfirmModal('reserva');
+            }}>
               <label>Escolha um Cartão Salvo:</label>
               <select onChange={(e) => setSelectedCard(e.target.value)}>
                 <option value="">Selecione um cartão</option>
@@ -291,7 +323,11 @@ export default function InformacoesCarro() {
               <p>50% do preço total pago antecipadamente</p>
             </div>
             <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
-            <form className='form-agendamento' onSubmit={handleRentCar}>
+            <form className='form-agendamento'
+            onSubmit={(e) => {
+              e.preventDefault();
+              openConfirmModal('aluguel');
+            }}>
               <div className='retirada'>
                 <div className='data-retirada'>
                   <label>Data de Retirada:</label>
@@ -350,6 +386,18 @@ export default function InformacoesCarro() {
           </>
         )}
       </div>
+      {/* Modal de Confirmação */}
+      {showConfirmModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Tem certeza de que deseja {confirmAction === 'visita' ? 'agendar essa visita' : confirmAction === 'reserva' ? 'reservar o veículo' : 'alugar esse veículo'}?</h3>
+            <div className="modal-buttons">
+              <button className="confirm-button" onClick={confirmActionExecution}>Confirmar</button>
+              <button className="cancel-button" onClick={closeConfirmModal}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
