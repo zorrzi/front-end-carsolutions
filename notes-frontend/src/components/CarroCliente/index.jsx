@@ -12,7 +12,7 @@ export default function CarroCliente({ car }) {
   };
 
   // Calcular o preço com desconto para venda e aluguel, se aplicável
-  const discountedPurchasePrice = car.is_discounted_purchase
+  const discountedPurchasePrice = car.is_discounted_sale
     ? car.purchase_price * (1 - car.discount_percentage_sale)
     : car.purchase_price;
 
@@ -31,7 +31,7 @@ export default function CarroCliente({ car }) {
         <img className="carro" src={car.image_url_1 || '/default-image.jpg'} alt={car.model} />
         
         {/* Ícone de desconto */}
-        {(car.is_discounted_purchase || car.is_discounted_rent) && (
+        {(car.is_discounted_sale || car.is_discounted_rent) && (
           <img src='desconto.png' alt="Desconto" className="discount-icon" />
         )}
       </div>
