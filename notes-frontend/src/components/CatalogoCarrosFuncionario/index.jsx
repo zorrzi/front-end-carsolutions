@@ -204,8 +204,8 @@ export default function CatalogoCarrosFuncionario() {
           <div className="modal-content">
             <h3>Tem certeza que deseja deletar {deleteMode === 'single' ? 'este anúncio' : 'os anúncios selecionados'}?</h3>
             <div className="modal-buttons">
-              <button className="confirm-button" onClick={confirmDelete}>Confirmar</button>
-              <button className="cancel-button" onClick={cancelDelete}>Cancelar</button>
+              <button className="confirm-button-delete" onClick={confirmDelete}>Confirmar</button>
+              <button className="cancel-button-delete" onClick={cancelDelete}>Cancelar</button>
             </div>
           </div>
         </div>
