@@ -1,28 +1,10 @@
-// components/CarroFuncionario.jsx
-
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './index.css';
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export default function CarroFuncionario({ car, loadCars,onDelete, isSelected, toggleSelection }) {
-  const removeDiscount = () => {
-    axios
-      .patch(`${apiBaseUrl}/cars/remove-discount/${car.id}/`, {
-        is_discounted_sale: false,
-        discount_percentage_sale: null,
-        is_discounted_rent: false,
-        discount_percentage_rent: null
-      })
-      .then(() => {
-        loadCars(); // Recarrega os carros após a remoção do desconto
-      })
-      .catch((err) => {
-        console.error("Erro ao remover o desconto:", err);
-      });
-  };
-
+export default function CarroFuncionario({ car, loadCars, onDelete, onRemoveDiscount, isSelected, toggleSelection }) {
   return (
     <div className={`card ${isSelected ? 'selected-card' : ''}`}>
       <input
@@ -42,7 +24,7 @@ export default function CarroFuncionario({ car, loadCars,onDelete, isSelected, t
         {(car.is_discounted_sale || car.is_discounted_rent) && (
           <div className="discount-icon-container">
             <img src="desconto.png" alt="Desconto" className="discount-icon-func" />
-            <button className="remove-discount-button" onClick={removeDiscount}>X</button>
+            <button className="remove-discount-button" onClick={onRemoveDiscount}>X</button>
           </div>
         )}
       </div>
