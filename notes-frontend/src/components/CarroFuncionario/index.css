@@ -131,9 +131,10 @@
     justify-content: center;
     align-items: center;
     margin: 0.5rem;
+    width: 1rem;
     position: absolute  ;
     top: 14rem;
-    right: -0.5rem;
+    right: 7.5rem;
 }
 
 .remove-discount-button{

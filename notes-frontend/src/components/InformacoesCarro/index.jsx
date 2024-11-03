@@ -113,6 +113,14 @@ export default function InformacoesCarro() {
       await axios.post(`${apiBaseUrl}/cars/reserve/${car.id}/`, { is_reserved: true }, {
         headers: { Authorization: `Token ${token}` }
       });
+      
+
+      if (!selectedCard && creditCard.salvar_para_futuro) {
+        await axios.post(`${apiBaseUrl}/cartaodecredito/adicionar/`, data, {
+          headers: { Authorization: `Token ${token}` }
+        });   
+      }
+
 
       handleSuccess();
     } catch (error) {
@@ -156,6 +164,11 @@ export default function InformacoesCarro() {
           headers: { Authorization: `Token ${token}` }
         });
         handleSuccess();
+
+        await axios.post(`${apiBaseUrl}/cartaodecredito/adicionar/`, data, {
+          headers: { Authorization: `Token ${token}` }
+        });  
+
       } else {
         setErrorMessage("Este carro já está reservado para o período selecionado.");
       }

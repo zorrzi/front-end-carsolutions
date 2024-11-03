@@ -1,7 +1,7 @@
 /* Container principal do formulário de cadastro */
 .register-container {
     position: absolute; /* Faz o formulário ficar sobre a imagem */
-    top: 95%; /* Move o formulário para o meio verticalmente */
+    top: 30rem; /* Move o formulário para o meio verticalmente */
     left: 50%;
     transform: translate(-50%, -50%); /* Centraliza horizontalmente e verticalmente */
     background-color: #ffffff;
@@ -76,8 +76,8 @@
   /* Responsividade para dispositivos menores */
   @media (max-width: 768px) {
     .register-container {
-      width: 90%;
-      margin: 20rem auto;
+      width: 20rem;
+      top: 30rem;
     }
   
     h1 {
