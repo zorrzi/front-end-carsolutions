@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 
 export default function CatalogoCarrosCliente() {
 
-
   // Pega os parâmetros da URL (ano, marca, modelo)
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -16,17 +15,21 @@ export default function CatalogoCarrosCliente() {
   const modelo = searchParams.get('modelo');
 
   const initialFilters = {
-    isForSale: localStorage.getItem('isForSale') === 'false' ? false : true,
-    isForRent: localStorage.getItem('isForRent') === 'false' ? false : true,
+    isForSale: localStorage.getItem('isForSale') === 'false',
+    isForRent: localStorage.getItem('isForRent') === 'false',
     minRentPrice: 0,
     maxRentPrice: 1000,
+    startDate: '',
+    endDate: '',
+    startHour: '',
+    endHour: '',
     minSalePrice: 5000,
     maxSalePrice: 300000,
     minMileage: 0,
     maxMileage: 200000,
     brand: marca || '',
     model: modelo || '',
-    year:  ano || '',
+    year: ano || '',
   };
 
   const [cars, setCars] = useState([]);
@@ -34,17 +37,28 @@ export default function CatalogoCarrosCliente() {
   const [appliedFilters, setAppliedFilters] = useState(initialFilters);
 
   const handleFilterChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
+    const { name, checked } = e.target;
 
-    if (name === 'isForSale' || name === 'isForRent') {
-      localStorage.setItem(name, newValue);
+    if (name === 'isForSale') {
+      localStorage.setItem('isForSale', checked);
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        isForSale: checked,
+        isForRent: checked ? false : prevFilters.isForRent, // Desmarca 'isForRent' apenas se 'isForSale' for marcado
+      }));
+    } else if (name === 'isForRent') {
+      localStorage.setItem('isForRent', checked);
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        isForRent: checked,
+        isForSale: checked ? false : prevFilters.isForSale, // Desmarca 'isForSale' apenas se 'isForRent' for marcado
+      }));
+    } else {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [name]: e.target.value,
+      }));
     }
-
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: newValue,
-    }));
   };
 
   const fetchCars = useCallback(() => {
@@ -91,6 +105,10 @@ export default function CatalogoCarrosCliente() {
           <input className='checkbox' type="checkbox" name="isForSale" checked={filters.isForSale} onChange={handleFilterChange} />
           Disponível para Venda
         </label>
+        <label>
+          <input className='checkbox' type="checkbox" name="isForRent" checked={filters.isForRent} onChange={handleFilterChange} />
+          Disponível para Aluguel
+        </label>
 
         {/* Faixa de Preço para Venda - exibida apenas se "Disponível para Venda" estiver marcado */}
         {filters.isForSale && (
@@ -104,10 +122,6 @@ export default function CatalogoCarrosCliente() {
           </>
         )}
 
-        <label>
-          <input className='checkbox' type="checkbox" name="isForRent" checked={filters.isForRent} onChange={handleFilterChange} />
-          Disponível para Aluguel
-        </label>
 
         {/* Faixa de Preço para Aluguel - exibida apenas se "Disponível para Aluguel" estiver marcado */}
         {filters.isForRent && (
@@ -118,6 +132,16 @@ export default function CatalogoCarrosCliente() {
             </label>
             <input type="range" name="minRentPrice" min="0" max="5000" value={filters.minRentPrice} onChange={handleFilterChange} />
             <input type="range" name="maxRentPrice" min="0" max="5000" value={filters.maxRentPrice} onChange={handleFilterChange} />
+
+            <label>Data de Início</label>
+            <input type="date" name="startDate" value={filters.startDate} onChange={handleFilterChange} />
+            <label>Hora de Início</label>
+            <input type="time" name="startHour" value={filters.startHour} onChange={handleFilterChange} />
+
+            <label>Data de Fim</label>
+            <input type="date" name="endDate" value={filters.endDate} onChange={handleFilterChange} />
+            <label>Hora de Fim</label>
+            <input type="time" name="endHour" value={filters.endHour} onChange={handleFilterChange} />
           </>
         )}
   
