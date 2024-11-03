@@ -57,15 +57,43 @@ export default function AgendaFuncionario() {
         <table className="tabela-agendamentos">
           <tbody>
             {agendamentosPendentes.map((agendamento, index) => (
-              <tr key={index}>
-                <td>
-                  {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
-                  {formatarData(agendamento.data)} - {agendamento.horario}
-                </td>
-                <td>
-                  <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>Atender</button>
-                </td>
-              </tr>
+              agendamento.tipo === 'visita' ? (
+                <tr key={index}>
+                  <td>
+                    {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
+                    {formatarData(agendamento.data)} - {agendamento.horario} - {agendamento.carro}
+                  </td>
+                  <td>
+                    <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>
+                      Atender
+                    </button>
+                  </td>
+                </tr>
+              ) : agendamento.tipo === 'reserva' ? (
+                <tr key={index}>
+                  <td>
+                    {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
+                    {formatarData(agendamento.data)} - {agendamento.carro}
+                  </td>
+                  <td>
+                    <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>
+                      Atender
+                    </button>
+                  </td>
+                </tr>
+              ) : agendamento.tipo === 'aluguel' ? (
+                <tr key={index}>
+                  <td>
+                    {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
+                    {formatarData(agendamento.data_retirada)} - {agendamento.horario_retirada} - {agendamento.carro}
+                  </td>
+                  <td>
+                    <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>
+                      Atender
+                    </button>
+                  </td>
+                </tr>
+              ) : null
             ))}
           </tbody>
         </table>
