@@ -24,11 +24,9 @@ export default function Formulario() {
 
     // Carregar as marcas quando o ano é selecionado
     useEffect(() => {
-        if (anoSelecionado) {
-            axios.get(`${apiBaseUrl}/cars/brands/${anoSelecionado}/`)
-                .then(response => setMarcas(response.data))
-                .catch(error => console.error('Erro ao buscar marcas:', error));
-        }
+            axios.get(`${apiBaseUrl}/cars/brands/`)
+            .then(response => setMarcas(response.data))
+            .catch(error => console.error('Erro ao buscar marcas:', error));
     }, [anoSelecionado]);
 
     // Carregar os modelos quando a marca é selecionada
@@ -86,7 +84,6 @@ export default function Formulario() {
                         id="marca"
                         value={marcaSelecionada}
                         onChange={(e) => setMarcaSelecionada(e.target.value)}
-                        disabled={!anoSelecionado}  
                     >
                         <option value="">Escolher</option>
                         {marcas.map((marca) => (
