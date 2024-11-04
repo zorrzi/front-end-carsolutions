@@ -164,7 +164,7 @@ export default function AgendamentoCliente() {
       {/* Tabela de Compras/Reservas */}
       {tabelaAtiva === 'reserva' && (
         <div>
-          <h3 className="titulo-lista">Lista de Compras</h3>
+          <h3 className="titulo-lista">Lista de Reservas</h3>
           <table className="tabela-agendamentos">
             <thead>
               <tr>
@@ -180,7 +180,7 @@ export default function AgendamentoCliente() {
               {reservas.length > 0 ? (
                 reservas.map((agendamento) => (
                   <tr key={agendamento.id}>
-                    <td>{agendamento.carro}</td>
+                    <td>{agendamento.carro_marca} {agendamento.carro_modelo}</td>
                     <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
                     <td>{formatarData(agendamento.data)}</td>
                     <td>{formatarData(agendamento.data_expiracao)}</td>
@@ -229,7 +229,7 @@ export default function AgendamentoCliente() {
               {alugueis.length > 0 ? (
                 alugueis.map((agendamento) => (
                   <tr key={agendamento.id}>
-                    <td>{agendamento.carro}</td>
+                    <td>{agendamento.carro_marca} {agendamento.carro_modelo}</td>
                     <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
                     <td>{formatarData(agendamento.data_retirada)}</td>
                     <td>{formatarHorario(agendamento.horario_retirada)}</td>
