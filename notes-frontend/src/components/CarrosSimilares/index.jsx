@@ -20,7 +20,7 @@ export default function CarrosSimilares({ carId }) {
 
   return (
     <div className="carros-similares-container">
-      <h3>Carros Similares</h3>
+      <h3>Talvez Você Goste</h3>
       <div className="similares-lista">
         {carrosSimilares.map(carro => (
           <CarroCliente key={carro.id} car={carro} />
