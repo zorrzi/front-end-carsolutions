@@ -388,13 +388,13 @@ button{
       }
       
       .confirm-button {
-        background-color: #d6140d;
+        background-color: #373774;
         color: white;
         margin-right: 0.3rem;
       }
       
       .cancel-button {
-        background-color: #3939b3;
+        background-color: #b0b0b3;
         color: white;
       }
 
