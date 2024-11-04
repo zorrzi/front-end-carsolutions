@@ -10,19 +10,11 @@ import { useParams } from 'react-router-dom';
 
 function AnuncioCarro() {
   const { id } = useParams();
-  const carrosSimilaresRef = useRef(null);
-
-  const handleScrollToSimilares = () => {
-    carrosSimilaresRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <>
       <Header />
       <BotaoVoltar />
-      <button className="botao-similares" onClick={handleScrollToSimilares}>
-        Anúncios Similares
-      </button>
 
       <InformacoesCarro />
       
@@ -30,9 +22,7 @@ function AnuncioCarro() {
 
       <FichaTecnica />
 
-      <div ref={carrosSimilaresRef}>
-        <CarrosSimilares carId={id} />
-      </div>
+      <CarrosSimilares carId={id} />
 
       <Footer />
     </>

@@ -141,18 +141,14 @@ const router = createBrowserRouter([
   {
     path: "/esqueciMinhaSenha",
     element: (
-    <RedirecionarFuncionario>
       <EsqueciMinhaSenha/>
-    </RedirecionarFuncionario>
     ),
   },
 
   {
     path: "/redefinirSenha/:uid/:token",
     element: (
-    <RedirecionarFuncionario>
       <RedefinirSenha/>
-    </RedirecionarFuncionario>
     ),
   },
 
