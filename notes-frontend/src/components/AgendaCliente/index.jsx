@@ -133,7 +133,7 @@ export default function AgendamentoCliente() {
               {visitas.length > 0 ? (
                 visitas.map((agendamento) => (
                   <tr key={agendamento.id}>
-                    <td>{agendamento.carro}</td>
+                    <td>{agendamento.carro_marca} {agendamento.carro_modelo}</td>
                     <td>{capitalizeFirstLetter(agendamento.tipo)}</td>
                     <td>{formatarData(agendamento.data)}</td>
                     <td>{formatarHorario(agendamento.horario)}</td>
