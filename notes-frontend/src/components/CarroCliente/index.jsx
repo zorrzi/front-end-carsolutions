@@ -32,7 +32,7 @@ export default function CarroCliente({ car }) {
         
         {/* Ícone de desconto */}
         {(car.is_discounted_sale || car.is_discounted_rent) && (
-          <img src='desconto.png' alt="Desconto" className="discount-icon" />
+          <img src='/desconto.png' alt="Desconto" className="discount-icon" />
         )}
       </div>
 

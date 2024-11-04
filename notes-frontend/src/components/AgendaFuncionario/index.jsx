@@ -61,7 +61,7 @@ export default function AgendaFuncionario() {
                 <tr key={index}>
                   <td>
                     {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
-                    {formatarData(agendamento.data)} - {agendamento.horario} - {agendamento.carro}
+                    {formatarData(agendamento.data)} - {agendamento.horario}
                   </td>
                   <td>
                     <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>
@@ -73,7 +73,7 @@ export default function AgendaFuncionario() {
                 <tr key={index}>
                   <td>
                     {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
-                    {formatarData(agendamento.data)} - {agendamento.carro}
+                    {formatarData(agendamento.data)}
                   </td>
                   <td>
                     <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>
@@ -85,7 +85,7 @@ export default function AgendaFuncionario() {
                 <tr key={index}>
                   <td>
                     {agendamento.nome_cliente} - {capitalizeFirstLetter(agendamento.tipo)} - 
-                    {formatarData(agendamento.data_retirada)} - {agendamento.horario_retirada} - {agendamento.carro}
+                    {formatarData(agendamento.data_retirada)} - {agendamento.horario_retirada}
                   </td>
                   <td>
                     <button className="btn-atender" onClick={() => handleAtenderAgendamento(agendamento.id)}>

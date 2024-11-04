@@ -10,12 +10,8 @@ export default function CatalogoFeedbacks() {
   const [visibleCards, setVisibleCards] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     axios
       .get(`${apiBaseUrl}/agendamentos/feedbacks/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
       })
       .then((response) => {
         // Filtra os feedbacks com nota 5 e limita a 5 feedbacks
