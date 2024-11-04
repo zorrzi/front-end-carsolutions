@@ -9,10 +9,14 @@ export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLoginChoice, setShowLoginChoice] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [pontos, setPontos] = useState(0);
+  const [showPointsInfo, setShowPointsInfo] = useState(false); // Estado para o dropdown de pontos
   const navigate = useNavigate();
 
   const loginButtonRef = useRef(null); // Referência para o botão "Entrar"
   const loginChoiceRef = useRef(null); // Referência para o card de escolha de login
+  const pointsButtonRef = useRef(null); // Referência para o elemento de pontos
+  const pointsInfoRef = useRef(null); // Referência para o dropdown de informações de pontos
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("username");
@@ -20,6 +24,24 @@ export default function Header() {
       setUsername(loggedInUser);
     }
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get(`${apiBaseUrl}/pontos/`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        })
+        .then((response) => {
+          setPontos(response.data.pontos);
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar pontos:", error.response?.data || error.message);
+        });
+    }
+  }, [username]);
 
   const handleLogout = () => {
     const token = localStorage.getItem("token");
@@ -37,7 +59,7 @@ export default function Header() {
 
     axios
       .post(`${apiBaseUrl}/logout/`, {}, config)
-      .then((response) => {
+      .then(() => {
         localStorage.removeItem("username");
         localStorage.removeItem("token");
         setUsername(null);
@@ -51,11 +73,38 @@ export default function Header() {
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
+    setShowPointsInfo(false); // Fecha o dropdown de pontos ao abrir o dropdown do usuário
   };
 
   const handleLoginClick = () => {
     setShowLoginChoice(!showLoginChoice);
+    setShowDropdown(false);
+    setShowPointsInfo(false);
   };
+
+  const togglePointsInfo = () => {
+    setShowPointsInfo(!showPointsInfo);
+    setShowDropdown(false);
+    setShowLoginChoice(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        pointsInfoRef.current && !pointsInfoRef.current.contains(event.target) &&
+        pointsButtonRef.current && !pointsButtonRef.current.contains(event.target) &&
+        loginChoiceRef.current && !loginChoiceRef.current.contains(event.target) &&
+        loginButtonRef.current && !loginButtonRef.current.contains(event.target)
+      ) {
+        setShowPointsInfo(false);
+        setShowDropdown(false);
+        setShowLoginChoice(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const adjustPosition = () => {
@@ -75,70 +124,91 @@ export default function Header() {
   }, [showLoginChoice]);
 
   return (
-    <div className="header">
-      <div className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
-        <img className="menu-icon" src="/menu-aberto.png" alt="Menu" />
-      </div>
-      <Link to="/">
-        <img className="logo" src="/logo.png" alt="Logo" />
-      </Link>
-      <div className={`info ${showMenu ? "show" : ""}`}>
-        <Link className="link" to="/carrosDisponiveis">
-          <span className="nav-disp">Carros Disponíveis</span>
-        </Link>
-        <p className="divisoria">|</p>
-        <Link className="link" to="/sobreNos">
-          <span className="nav">Sobre nós</span>
-        </Link>
-        <p className="divisoria">|</p>
-        <div className="user">
-          {username ? (
-            <>
-              <span className="user-name" onClick={toggleDropdown}>
-                {username}
-              </span>
-              {showDropdown && (
-                <div className="dropdown">
-                  <Link to="/carrosFavoritos" className="favoritos-overlay">
-                    <img className="favorites" src="/favorito.png" alt="Favoritos" />
-                    <span>Favoritos</span>
-                  </Link>
-                  <Link to="/agendamentoCliente" className="agenda-overlay">
-                    <img className="agenda" src="/agenda.png" alt="Agenda" />
-                    <span>Agenda</span>
-                  </Link>
-                  <div className="Sair">
-                    <img className="sair-img" src="/sair.png" alt="Sair" />
-                    <button onClick={handleLogout}>Sair</button>
-                  </div>
-                </div>
-              )}
-            </>
-          ) : (
-            <span
-              onClick={handleLoginClick}
-              className="entrar-btn"
-              ref={loginButtonRef} // Referência para o botão "Entrar"
-            >
-              Entrar
-            </span>
-          )}
-          <img className="perfil" src="/user.png" alt="Usuário" />
+    <>
+      <div className="header">
+        <div className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
+          <img className="menu-icon" src="/menu-aberto.png" alt="Menu" />
         </div>
+        <Link to="/">
+          <img className="logo" src="/logo.png" alt="Logo" />
+        </Link>
+        <div className={`info ${showMenu ? "show" : ""}`}>
+          <Link className="link" to="/carrosDisponiveis">
+            <span className="nav-disp">Carros Disponíveis</span>
+          </Link>
+          <p className="divisoria">|</p>
+          <Link className="link" to="/sobreNos">
+            <span className="nav">Sobre nós</span>
+          </Link>
+          <p className="divisoria">|</p>
+          <div className="user">
+            {username ? (
+              <>
+                <span ref={pointsButtonRef} className="pontos" onClick={togglePointsInfo}>
+                  CSPoints: {pontos}
+                </span>
+                <p className="divisoria">|</p>
+                <span className="user-name" onClick={toggleDropdown}>
+                  {username}
+                </span>
+
+                {showDropdown && (
+                  <div className="dropdown">
+                    <Link to="/carrosFavoritos" className="favoritos-overlay">
+                      <img className="favorites" src="/favorito.png" alt="Favoritos" />
+                      <span>Favoritos</span>
+                    </Link>
+                    <Link to="/agendamentoCliente" className="agenda-overlay">
+                      <img className="agenda" src="/agenda.png" alt="Agenda" />
+                      <span>Agenda</span>
+                    </Link>
+                    <div className="Sair">
+                      <img className="sair-img" src="/sair.png" alt="Sair" />
+                      <button onClick={handleLogout}>Sair</button>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <span
+                onClick={handleLoginClick}
+                className="entrar-btn"
+                ref={loginButtonRef}
+              >
+                Entrar
+              </span>
+            )}
+            <img className="perfil" src="/user.png" alt="Usuário" />
+          </div>
+        </div>
+
+        {showLoginChoice && (
+          <div ref={loginChoiceRef} className="login-choice-card">
+            <Link to="/loginCliente" className="login-overlay">
+              <img className="favorites" src="/usuario-login.png" alt="Login Cliente" />
+              <span>Cliente</span>
+            </Link>
+            <Link to="/loginFuncionario" className="login-overlay">
+              <img className="favorites" src="/funcionario.png" alt="Login Funcionário" />
+              <span>Funcionário</span>
+            </Link>
+          </div>
+        )}
       </div>
 
-      {showLoginChoice && (
-        <div ref={loginChoiceRef} className="login-choice-card">
-          <Link to="/loginCliente" className="login-overlay">
-            <img className="favorites" src="/usuario-login.png" alt="Login Cliente" />
-            <span>Cliente</span>
-          </Link>
-          <Link to="/loginFuncionario" className="login-overlay">
-            <img className="favorites" src="/funcionario.png" alt="Login Funcionário" />
-            <span>Funcionário</span>
-          </Link>
+      {/* Dropdown flutuante para informações dos pontos */}
+      {showPointsInfo && (
+        <div ref={pointsInfoRef} className="points-info-dropdown">
+          <button className="close-btn" onClick={() => setShowPointsInfo(false)}>✕</button>
+          <h3>Como Funcionam os CSPoints</h3>
+          <p>Você ganha pontos a cada compra ou aluguel. Esses pontos podem ser usados para obter descontos em futuras transações.</p>
+          <ul>
+            <li>100 pontos = 1% de desconto</li>
+            <li>Pontos podem ser usados em reservas e aluguéis</li>
+            <li>Validade dos pontos: 1 ano</li>
+          </ul>
         </div>
       )}
-    </div>
+    </>
   );
 }
