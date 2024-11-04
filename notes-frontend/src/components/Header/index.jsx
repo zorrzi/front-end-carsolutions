@@ -145,7 +145,7 @@ export default function Header() {
             {username ? (
               <>
                 <span ref={pointsButtonRef} className="pontos" onClick={togglePointsInfo}>
-                  CSPoints: {pontos}
+                  Pontos: {pontos}
                 </span>
                 <p className="divisoria">|</p>
                 <span className="user-name" onClick={toggleDropdown}>
@@ -200,12 +200,12 @@ export default function Header() {
       {showPointsInfo && (
         <div ref={pointsInfoRef} className="points-info-dropdown">
           <button className="close-btn" onClick={() => setShowPointsInfo(false)}>✕</button>
-          <h3>Como Funcionam os CSPoints</h3>
+          <h3>Como Funcionam os Pontos</h3>
           <p>Você ganha pontos a cada compra ou aluguel. Esses pontos podem ser usados para obter descontos em futuras transações.</p>
           <ul>
             <li>100 pontos = 1% de desconto</li>
-            <li>Pontos podem ser usados em reservas e aluguéis</li>
-            <li>Validade dos pontos: 1 ano</li>
+            <li>Pontos por dia de aluguel: 10</li>
+            <li>Pontos por compra: 100</li>
           </ul>
         </div>
       )}

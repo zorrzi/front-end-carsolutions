@@ -1,7 +1,6 @@
 // CatalogoFeedbacks.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import FeedbackFuncionario from '../FeedbackFuncionario';
 import './index.css';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -12,14 +11,15 @@ export default function CatalogoFeedbacks() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`${apiBaseUrl}/agendamentos/feedbacks/`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-      .then(response => {
-        // Filtra os feedbacks com nota 5 e limita a 3 feedbacks
-        const topFeedbacks = response.data.filter(feedback => feedback.nota === 5).slice(0, 5);
+    axios
+      .get(`${apiBaseUrl}/agendamentos/feedbacks/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((response) => {
+        // Filtra os feedbacks com nota 5 e limita a 5 feedbacks
+        const topFeedbacks = response.data.filter((feedback) => feedback.nota === 5).slice(0, 5);
         setFeedbacks(topFeedbacks);
         console.log('Feedbacks com nota 5:', topFeedbacks);
 
@@ -37,10 +37,22 @@ export default function CatalogoFeedbacks() {
 
         return () => clearInterval(interval);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Erro ao buscar os feedbacks:', error);
       });
   }, []);
+
+  const renderStars = (nota) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span key={i} className={`cliente-rating ${i <= nota ? 'filled' : ''}`}>
+          ★
+        </span>
+      );
+    }
+    return stars;
+  };
 
   return (
     <div className="feedback-clientes-container">
@@ -51,7 +63,9 @@ export default function CatalogoFeedbacks() {
             key={feedback.id}
             className={`feedback-card ${visibleCards.includes(index) ? 'card-visible' : ''}`}
           >
-            <FeedbackFuncionario feedback={feedback} />
+            <p className="cliente-nome">{feedback.usuario}</p>
+            <p className="cliente-feedback">{feedback.comentario}</p>
+            <div className="cliente-rating">{renderStars(feedback.nota)}</div>
           </div>
         ))}
       </div>
