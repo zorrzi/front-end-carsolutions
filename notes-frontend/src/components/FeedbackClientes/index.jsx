@@ -1,45 +1,46 @@
+// CatalogoFeedbacks.js
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import FeedbackFuncionario from '../FeedbackFuncionario';
 import './index.css';
 
-export default function FeedbackClientes() {
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+export default function CatalogoFeedbacks() {
+  const [feedbacks, setFeedbacks] = useState([]);
   const [visibleCards, setVisibleCards] = useState([]);
 
   useEffect(() => {
-    // Exibir cada card com um intervalo para animação sequencial
-    const interval = setInterval(() => {
-      setVisibleCards((prevCards) => {
-        const nextIndex = prevCards.length;
-        if (nextIndex < feedbacks.length) {
-          return [...prevCards, nextIndex];
-        }
-        clearInterval(interval);
-        return prevCards;
+    const token = localStorage.getItem('token');
+    axios.get(`${apiBaseUrl}/agendamentos/feedbacks/`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then(response => {
+        // Filtra os feedbacks com nota 5 e limita a 3 feedbacks
+        const topFeedbacks = response.data.filter(feedback => feedback.nota === 5).slice(0, 5);
+        setFeedbacks(topFeedbacks);
+        console.log('Feedbacks com nota 5:', topFeedbacks);
+
+        // Exibe cada card gradualmente com um intervalo para animação sequencial
+        const interval = setInterval(() => {
+          setVisibleCards((prevCards) => {
+            const nextIndex = prevCards.length;
+            if (nextIndex < topFeedbacks.length) {
+              return [...prevCards, nextIndex];
+            }
+            clearInterval(interval);
+            return prevCards;
+          });
+        }, 500);
+
+        return () => clearInterval(interval);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar os feedbacks:', error);
       });
-    }, 500);
-
-    return () => clearInterval(interval);
   }, []);
-
-  const feedbacks = [
-    {
-      id: 1,
-      name: 'João Silva',
-      feedback: 'Excelente serviço! O carro estava em perfeitas condições e o atendimento foi impecável. Recomendo a Car Solutions a todos!',
-      rating: 5
-    },
-    {
-      id: 2,
-      name: 'Maria Fernandes',
-      feedback: 'Amei a experiência! Aluguei um carro para minha viagem de férias e tudo foi super prático e rápido.',
-      rating: 4
-    },
-    {
-      id: 3,
-      name: 'Carlos Almeida',
-      feedback: 'Muito satisfeito! O processo de compra foi claro e transparente. Voltarei a fazer negócios com eles.',
-      rating: 5
-    }
-  ];
 
   return (
     <div className="feedback-clientes-container">
@@ -50,9 +51,7 @@ export default function FeedbackClientes() {
             key={feedback.id}
             className={`feedback-card ${visibleCards.includes(index) ? 'card-visible' : ''}`}
           >
-            <h3 className="cliente-nome">{feedback.name}</h3>
-            <p className="cliente-feedback">{feedback.feedback}</p>
-            <p className="cliente-rating">{'⭐'.repeat(feedback.rating)}</p>
+            <FeedbackFuncionario feedback={feedback} />
           </div>
         ))}
       </div>
