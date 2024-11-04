@@ -35,6 +35,8 @@ export default function InformacoesCarro() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
   const [pointsToUse, setPointsToUse] = useState(0);
+  const [savedCardSecurityCode, setSavedCardSecurityCode] = useState('');
+
 
   useEffect(() => {
     axios.get(`${apiBaseUrl}/cars/${id}/`)
@@ -109,8 +111,8 @@ export default function InformacoesCarro() {
   const handleReserveVehicle = async () => {
     const token = localStorage.getItem('token');
     const data = selectedCard
-      ? { carro_id: car.id, cartao_id: selectedCard, pontos_utilizados: pointsToUse }
-      : { carro_id: car.id, novo_cartao: creditCard, pontos_utilizados: pointsToUse };
+  ? { carro_id: car.id, cartao_id: selectedCard, codigo_seguranca: savedCardSecurityCode, pontos_utilizados: pointsToUse }
+  : { carro_id: car.id, novo_cartao: creditCard, pontos_utilizados: pointsToUse };
 
     try {
       await axios.post(`${apiBaseUrl}/agendamentos/reservar/veiculo/`, data, {
@@ -140,6 +142,7 @@ export default function InformacoesCarro() {
       ? {
           carro_id: car.id,
           cartao_id: selectedCard,
+          codigo_seguranca: savedCardSecurityCode,
           data_retirada: pickupDate,
           horario_retirada: pickupTime,
           data_devolucao: returnDate,
@@ -340,6 +343,18 @@ export default function InformacoesCarro() {
         ))}
       </select>
 
+            {selectedCard && (
+              <div className='data-cvv'>
+                <input
+                  type="text"
+                  placeholder="Código de Segurança"
+                  value={savedCardSecurityCode}
+                  onChange={(e) => setSavedCardSecurityCode(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+
             {!selectedCard && (
               <>
                 <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
@@ -425,6 +440,18 @@ export default function InformacoesCarro() {
                   </option>
                 ))}
               </select>
+
+              {selectedCard && (
+                <div className='data-cvv'>
+                  <input
+                    type="text"
+                    placeholder="Código de Segurança"
+                    value={savedCardSecurityCode}
+                    onChange={(e) => setSavedCardSecurityCode(e.target.value)}
+                    required
+                  />
+                </div>
+              )}
 
               {!selectedCard && (
                 <>
