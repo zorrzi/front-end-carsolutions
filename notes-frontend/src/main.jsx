@@ -12,7 +12,6 @@ import FuncionarioInicial from './Pages/FuncionarioInicial/FuncionarioInicial.js
 import RotaProtegidaFuncionario from './components/RotaProtegidaFuncionario';
 import RedirecionarFuncionario from './components/RedirecionarFuncionario/index.jsx';
 import AdicionarVeiculo from './Pages/AdicionarVeiculo/AdicionarVeiculo.jsx';
-import Api from './Pages/Api/Api.jsx';
 import LoginFuncionario from './Pages/LoginFuncionario/LoginFuncionario.jsx';
 import AnuncioCarro from './Pages/AnuncioCarro/AnuncioCarro.jsx';
 import EditarCarro from './Pages/EditarCarro/EditarCarro.jsx';

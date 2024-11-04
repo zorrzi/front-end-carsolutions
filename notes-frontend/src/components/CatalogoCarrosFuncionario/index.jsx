@@ -50,6 +50,13 @@ export default function CatalogoCarrosFuncionario() {
     }
   };
 
+  const handleRemoveDiscount = (car) => {
+    setCarToDelete(car);
+    setDeleteMode('removeDiscount');
+    setShowDeleteConfirm(true);
+  };
+  
+
   const confirmDelete = () => {
     if (deleteMode === 'single' && carToDelete) {
       axios
@@ -69,6 +76,20 @@ export default function CatalogoCarrosFuncionario() {
           setShowDeleteConfirm(false);
         })
         .catch(error => console.error('Erro ao apagar os carros:', error));
+    } else if (deleteMode === 'removeDiscount' && carToDelete) {
+      axios
+        .patch(`${apiBaseUrl}/cars/remove-discount/${carToDelete.id}/`, {
+          is_discounted_sale: false,
+          discount_percentage_sale: null,
+          is_discounted_rent: false,
+          discount_percentage_rent: null
+        })
+        .then(() => {
+          loadCars();
+          setShowDeleteConfirm(false);
+          setCarToDelete(null);
+        })
+        .catch(error => console.error('Erro ao remover o desconto:', error));
     }
   };
 
@@ -192,6 +213,7 @@ export default function CatalogoCarrosFuncionario() {
               car={car}
               loadCars={loadCars}
               onDelete={() => handleDeleteCar(car)}
+              onRemoveDiscount={() => handleRemoveDiscount(car)} // Passa a função de remoção de desconto
               isSelected={selectedCars.includes(car.id)}
               toggleSelection={() => toggleCarSelection(car.id)}
             />
@@ -199,10 +221,10 @@ export default function CatalogoCarrosFuncionario() {
         )}
       </div>
 
-        {showDeleteConfirm && (
+      {showDeleteConfirm && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Tem certeza que deseja deletar {deleteMode === 'single' ? 'este anúncio' : 'os anúncios selecionados'}?</h3>
+            <h3>Tem certeza que deseja {deleteMode === 'removeDiscount' ? 'remover o desconto deste veículo' : deleteMode === 'single' ? 'deletar este anúncio' : 'deletar os anúncios selecionados'}?</h3>
             <div className="modal-buttons">
               <button className="confirm-button-delete" onClick={confirmDelete}>Confirmar</button>
               <button className="cancel-button-delete" onClick={cancelDelete}>Cancelar</button>

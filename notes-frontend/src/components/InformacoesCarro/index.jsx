@@ -34,6 +34,7 @@ export default function InformacoesCarro() {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
+  const [pointsToUse, setPointsToUse] = useState(0);
 
   useEffect(() => {
     axios.get(`${apiBaseUrl}/cars/${id}/`)
@@ -51,6 +52,12 @@ export default function InformacoesCarro() {
     };
     fetchCreditCards();
   }, [id]);
+
+
+  const handlePointsChange = (value) => {
+    const newPoints = Math.min(Math.max(0, value), 1000);
+    setPointsToUse(newPoints);
+  };
 
   const handleAuthentication = (action) => {
     const token = localStorage.getItem('token');
@@ -102,8 +109,8 @@ export default function InformacoesCarro() {
   const handleReserveVehicle = async () => {
     const token = localStorage.getItem('token');
     const data = selectedCard
-      ? { carro_id: car.id, cartao_id: selectedCard }
-      : { carro_id: car.id, novo_cartao: creditCard };
+      ? { carro_id: car.id, cartao_id: selectedCard, pontos_utilizados: pointsToUse }
+      : { carro_id: car.id, novo_cartao: creditCard, pontos_utilizados: pointsToUse };
 
     try {
       await axios.post(`${apiBaseUrl}/agendamentos/reservar/veiculo/`, data, {
@@ -113,7 +120,6 @@ export default function InformacoesCarro() {
       await axios.post(`${apiBaseUrl}/cars/reserve/${car.id}/`, { is_reserved: true }, {
         headers: { Authorization: `Token ${token}` }
       });
-      
 
       if (!selectedCard && creditCard.salvar_para_futuro) {
         await axios.post(`${apiBaseUrl}/cartaodecredito/adicionar/`, data, {
@@ -121,12 +127,12 @@ export default function InformacoesCarro() {
         });   
       }
 
-
       handleSuccess();
     } catch (error) {
       setErrorMessage('Erro ao reservar veículo: ' + (error.response?.data?.error || error.message));
     }
-  };
+};
+
 
   const handleRentCar = async () => {
     const token = localStorage.getItem('token');
@@ -138,6 +144,7 @@ export default function InformacoesCarro() {
           horario_retirada: pickupTime,
           data_devolucao: returnDate,
           horario_devolucao: returnTime,
+          pontos_utilizados: pointsToUse
         }
       : {
           carro_id: car.id,
@@ -146,6 +153,7 @@ export default function InformacoesCarro() {
           horario_retirada: pickupTime,
           data_devolucao: returnDate,
           horario_devolucao: returnTime,
+          pontos_utilizados: pointsToUse
         };
 
     try {
@@ -165,9 +173,11 @@ export default function InformacoesCarro() {
         });
         handleSuccess();
 
-        await axios.post(`${apiBaseUrl}/cartaodecredito/adicionar/`, data, {
-          headers: { Authorization: `Token ${token}` }
-        });  
+        if (!selectedCard && creditCard.salvar_para_futuro) {
+          await axios.post(`${apiBaseUrl}/cartaodecredito/adicionar/`, data, {
+            headers: { Authorization: `Token ${token}` }
+          });  
+        }
 
       } else {
         setErrorMessage("Este carro já está reservado para o período selecionado.");
@@ -176,6 +186,7 @@ export default function InformacoesCarro() {
       setErrorMessage('Erro ao reservar aluguel: ' + (error.response?.data?.error || error.message));
     }
   };
+
 
   const openConfirmModal = (action) => {
     setConfirmAction(action);
@@ -200,6 +211,16 @@ export default function InformacoesCarro() {
     ? car.rental_price * (1 - car.discount_percentage_rent)
     : null;
 
+
+    // Calcular o preço com desconto com base nos pontos utilizados
+    const discountedPurchasePricePoints = car
+    ? car.purchase_price - ((pointsToUse > 0 ? pointsToUse / 10000 : 0) * car.purchase_price)
+    : null;
+
+    // Calcular o preço final de aluguel com desconto baseado nos pontos
+    const discountedRentalPricePoints = car
+    ? car.rental_price - ((pointsToUse > 0 ? pointsToUse / 10000 : 0) * car.rental_price)
+    : null;
   
   if (!car) {
     return <p>Carregando...</p>;
@@ -283,48 +304,64 @@ export default function InformacoesCarro() {
         )}
 
         {activeForm === 'reserva' && (
-          <>
-            <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
-            <div className='preco-total-venda'>
-                <p className='preco-venda1'>Preco da reserva: R$ 1.000,00</p>
-                <p>(Valor a ser descontado no momento da compra)</p>
-              </div>
-            <form className='form-agendamento'
-            onSubmit={(e) => {
-              e.preventDefault();
-              openConfirmModal('reserva');
-            }}>
-              <label>Escolha um Cartão Salvo:</label>
-              <select onChange={(e) => setSelectedCard(e.target.value)}>
-                <option value="">Selecione um cartão</option>
-                {creditCards.map(card => (
-                  <option value={card.id} key={card.id}>
-                    {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
-                  </option>
-                ))}
-              </select>
-
-              {!selectedCard && (
-                <>
-                  <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
-                  <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
-                  <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
-                  <div className='data-cvv'>
-                    <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
-                    <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
-                  </div>
-                  <label className='salvar-cartao'>
-                    <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
-                    Salvar cartão para futuras transações
-                  </label>
-                </>
-              )}
-
-              <button type="submit" className='botao-venda'>Confirmar Reserva</button>
-              {errorMessage && <p className="erro">{errorMessage}</p>}
-            </form>
-          </>
+  <>
+    <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+    <div className='preco-total-venda'>
+        <p className='preco-venda1'>Preço da reserva: R$ {Number(1000).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p>(Valor a ser descontado no momento da compra)</p>
+      </div>
+    <form className='form-agendamento'
+    onSubmit={(e) => {
+      e.preventDefault();
+      openConfirmModal('reserva');
+    }}>
+      {activeForm === 'reserva' && !car.is_discounted_sale && (
+          <div>
+            <label>Pontos para Usar:</label>
+            <input
+              type="number"
+              min="0"
+              max="1000"
+              step="100"
+              value={pointsToUse}
+              onChange={(e) => handlePointsChange(parseInt(e.target.value, 10))}
+            />
+            <p>Preço com desconto: R$ {Number(discountedPurchasePricePoints).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          </div>
         )}
+
+      <label>Escolha um Cartão Salvo:</label>
+      <select onChange={(e) => setSelectedCard(e.target.value)}>
+        <option value="">Selecione um cartão</option>
+        {creditCards.map(card => (
+          <option value={card.id} key={card.id}>
+            {card.nome_cartao || `Cartão ${card.numero_cartao.slice(-4)}`} - {card.nome_titular}
+          </option>
+        ))}
+      </select>
+
+            {!selectedCard && (
+              <>
+                <input type="text" placeholder="Nome do Cartão" onChange={(e) => setCreditCard({ ...creditCard, nome_cartao: e.target.value })} required />
+                <input type="text" placeholder="Número do Cartão" onChange={(e) => setCreditCard({ ...creditCard, numero_cartao: e.target.value })} required />
+                <input type="text" placeholder="Nome do Titular" onChange={(e) => setCreditCard({ ...creditCard, nome_titular: e.target.value })} required />
+                <div className='data-cvv'>
+                  <input type="date" placeholder="Data de Validade" onChange={(e) => setCreditCard({ ...creditCard, data_validade: e.target.value })} required />
+                  <input type="text" placeholder="Código de Segurança" onChange={(e) => setCreditCard({ ...creditCard, codigo_seguranca: e.target.value })} required />
+                </div>
+                <label className='salvar-cartao'>
+                  <input type="checkbox" onChange={(e) => setCreditCard({ ...creditCard, salvar_para_futuro: e.target.checked })} />
+                  Salvar cartão para futuras transações
+                </label>
+              </>
+            )}
+
+            <button type="submit" className='botao-venda'>Confirmar Reserva</button>
+            {errorMessage && <p className="erro">{errorMessage}</p>}
+          </form>
+        </>
+      )}
+
 
         {activeForm === 'aluguel' && (
           <>
@@ -359,6 +396,21 @@ export default function InformacoesCarro() {
                 </div>
               </div>
 
+              {activeForm === 'aluguel' && !car.is_discounted_rent && (
+          <div>
+            <label>Pontos para Usar:</label>
+            <input
+              type="number"
+              min="0"
+              max="1000"
+              step="100"
+              value={pointsToUse}
+              onChange={(e) => handlePointsChange(parseInt(e.target.value, 10))}
+            />
+            <p>Preço com desconto: R$ {Number(discountedRentalPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          </div>
+        )}
+
               <label>Escolha um Cartão Salvo:</label>
               <select onChange={(e) => setSelectedCard(e.target.value)}>
                 <option value="">Selecione um cartão</option>
@@ -384,17 +436,12 @@ export default function InformacoesCarro() {
                   </label>
                 </>
               )}
-              <div className='preco-total-aluguel1'>
-                <p className='preco-total-aluguel'>Preço total do aluguel: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </p>
-                <p className='preco-total-aluguel'>Preço da reserva: R$ {Number(car.rental_price * (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 2 * 24)).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </p>
-              </div>
               <button type="submit" className='botao-aluguel'>Confirmar Reserva de Aluguel</button>
               {errorMessage && <p className="erro">{errorMessage}</p>}
             </form>
           </>
         )}
+
       </div>
       {/* Modal de Confirmação */}
       {showConfirmModal && (
