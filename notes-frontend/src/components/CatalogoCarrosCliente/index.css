@@ -20,6 +20,15 @@
   width: 0.8rem;
 }
 
+.input-filtro{
+  width: 100%;
+  padding: 0.1rem 0.75rem;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
 /* Estilo das Checkboxes */
 .filters-container input[type="checkbox"] {
   margin-right: 8px;
