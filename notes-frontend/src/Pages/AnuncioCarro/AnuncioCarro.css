@@ -1,0 +1,17 @@
+.botao-similares {
+    display: flex;
+    position: relative;
+    left: 80%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3d348b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .botao-similares:hover {
+    background-color: #2e2670;
+  }
