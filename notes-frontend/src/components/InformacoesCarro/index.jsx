@@ -287,7 +287,7 @@ export default function InformacoesCarro() {
 
         {activeForm === 'visita' && (
           <>
-            <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+            <button onClick={() => setActiveForm('')} className='botao-back'>← Voltar</button>
             <form className='form-agendamento'
             onSubmit={(e) => {
               e.preventDefault();
@@ -305,7 +305,7 @@ export default function InformacoesCarro() {
 
         {activeForm === 'reserva' && (
   <>
-    <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+    <button onClick={() => setActiveForm('')} className='botao-back'>← Voltar</button>
     <div className='preco-total-venda'>
         <p className='preco-venda1'>Preço da reserva: R$ {Number(1000).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         <p>(Valor a ser descontado no momento da compra)</p>
@@ -326,7 +326,7 @@ export default function InformacoesCarro() {
               value={pointsToUse}
               onChange={(e) => handlePointsChange(parseInt(e.target.value, 10))}
             />
-            <p>Preço com desconto: R$ {Number(discountedPurchasePricePoints).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p className='preco-desconto'>Preço com desconto: R$ {Number(discountedPurchasePricePoints).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
           </div>
         )}
 
@@ -369,7 +369,7 @@ export default function InformacoesCarro() {
               <p>Escolha a data e hora tanto para retirada quanto devolução do veículo</p>
               <p>50% do preço total pago antecipadamente</p>
             </div>
-            <button onClick={() => setActiveForm('')} className='botao-back'>Voltar</button>
+            <button onClick={() => setActiveForm('')} className='botao-back'>← Voltar</button>
             <form className='form-agendamento'
             onSubmit={(e) => {
               e.preventDefault();
@@ -395,9 +395,14 @@ export default function InformacoesCarro() {
                   <input type="time" value={returnTime} onChange={(e) => setReturnTime(e.target.value)} required />
                 </div>
               </div>
+              <p className='preco-aluguel1'>
+                Preço total do aluguel: R$ {Number(car.rental_price * Math.ceil((new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24))).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </p>
 
-              {activeForm === 'aluguel' && !car.is_discounted_rent && (
-          <div>
+
+
+        {activeForm === 'aluguel' && !car.is_discounted_rent && (
+          <div className='div-fidelidade'>
             <label>Pontos para Usar:</label>
             <input
               type="number"
@@ -407,7 +412,7 @@ export default function InformacoesCarro() {
               value={pointsToUse}
               onChange={(e) => handlePointsChange(parseInt(e.target.value, 10))}
             />
-            <p>Preço com desconto: R$ {Number(discountedRentalPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p className='preco-desconto1'>Preço com desconto: R$ {Number((car.rental_price * Math.ceil((new Date(returnDate) - new Date(pickupDate)))/ (1000 * 60 * 60 * 24) ) - (car.rental_price * Math.ceil((new Date(returnDate) - new Date(pickupDate))*(pointsToUse/10000)) / (1000 * 60 * 60 * 24))).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
           </div>
         )}
 

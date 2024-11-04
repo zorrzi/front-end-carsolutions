@@ -131,11 +131,11 @@ export default function CatalogoCarrosCliente() {
             <input type="range" name="minRentPrice" min="0" max="5000" value={filters.minRentPrice} onChange={handleFilterChange} />
             <input type="range" name="maxRentPrice" min="0" max="5000" value={filters.maxRentPrice} onChange={handleFilterChange} />
 
-            <label>Data de Início</label>
-            <input type="date" name="startDate" value={filters.startDate} onChange={handleFilterChange} />
+            <label>Data de Retirada</label>
+            <input className='input-filtro' type="date" name="startDate" value={filters.startDate} onChange={handleFilterChange} />
 
-            <label>Data de Fim</label>
-            <input type="date" name="endDate" value={filters.endDate} onChange={handleFilterChange} />
+            <label>Data de Devolução</label>
+            <input className='input-filtro' type="date" name="endDate" value={filters.endDate} onChange={handleFilterChange} />
           </>
         )}
   
