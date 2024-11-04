@@ -95,3 +95,11 @@ input {
     font-size: 0.9rem;
   }
 }
+
+
+.error-message {
+  color: red;
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}

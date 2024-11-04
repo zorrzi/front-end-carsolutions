@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";  // Importa o axios personalizado
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -7,33 +7,32 @@ const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 export default function LoginFuncionario() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Estado para mensagem de erro
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Usando o axios personalizado para enviar a requisição de login
       const response = await axios.post(`${apiBaseUrl}/loginFuncionario/`, {
         username: username,
         password: password,
       });
 
       if (response.status === 200) {
-        // Armazena o token e a flag de funcionário no localStorage
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", username);
         localStorage.setItem("isFuncionario", "true");
-        navigate("/funcionario");  // Redireciona para a página do funcionário
+        navigate("/funcionario");
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        alert("Nome de usuário ou senha inválidos.");
+        setErrorMessage("Nome de usuário ou senha inválidos.");
       } else if (error.response && error.response.status === 403) {
-        alert("Usuário não tem permissão.");
+        setErrorMessage("Usuário não tem permissão.");
       } else {
         console.error("Erro ao realizar login:", error);
-        alert("Erro no servidor. Tente novamente mais tarde.");
+        setErrorMessage("Erro no servidor. Tente novamente mais tarde.");
       }
     }
   };
@@ -67,6 +66,9 @@ export default function LoginFuncionario() {
         <button type="submit" className="login-btn">
           Entrar
         </button>
+
+        {/* Exibe a mensagem de erro, se houver */}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );

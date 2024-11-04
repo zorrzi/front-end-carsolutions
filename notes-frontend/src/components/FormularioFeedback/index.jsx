@@ -26,11 +26,9 @@ export default function FormularioFeedback({ agendamentoId, onFeedbackSubmit }) 
           },
         }
       );
-      alert('Feedback registrado com sucesso!');
       onFeedbackSubmit();
     } catch (error) {
       console.error('Erro ao registrar feedback:', error);
-      alert('Erro ao registrar feedback. Tente novamente.');
     }
   };
 

@@ -31,7 +31,6 @@ export default function AgendaFuncionario() {
       }
     })
     .then(response => {
-      alert('Agendamento assumido com sucesso!');
       setAgendamentosPendentes(agendamentosPendentes.filter(agendamento => agendamento.id !== agendamentoId));
     })
     .catch(error => {
