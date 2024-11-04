@@ -21,8 +21,6 @@ export default function CatalogoCarrosCliente() {
     maxRentPrice: 1000,
     startDate: '',
     endDate: '',
-    startHour: '',
-    endHour: '',
     minSalePrice: 5000,
     maxSalePrice: 300000,
     minMileage: 0,
@@ -135,13 +133,9 @@ export default function CatalogoCarrosCliente() {
 
             <label>Data de Início</label>
             <input type="date" name="startDate" value={filters.startDate} onChange={handleFilterChange} />
-            <label>Hora de Início</label>
-            <input type="time" name="startHour" value={filters.startHour} onChange={handleFilterChange} />
 
             <label>Data de Fim</label>
             <input type="date" name="endDate" value={filters.endDate} onChange={handleFilterChange} />
-            <label>Hora de Fim</label>
-            <input type="time" name="endHour" value={filters.endHour} onChange={handleFilterChange} />
           </>
         )}
   
