@@ -104,7 +104,7 @@ export default function AgendamentoCliente() {
           className={`botao-tabela ${tabelaAtiva === 'reserva' ? 'selecionado' : ''}`}
           onClick={() => setTabelaAtiva('reserva')}
         >
-          Compras
+          Reservas
         </button>
         <button
           className={`botao-tabela ${tabelaAtiva === 'aluguel' ? 'selecionado' : ''}`}
