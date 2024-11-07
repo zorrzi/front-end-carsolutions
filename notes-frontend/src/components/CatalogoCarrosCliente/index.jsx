@@ -128,8 +128,8 @@ export default function CatalogoCarrosCliente() {
               <p>Faixa de Preço para Aluguel:</p>
               <p>R$ {Number(filters.minRentPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - R$ {Number(filters.maxRentPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </label>
-            <input type="range" name="minRentPrice" min="0" max="5000" value={filters.minRentPrice} onChange={handleFilterChange} />
-            <input type="range" name="maxRentPrice" min="0" max="5000" value={filters.maxRentPrice} onChange={handleFilterChange} />
+            <input type="range" name="minRentPrice" min="0" max="1000" value={filters.minRentPrice} onChange={handleFilterChange} />
+            <input type="range" name="maxRentPrice" min="0" max="1000" value={filters.maxRentPrice} onChange={handleFilterChange} />
 
             <label>Data de Retirada</label>
             <input className='input-filtro' type="date" name="startDate" value={filters.startDate} onChange={handleFilterChange} />
